@@ -1,0 +1,295 @@
+<app-navbar></app-navbar>
+<section id="main-sec">  
+    <div class="container-fluid" id="main-container">
+        <div class="hidden-xs">
+            <div id="sidebar-wrapper">
+                <nav id="sidenav" #sidenav>
+                    <app-sidemenu></app-sidemenu>
+                </nav>
+            </div>
+        </div> 
+        <div class="col-sm-9 col-md-10 pull-right nopad">
+                <div id="topbar">
+                      <div class="container-fluid">
+                          <div class="col-sm-7 col-md-6 pull-left welcome_wrap">
+                              <div class="col-sm-12">
+                                  <h3 class="montBold">
+                                      Be Your Own Bank. <span style="font-size: 10px;position: absolute;"><i class="fa fa-registered" aria-hidden="true"></i></span>
+                                  </h3>
+                              </div>   
+                              <!-- <div class="col-sm-10 nopad">
+                                  <div class="col-sm-4">
+                                      <a class="btn btn-default btn-block" data-toggle="modal" (click)="open_send_modal('mrjaoRX9yhKxMteUEna9zYcbXBNeAxB7C7')">
+                                          <span class="pull-left"><i class="fa fa-chevron-up" aria-hidden="true"></i></span> Withdraw
+                                      </a>
+                                  </div>
+                              </div> -->
+                          </div>
+                          <div class="col-sm-4 col-md-6 col-xs-12 pull-right welcome_wrap">
+                              <div class="col-sm-12 col-xs-11 text-right">
+                                  <div class="col-sm-12 col-xs-12 nopad">
+                                      <h3 class="montBold">
+                                          <span id="balance">0.0</span> CAS
+                                      </h3>
+                                  </div>
+                                  <!--<div class="col-sm-12 col-xs-12 nopad">-->
+                                      <!--<h3 class="noMarg">-->
+                                          <!--INR <span id="balanceDollar">0.0</span>-->
+                                      <!--</h3>-->
+                                  <!--</div>-->
+              
+              
+                              </div>
+                          </div>
+                      </div>
+                      <hr>
+                      <div *ngIf="kycalertpanel  == 0 && kycalertpanelview == true"><!--nokyc-->
+                        <div class="container-fluid">
+                            <div class="col-sm-3 col-sm-offset-4 alert alert-danger" id="email_sent" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    
+                                </button>
+                                <span>Complete KYC by<button class="btn btn-link" [routerLink]="['/kyc']">clicking here.</button></span>
+                            </div>
+                        </div>
+                        <hr>
+                      </div>
+                      <div *ngIf="kycalertpanel  == 1 && kycalertpanelview == true"><!--done-->
+                            <div class="container-fluid">
+                                <div class="col-sm-3 col-sm-offset-4 alert alert-success" id="email_sent" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        
+                                    </button>
+                                    <span>KYC detail has been successfully approved</span>
+                                </div>
+                            </div>
+                            <hr>
+                      </div>
+                      <div *ngIf="kycalertpanel  == 2 && kycalertpanelview == true"><!--pending-->
+                            <div class="container-fluid">
+                                <div class="col-sm-3 col-sm-offset-4 alert alert-warning" id="email_sent" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        
+                                    </button>
+                                    <span>Waiting for approval of KYC detail by administrator</span>
+                                </div>
+                            </div>
+                            <hr>
+                      </div>
+                      <div *ngIf="kycalertpanel  == 3 && kycalertpanelview == true"><!--rejected-->
+                            <div class="container-fluid">
+                                <div class="col-sm-3 col-sm-offset-4 alert alert-danger" id="email_sent" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        
+                                    </button>
+                                    <span>Your KYC detail has been rejected. Report it.</span>
+                                </div>
+                            </div>
+                            <hr>
+                      </div>
+                          
+                       <!--  <div class="col-sm-3 col-sm-offset-4" id="invalid_address_div" role="alert" style="display: none">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                
+                            </button>
+                            <span class="text-center text-danger">Invalid address entered. Please try again!</span>
+                        </div>
+                        <div class="col-sm-6 col-sm-offset-3 alert alert-success" id="email_sent" role="alert" style="display: none">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                
+                            </button>
+                            <span>Please click on the link provided in your mail to activate your account.</span>
+                        </div>
+                      </div>
+                      <hr> -->
+                      <div class="container-fluid " >
+                  
+                          <div id="main-content">
+                              <div class="container-fluid">
+                                    <div class="col-sm-12 col-md-6" *ngIf="user_timeline_listShow == true">
+                                      <h5 class="montBold">
+                                          Most Recent Activity
+                                      </h5>
+                  
+                                      <div class="timeline">
+                  
+                                          <!-- Line component -->
+                                          <div class="line text-muted"></div>
+                    
+                                          <article class="panel panel-default" *ngFor="let t of user_timeline_list | orderBy: timestamp: reverse">
+                                              <!-- Icon -->
+                                              <div class="panel-heading icon">
+                                                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                                              </div>
+                                              <div class="panel-body"> 
+                                                  <div class="col-sm-3">Transaction</div>
+                                                  <div class="col-sm-3">{{convertToDate(t.timestamp)}}</div>
+                  
+                                                  <div class="col-sm-6 text-right"><span class="recieve">{{t.type}}</span> {{t.token_amount}} {{t.currency}}
+                                                  </div>
+                  
+                                              </div>
+                                              <!-- /Body -->
+                                          </article>
+                  
+                                          
+                  
+                                      </div>
+                  
+                                    </div>
+
+                                    <div class="col-sm-12 col-md-6" *ngIf="user_timeline_listShow == false">
+                                        <h5 class="montBold">
+                                            Most Recent Activity.
+                                        </h5>
+                            
+                                        <div class="timeline">
+                            
+                                            <!-- Line component -->
+                                            <div class="line text-muted"></div>
+                            
+                                            <!-- Panel -->
+                                            <!-- /Panel -->
+                                            <!-- Panel -->
+                                            
+                                            <!-- /Panel -->
+                                            <!-- Panel -->
+                                            <article class="panel panel-default">
+                                                <!-- Icon -->
+                                                <div class="panel-heading icon">
+                                                    <i class="fa fa-address-book-o" aria-hidden="true"></i>
+                                                </div>
+                                                <!-- /Icon ->
+                                                <!-- Body -->
+                                                <div class="panel-body">
+                                                    <div class="col-sm-3">Addresses</div>
+                                                    <div class="col-sm-6 text-right pull-right">Created My Bitcoin Wallet</div>
+                                                </div>
+                                                <!-- /Body -->
+                                            </article>
+                                            <!-- /Panel -->
+                                            <!-- Panel -->
+                                            <article class="panel panel-default">
+                                                <!-- Icon -->
+                                                <div class="panel-heading icon">
+                                                    <i class="fa fa-cog" aria-hidden="true"></i>
+                                                </div>
+                                                <!-- /Icon ->
+                                                <!-- Body -->
+                                                <div class="panel-body">
+                                                    <div class="col-sm-3">Settings</div>
+                                                    <div class="col-sm-6 text-right pull-right">Set Password</div>
+                                                </div>
+                                                <!-- /Body -->
+                                            </article>
+                                            <!-- /Panel -->
+                                            <!-- Panel -->
+                                            <article class="panel panel-default">
+                                                <!-- Icon -->
+                                                <div class="panel-heading icon">
+                                                    <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                                                </div>
+                                                <!-- /Icon ->
+                                                <!-- Body -->
+                                                <div class="panel-body">
+                                                    <div class="col-sm-3">Settings</div>
+                                                    <div class="col-sm-6 text-right pull-right">Created Wallet!</div>
+                                                </div>
+                                                <!-- /Body -->
+                                            </article>
+                                            <!-- /Panel -->
+                            
+                                        </div>
+                                        <!-- /Timeline -->
+                                     </div>
+                  
+                                  <div class="col-sm-12 col-md-6">
+                                      <div class="new">
+                                        <div class="col-sm-12 col-md-10" *ngIf="homeStatusYet">
+                                                <div class="alert alert-warning" *ngIf="homeStatusYetText == 'pending'">
+                                                    <strong>Note!</strong> KYC detail has been in pending stage.
+                                                </div>
+                                                
+                                                <div class="alert alert-danger" *ngIf="homeStatusYetText == 'rejected'">
+                                                    <strong>Ooops!</strong> KYC detail has been rejected administrator.
+                                                </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-10" *ngIf="homeStatusDone">
+                    
+                                          <h3 class="montBold">
+                                          Payment Methods <span style="font-size: 10px;position: absolute;"><i class="fa fa-registered"  aria-hidden="true"></i></span>
+                                          </h3>
+                    
+                    
+                                            <div class="input-group col-sm-10">
+                                                <input  type="text"  ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01"  class="form-control" placeholder="0.00" [(ngModel)]="cas" aria-describedby="basic-addon2" (keypress)="keyevent($event)" (keyup)="keyup($event)">
+                                                <!--  (keyup)="keyevent($event)" -->
+                                                <span class="input-group-addon" id="basic-addon2">CAS</span>
+                                            </div>
+                    
+                                            <div class="col-sm-12 nopad">
+                    
+                                                <div class="radio">
+                                                    <label><input type="radio" id="Pay_with_BTC" name="optradio" [(ngModel)]="optradio" (click)="callToViewModalBtn('btc')"  class="btc" value="BTC">Pay with BTC</label>
+                                                </div>
+                    
+                    
+                                                <div class="radio">
+                                                    <label><input type="radio" id="Pay_with_ETH" name="optradio" [(ngModel)]="optradio" (click)="callToViewModalBtn('eth')"  class="btc" value="ETH">Pay with ETH</label>
+                                                </div>
+                    
+                    
+                    
+                                                <!-- <div class="radio">
+                                                    <label><input type="radio" id="Pay_with_Bank" name="optradio" [(ngModel)]="optradio" (click)="callToViewModalBtn('bnk')"  class="btc" value="BNK">Pay with Bank</label>
+                                                </div> -->
+                    
+                    
+                                            </div>
+
+                                            <div *ngIf="radioclick=='btc'">
+                                                <app-userhomebtcmodal></app-userhomebtcmodal>
+                                            </div>
+                                            <div *ngIf="radioclick=='eth'">
+                                                <app-userhomeethmodal></app-userhomeethmodal>
+                                            </div>
+                                            <!-- <div *ngIf="radioclick=='bnk'">
+                                                <app-userhomebnkmodal></app-userhomebnkmodal>
+                                            </div> -->
+
+                                            <!-- {{ok}}  -->
+
+                                            <!-- <div class="col-sm-12 nopad">
+                                                <a class="btn btn-default btn-block" id="openmodal" data-toggle="modal" (click)="open_recieve_modal(btcmodal,ethmodal,bankmodal)">
+                                                    <span class="pull-left"></span> Pay &nbsp;  <img src="assets/img/loading.gif" *ngIf="loadingimage" class="loadingimgdone">
+                                                </a>
+                                            </div> -->
+                    
+
+                                            <!-- Modal Starts -->
+                                            <!-- Modal BTH -->
+                                            <!-- <div id="btcmodal">
+                                            <ng-template #btcmodal>
+                                                <app-userhomebtcmodal></app-userhomebtcmodal>
+                                            </ng-template>
+                                            </div>
+
+                                            <ng-template #ethmodal>
+                                            <app-userhomeethmodal></app-userhomeethmodal>
+                                            </ng-template>
+                                            <ng-template #bankmodal>
+                                                <app-userhomebnkmodal></app-userhomebnkmodal>
+                                            </ng-template> -->
+                                            <!-- Modal Ends -->
+                    
+                                        </div>
+                                      </div>
+                                  </div>
+                              </div>
+                  
+                          </div>
+                      </div>
+                </div>
+        </div>
+    </div>
+</section>

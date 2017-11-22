@@ -1,0 +1,38 @@
+/* You can add global styles to this file, and also import other style files */
+.qrcodediv {
+    text-align: center;
+}
+/* .modal-dialog {
+    transition: -webkit-transform .3s ease-out;
+    transition: transform .3s ease-out;
+    transition: transform .3s ease-out, -webkit-transform .3s ease-out;
+    -webkit-transform: translate(0,-25%);
+    transform: translate(0,-25%);
+} */
+.loadintransaction {
+    text-align: center;
+    padding: 5%;
+    margin-bottom: 5%;
+}
+img.loadingimgdone {
+    width: 5%;
+}
+
+/* css for layouts/sidemenu modal */
+/* modal-container {
+    padding-top: 10%;
+    margin-top: 5%; 
+} */
+
+body {
+    transition: background-color .5s;
+}
+
+img.img-responsive.tblogo {
+    width: 200px;
+    margin: 8px;
+    position: fixed;
+    left: 0;
+    margin-left: 3%;
+    margin-top: 1.2%;
+} 

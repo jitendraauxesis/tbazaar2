@@ -1,0 +1,19 @@
+<ul class="sidebar-nav nav">
+  <li>
+      <a [routerLink]="['/home']" class="nopad"><span class="sidebar-icon"><i class="fa fa-home" aria-hidden="true"></i></span>Dashboard</a>
+  </li>
+  <!-- <li>
+      <a [routerLink]="['/transactions']"  data-scroll=""><span class="sidebar-icon"><i class="fa fa-file-o" aria-hidden="true"></i></span>Transactions</a>
+  </li> -->
+  <br>
+  <li>
+      <a (click)="doLogout(template)" class="logoutlink" data-scroll=""><span class="sidebar-icon"><i class="fa fa-sign-out" aria-hidden="true"></i></span>Logout</a>
+  </li>
+</ul>
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Do you want to logout from token bazaar?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()" >Yes</button>
+    <button type="button" class="btn btn-primary" (click)="decline()" >No</button>
+  </div>
+</ng-template>

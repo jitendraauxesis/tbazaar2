@@ -1,0 +1,15 @@
+a.logoutlink {
+    cursor: pointer;
+}
+li.active {
+    color: #5BC0DE !important;
+    text-decoration: none;
+    background-color: transparent !important;
+}
+li.active {
+    font-weight: 600;
+}
+
+ul.sidebar-nav.nav li {
+    width: 100%;
+}

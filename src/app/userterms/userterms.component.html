@@ -1,0 +1,106 @@
+<header>
+  <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+              <!-- <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                      data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+              </button> -->
+              <a class="navbar-brand" routerLink="">
+                <img src="assets/img/tb-logo.png" class="img-responsive tblogo" alt="tokenbazaar">
+              </a>
+          </div>
+
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav navbar-right">
+                  <!--<li class="active"><a href="#">Wallet <span class="sr-only">(current)</span></a></li>-->
+                  <!--<li><a href="#">Charts</a></li>-->
+                  <!--<li class="#"><a href="#">Stats</a></li>-->
+                  <!--<li><a href="#">Markets</a></li>-->
+              </ul>
+          </div>
+          <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container-fluid -->
+  </nav>
+</header>
+<!-- <toaster-container></toaster-container> -->
+<section id="loginForm" class="">
+  <div class="container">
+      <div class="row">
+          <div class="col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3 form_wrap clearfix">
+              <div class="col-sm-12 form_head">
+                  <h3 style="margin-bottom: 0px;">
+                      Terms Of Service
+                  </h3>
+                  <hr>
+              </div>
+              <div class="col-sm-12">
+
+                  <div class="col-sm-12 text-center" id="password_not_entered" role="alert"
+                  style="display: block">
+                      <span class="text-center text-danger">{{errmsg?errmsg:""}}</span>
+                  </div>
+                  <div class="col-sm-12 text-center" id="password_not_entered" role="alert"
+                  style="display: block">
+                      <span class="text-center text-success">{{sucmsg?sucmsg:""}}</span>
+                  </div>
+
+                      <div class="termsx">
+                          <h4 style="margin-bottom: 0px;">
+                            Introduction
+                          </h4>
+                          <p>
+                                  <span style="font-size: small;"> "INTRODUCTION
+                                      SpotUrLook (the "SpotUrLook App", or "App") is owned and operated by [Spoturlook Technologies
+                                      Pvt Ltd ] (hereafter "[Spoturlook]", "we", "our", or "us"). "You" or "your" means an adult user of the App
+                                      acting independently or as parent or guardian for any minor whom you allow to access the Service and
+                                      for whom you will be held strictly responsible.
+                                      BY USING AND/OR VISITING THIS APP, INCLUDING ALL CONTENT AVAILABLE THROUGH
+                                      THE [SPOTURLOOK.COM] DOMAIN NAME, YOU SIGNIFY YOUR ASSENT TO BOTH THESE
+                                      TERMS AND CONDITIONS (the "Terms of Service") AND THE TERMS AND CONDITIONS OF
+                                      [SPOTURLOOK]'S PRIVACY POLICY, WHICH ARE INCORPORATED HEREIN BY REFERENCE. If
+                                      you do not agree to any of these terms, then please do not use the SpotUrLook App.
+                                      The Document
+                                      These terms of use, read together with the privacy policy constitute a legal and binding agreement between
+                                      you and [Spoturlook Technologies Pvt Ltd], a company incorporated under the laws of India, having its
+                                      registered office [at 166, Powai Plaza, Mumbai ], Maharashtra, India ("400076")
+                                      This document, inter alia, provides the terms that govern (i) your access to use the App; (ii) [•]’s online
+                                      lifestyle, fashion and electronics solutions, which inter alia facilitates sale and purchase of electronics, and
+                                      lifestyle and fashion merchandise (“Products”) through the App, and (iii) the purchase of Products, and
+                                      any other service that may be provided by [us] from time to time (collectively referred to as
+                                      the “Services”).
+                                      You hereby understand and agree that this document forms a binding contract between [spoturlook] and
+                                      anyone who accesses, browses, or purchases the Products and uses the Services in any manner (“User”)
+                                      and accordingly, you hereby agree to be bound by the terms contained herein. If you do not agree to the
+                                      terms contained in the document, you are advised not to proceed with purchasing the Products or using
+                                      the Services. The terms contained here shall be accepted without modification. The use of the Services
+                                      would constitute acceptance of these terms."
+  
+                                  </span>
+                          </p>
+                          <div class="form-single-column" data-component="checkbox">
+                            <span class="form-checkbox-item" style="clear:left;">
+                              <span class="dragger-item">
+                              </span>
+                              <input type="checkbox" class="form-checkbox validate[required]" id="input_7_0" name="q7_terms" [(ngModel)]="terms" required="">
+                              <label id="label_input_7_0" for="input_7_0"> I  <input type="text" class="pass" [(ngModel)]="name" placeholder=" My name ">, agree to the terms and agreement.  </label>
+                            </span>
+                            <div class="col-sm-6">
+                                  <button (click)="token_verification()"
+                                          class="btn btn-primary btn-block col-sm-offset-6 custBtnAnchor">
+                                      <strong style="letter-spacing: 1px;">Submit</strong>
+                                  </button>
+                            </div>
+                          </div>
+              
+                      </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>

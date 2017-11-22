@@ -105,9 +105,9 @@ button.menubtn i.fa.fa-cog {
 
 img.img-responsive.tblogo {
     width: 200px;
-    margin: 8px;
-    position: fixed;
+    /* margin: 2px; */
+    /* position: fixed; */
     left: 0;
-    margin-left: 3%;
-    margin-top: 1.2%;
+    /* margin-left: 3%; */
+    /* margin-top: 1.5%; */
 }

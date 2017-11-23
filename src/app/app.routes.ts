@@ -16,6 +16,8 @@ import { NavbarComponent } from './layouts/navbar/navbar.component';
 // import { UserhomebnkmodalComponent } from './userhomemodals/userhomebnkmodal/userhomebnkmodal.component';
 import { SidemenuComponent } from './layouts/sidemenu/sidemenu.component';
 import { TransactionsComponent } from './transactions/transactions.component';
+import { ReferralComponent } from './referral/referral.component';
+import { AddreferralComponent } from './addreferral/addreferral.component';
 
 const routes: Routes = [
     { 
@@ -55,6 +57,14 @@ const routes: Routes = [
     {
         path: 'transactions',
         component: TransactionsComponent
+    },
+    {
+        path: 'referral',
+        component: ReferralComponent
+    },
+    {
+        path: 'addreferral',
+        component: AddreferralComponent
     },
     // {
     //     path: 'test',

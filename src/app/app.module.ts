@@ -47,6 +47,8 @@ import { UserhomebnkmodalComponent } from './userhomemodals/userhomebnkmodal/use
 import { SidemenuComponent } from './layouts/sidemenu/sidemenu.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { UserhomeComponent } from './userhome/userhome.component';
+import { ReferralComponent } from './referral/referral.component';
+import { AddreferralComponent } from './addreferral/addreferral.component';
 
 export const firebaseConfig = {
   "apiKey": "AIzaSyCdpzVX0tq6uLoEgBpwEXDH7wr4zDnkcHQ",
@@ -73,7 +75,9 @@ export const firebaseConfig = {
     UserhomebnkmodalComponent,
     SidemenuComponent,
     TransactionsComponent,
-    UserhomeComponent
+    UserhomeComponent,
+    ReferralComponent,
+    AddreferralComponent
   ],
   imports: [
     BrowserModule,

@@ -124,7 +124,7 @@ export class UserhomeComponent implements OnInit {
           let data = {
             'email':this.signup.retrieveFromLocal("AUXUserEmail"),
             'token':this.signup.retrieveFromLocal("AUXHomeUserToken")
-          };
+          }; 
           this.serv.resolveApi(this.apiMethod,data) 
           .subscribe(
             res=>{

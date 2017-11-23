@@ -122,11 +122,23 @@
                                                   <i class="fa fa-file-text-o" aria-hidden="true"></i>
                                               </div>
                                               <div class="panel-body"> 
-                                                  <div class="col-sm-3">Transaction</div>
+                                                  <div class="col-md-6 col-sm-6">
+                                                        Transaction
+                                                  </div>
+                                                  <div class="col-md-6 col-sm-6 text-right">
+                                                        <i class="fa fa-clock-o" aria-hidden="true"></i> {{convertToDate(t.timestamp)}}
+                                                  </div>
+                                                  <!-- <div class="col-md-6 col-sm-6 text-right">
+                                                        <span class="recieve">{{t.type}}</span>
+                                                  </div> -->
+                                                  <div class="col-md-12 col-sm-12 text-left">
+                                                        <span class="recieve">{{t.type}}</span> <i class="fa fa-btc" aria-hidden="true"></i> {{t.content}}
+                                                  </div>
+                                                  <!-- <div class="col-sm-3">Transaction</div>
                                                   <div class="col-sm-3">{{convertToDate(t.timestamp)}}</div>
                   
-                                                  <div class="col-sm-6 text-right"><span class="recieve">{{t.type}}</span> {{t.token_amount}} {{t.currency}}
-                                                  </div>
+                                                  <div class="col-sm-6 text-right"><span class="recieve">{{t.type}}</span> {{t.content}} {{t.currency}}
+                                                  </div> -->
                   
                                               </div>
                                               <!-- /Body -->
@@ -248,10 +260,10 @@
                                             </div>
 
                                             <div *ngIf="radioclick=='btc'">
-                                                <app-userhomebtcmodal></app-userhomebtcmodal>
+                                                <app-userhomebtcmodal (click)="callme()"></app-userhomebtcmodal>
                                             </div>
                                             <div *ngIf="radioclick=='eth'">
-                                                <app-userhomeethmodal></app-userhomeethmodal>
+                                                <app-userhomeethmodal (click)="callme()"></app-userhomeethmodal>
                                             </div>
                                             <!-- <div *ngIf="radioclick=='bnk'">
                                                 <app-userhomebnkmodal></app-userhomebnkmodal>

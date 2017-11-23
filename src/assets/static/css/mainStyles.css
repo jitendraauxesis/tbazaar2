@@ -745,6 +745,7 @@ a:hover{
 .recieve{
   font-weight: 500;
   color: #50C3D1;
+  word-wrap: break-word;
 }
 
 .green{

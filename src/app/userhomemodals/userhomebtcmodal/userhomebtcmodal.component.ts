@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild, ElementRef, Host } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild,Input,Output,EventEmitter, ElementRef, Host } from '@angular/core';
 
 import { ServiceapiService } from '../../services/serviceapi.service';
 import { SignupService } from '../../services/signup.service';
@@ -41,7 +41,9 @@ export class UserhomebtcmodalComponent implements OnInit {
     ignoreBackdropClick: true
   }; 
   public qrvalue:any;
-
+  // @Input()
+  // homeprop: number = 1;
+  @Output() homeprop: EventEmitter<any> = new EventEmitter();
   stepRecieveBTH:number;//0 for first erc20 form ,1 for refund address, 2 for calc submit ,3 for firebase confirm,4 for congtrats
   //param for btc payment
   btcmodaltitle:string = "Pay through BTC (ERC20 Token)";
@@ -136,7 +138,7 @@ export class UserhomebtcmodalComponent implements OnInit {
     //this.storage.clear("AUXsavelocalpaytype");
     //this.storage.clear("AUXsavelocalamount");
     this.clearERC();
-    this.modalRef.hide(); 
+    this.modalRef.hide();
   }
   open_recieve_modal(modalBTC: TemplateRef<any>){
     //console.log(this.cas)
@@ -198,6 +200,10 @@ export class UserhomebtcmodalComponent implements OnInit {
       token_amount:amount
     }
     //console.log(d)
+    // this.modalRef = this.modalService.show(
+    //     modalBTC,
+    //     Object.assign({}, this.config, { class: 'gray modal-md' })
+    // );
     this.serv.resolveApi("pay_with_currency/",d)
     .subscribe(
       (res)=>{
@@ -319,7 +325,7 @@ export class UserhomebtcmodalComponent implements OnInit {
   callingApiForBTCScreen2(walletfor,data){//call web api for create_erc_address ***********web
     console.log(walletfor,this.btcwalletaddress,this.btcwalletname,data)
     this.loadingimage = true;
-    
+     
     this.serv.resolveApi(walletfor,data)
     .subscribe(
       (res)=>{

@@ -1,4 +1,4 @@
-import { Component,ElementRef, OnInit, Renderer2, ViewChild, TemplateRef } from '@angular/core';
+import { Component,ElementRef, OnInit, Renderer2, ViewChild,Input,SimpleChanges, TemplateRef } from '@angular/core';
 
 import { ServiceapiService } from '../services/serviceapi.service';
 import { SignupService } from '../services/signup.service';
@@ -55,6 +55,7 @@ export class UserhomeComponent implements OnInit {
 
   kycalertpanel:number;kycalertpanelview:boolean;
 
+
   constructor(
     public serv:ServiceapiService,
     private storage:LocalStorageService,
@@ -110,6 +111,42 @@ export class UserhomeComponent implements OnInit {
 
     this.loadHomeStatus();
     //console.log(this.serv.retrieveFromLocal("AUXHomeStatus"),this.serv.retrieveFromLocal("AUXHomeStatus"))
+    // setInterval(()=>{
+    //   console.log(this.homeprop++);
+    // },2000);
+  }
+
+
+  callme(){
+    // console.log("called")
+    setTimeout(()=>{
+          this.apiMethod = "dashboard";
+          let data = {
+            'email':this.signup.retrieveFromLocal("AUXUserEmail"),
+            'token':this.signup.retrieveFromLocal("AUXHomeUserToken")
+          };
+          this.serv.resolveApi(this.apiMethod,data) 
+          .subscribe(
+            res=>{
+              let d = JSON.parse(JSON.stringify(res));
+              if(d.status == 200){
+               if(d.user_timeline_list == "" || d.user_timeline_list == null){
+                  this.user_timeline_listShow = false;
+                }else{
+                  let a = d.user_timeline_list;
+                  this.user_timeline_list = a;
+                }
+              }else if(d.code == 401){
+                this.signup.logoutFromApp();
+              }else{
+                this.user_timeline_list = [];
+              } 
+            },
+            err=>{ 
+              this.user_timeline_listShow = false;
+            }
+          );
+    },5000);
   }
 
   loadHomeStatus(){

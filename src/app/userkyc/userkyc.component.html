@@ -50,7 +50,7 @@
                     </div>
                     <form [formGroup]="form" (ngSubmit)="signup_v2()">
                       <div class="kycform">
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="textname">Name</label>
                             <input type="text" class="form-control custInput" id="textname" name="name" formControlName="name"
                                    placeholder="Enter your name..." required>
@@ -60,9 +60,9 @@
                             <label for="textaadharno">Aadhar card number</label>
                             <input type="number" class="form-control custInput" id="textaadharno"  name="aadharno" formControlName="aadharno"
                                    placeholder="Enter your aadhar card number..." required>
-                        </div>
+                        </div> -->
                         <div class="form-group">
-                            <label for="panUpload">Upload Pan Card</label>
+                            <label for="panUpload">Upload Identiy Proof 1</label>
                             <input type="file" name="pan_card" class="form-control-file" id="pan"
                                    aria-describedby="fileHelp" accept=".png, .jpg, .jpeg, application/pdf" required=""  (change)="onFileChange1($event)" #fileInput1><br>
                             <small id="fileHelp" class="form-text text-muted">
@@ -70,7 +70,7 @@
                             </small>
                         </div>
                         <div class="form-group">
-                            <strong>Upload Id Proof</strong>
+                            <strong>Upload Identiy Proof 2</strong>
                             <small class="text-muted">&nbsp;&nbsp; (Passport, Driving License, Aadhar Card)</small>
                             <input type="file" name="id_proof" class="form-control-file" id="idproof"  (change)="onFileChange2($event)" #fileInput2
                                    aria-describedby="fileHelp" accept=".png, .jpg, .jpeg, application/pdf" required="" multiple><br>
@@ -95,6 +95,7 @@
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary btn-block col-sm-offset-6 custBtnAnchor">
                                 <strong style="letter-spacing: 1px;">Submit</strong>
+                                &nbsp;  <img src="assets/img/loading.gif" *ngIf="loadingimage" class="loadingimglogin">
                             </button><br>
                         </div>
                         <div class="skipdiv text-center"><a (click)="skipfornow()"  class="skip">Skip for now</a> </div>

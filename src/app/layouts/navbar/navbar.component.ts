@@ -4,12 +4,12 @@ import { ViewChild,ElementRef } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ToastrService } from 'ngx-toastr';
-//  import { SignupService } from '../../services/signup.service';
+ import { SignupService } from '../../services/signup.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
-  // providers:[SignupService]
+  providers:[SignupService]
 })
 export class NavbarComponent implements OnInit {
 
@@ -26,7 +26,7 @@ export class NavbarComponent implements OnInit {
   constructor(
     public element:ElementRef,
     private toastr: ToastrService,
-    // public signup:SignupService,
+    public signup:SignupService,
     private modalService: BsModalService
   ) { 
     this.shown = false;
@@ -68,7 +68,7 @@ export class NavbarComponent implements OnInit {
   }
 
   confirm(): void {
-    // this.signup.logoutFromApp();
+    this.signup.logoutFromApp();
     this.modalRef.hide();
   }
  

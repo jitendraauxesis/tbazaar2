@@ -62,13 +62,16 @@
                       <input type="email" class="form-control custInput" id="email_id" [(ngModel)]="emailid" name="email_id"
                              aria-describedby="emailHelp" placeholder="Enter your email..." required>
                   </div>
-                  <button class="btn btn-link btn-sm pull-right">Recover Funds?</button>
-                  <br><br>
+                  <!-- <button class="btn btn-link btn-sm pull-right">Recover Funds?</button>
+                  <br> -->
+                  <br>
                   <div class="col-sm-6">
                       <button (click)="signup_v2()" class="btn btn-primary btn-block col-sm-offset-6 custBtnAnchor">
                           <strong style="letter-spacing: 1px;">Next</strong>
+                          &nbsp;  <img src="assets/img/loading.gif" *ngIf="loadingimage" class="loadingimglogin">
+                          <!-- <div class="ngloader">Loading...</div> -->
                       </button>
-                  </div>
+                  </div> 
               </div>
           </div>
       </div>

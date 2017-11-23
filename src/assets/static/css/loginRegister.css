@@ -95,6 +95,6 @@
 
 @-moz-document url-prefix() { 
   #loginForm{
-    height: 120%;
+    height: 100%;
   }
 }

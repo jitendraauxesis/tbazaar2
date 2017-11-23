@@ -106,6 +106,28 @@ export class SignupService {
     // let c = b.toString(CryptoJS.enc.Utf8);
     // console.log(c);
   }
+  
+  setRouteMsgPass(msg){
+    let token = this.storage.retrieve("secureLocalTokenAuth");
+    let storeStr = (CryptoJS.AES.encrypt(msg,token)).toString();
+    this.sessionStorage.store("AUXRouteMsgPass",storeStr);
+  }
+
+  retrieveRouteMsgPass(){
+    let token = this.storage.retrieve("secureLocalTokenAuth");
+    let fromStorage = this.sessionStorage.retrieve("AUXRouteMsgPass");
+    if(fromStorage == "" || fromStorage == null || !fromStorage){
+      return null;
+    }else{
+      let getDecrypt = CryptoJS.AES.decrypt(fromStorage,token);
+      let finalStr = getDecrypt.toString(CryptoJS.enc.Utf8);
+      return finalStr;
+    }
+  }
+
+  removeRouteMsgPass(){
+    this.sessionStorage.clear("AUXRouteMsgPass");
+  }
 
   saveToLocal(name,str){
     let token = this.storage.retrieve("secureLocalTokenAuth");

@@ -31,6 +31,8 @@ export class LoginComponent implements OnInit {
   public errmsg:any;public sucmsg:any;
   public mssg:string = "";
 
+  loadingimage:boolean = false;
+
   constructor(
     public signup:SignupService,
     public http:Http,
@@ -87,6 +89,7 @@ export class LoginComponent implements OnInit {
     
 
     this.callurls();//when router callback hits
+    
   }
 
   callurls(){
@@ -113,6 +116,7 @@ export class LoginComponent implements OnInit {
     if(this.emailid == "" || this.emailid == null){
       this.printmsg("You email is invalid");
     }else{
+      this.loadingimage = true;
       let email = this.emailid;
       localStorage.setItem("AUXUserEmailLocal",email);
       
@@ -127,16 +131,20 @@ export class LoginComponent implements OnInit {
         //console.log(r);
         
         if(r.code == 200){
-          this.sucmsg = "Email has been sent to your inbox. Get otp and paste it in next otp section.";
-          setTimeout(()=>{
-            this.sucmsg = "";
-            //location.href = "otp";
-            let token = this.storage.retrieve("AUXUserEmail");
-            this.router.navigate(['/otp',token]);
-          },5000);
+          // this.sucmsg = "Email has been sent to your inbox. Get otp and paste it in next otp section.";
+          // setTimeout(()=>{
+          //   this.sucmsg = "";
+          //   //location.href = "otp";
+          //   let token = this.storage.retrieve("AUXUserEmail");
+          //   this.router.navigate(['/otp',token]);
+          // },5000);
+          // console.log("before",this.signup.retrieveRouteMsgPass());
+          let msgToPass = "Email has been sent to your inbox. Get otp and paste it in otp field.";
+          let token = this.storage.retrieve("AUXUserEmail");
+          this.signup.setRouteMsgPass(msgToPass);
+          // console.log("after",this.signup.retrieveRouteMsgPass());
+          this.router.navigate(['/otp',token]);
  
-          
-
         }else if( (r.failed) && (r.failed != null || r.failed != "") ){
           let msg = "Email is unable to process try again.";  
           this.errmsg = msg;
@@ -150,8 +158,9 @@ export class LoginComponent implements OnInit {
             this.errmsg = "";
           },2500);
         }
-        
+        this.loadingimage = false;
       },(err)=>{
+        this.loadingimage = false;
         //console.log(err);
         let msg = "Email is unable to process try again.";  
         this.errmsg = msg;
@@ -160,6 +169,7 @@ export class LoginComponent implements OnInit {
         },2500);
       })
       .catch(function(err){
+        this.loadingimage = false;
         //console.log(err);
         let msg = "Email is unable to process try again.";  
         this.errmsg = msg;

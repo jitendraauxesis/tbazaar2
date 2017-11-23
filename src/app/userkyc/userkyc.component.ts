@@ -29,7 +29,7 @@ export class UserkycComponent implements OnInit {
   idproof:any;
 
   errmsg:any;sucmsg:any;
-
+  loadingimage:boolean = false;
   constructor(
     private fb: FormBuilder,
     public signup:SignupService,
@@ -39,12 +39,12 @@ export class UserkycComponent implements OnInit {
     private storage:LocalStorageService
   ) { 
     this.form = this.fb.group({
-      name:['',Validators.required],
-      aadharno:['',Validators.required],
+      // name:['',Validators.required],
+      // aadharno:['',Validators.required],
       pan:null,
       idproof:null,
-      proof1:null,
-      proof2:null
+      // proof1:null,
+      // proof2:null
     });
   }
 
@@ -52,6 +52,20 @@ export class UserkycComponent implements OnInit {
     let a = this.signup.retrieveFromLocal("AUXKYCStatus"); 
     if(a=="done"){
       this.router.navigate(["login"]);
+    }
+
+    this.loadAlert();
+  }
+
+  loadAlert(){
+    //if success msg from login page
+    let retrieve = this.signup.retrieveRouteMsgPass();
+    if(retrieve != null){
+      this.sucmsg = retrieve;
+      setTimeout(()=>{
+        this.sucmsg = "";
+        this.signup.removeRouteMsgPass();
+      },4000);
     }
   }
 
@@ -268,19 +282,21 @@ export class UserkycComponent implements OnInit {
           }, 1000);
         }
       },10000);
-    }else 
-    if(formModel.name == "" || formModel.name == null){
-      this.failmsg("Name can not be left blank");
-    }else if(formModel.aadharno == "" || formModel.aadharno == null){
-      this.failmsg("Aadhar number can not be left blank");
-    }else if(formModel.pan == null){
+    }
+    // else if(formModel.name == "" || formModel.name == null){
+    //   this.failmsg("Name can not be left blank");
+    // }else if(formModel.aadharno == "" || formModel.aadharno == null){
+    //   this.failmsg("Aadhar number can not be left blank");
+    // }
+    else if(formModel.pan == null){
       this.failmsg("Pan can not be left blank try to attach it...");
     }else{
       //console.log(formModel)
+      this.loadingimage = true;
       let data = {
-        'name':formModel.name,
+        // 'name':formModel.name,
         'email':localStorage.getItem("AUXUserEmailLocal"),
-        'aadhar_no':formModel.aadharno,
+        // 'aadhar_no':formModel.aadharno,
         'idproofs':formModel.idproof,
         // 'aadhar_card_front':formModel.proof1,
         // 'aadhar_card_back':formModel.proof2,
@@ -298,34 +314,39 @@ export class UserkycComponent implements OnInit {
           let r = JSON.parse(JSON.stringify(res));
           if((r.code == 200 && r.kyc == "pending") || (r.code == 200 && r.kyc == "rejected")){
             this.signup.saveToLocal("AUXHomeStatus","pending");
-            this.sucmsg = "KYC detail submitted successfully wait after administrator verified.\nWe redirecting to your dashboard...";
-            setTimeout(()=>{
-              this.sucmsg;              
+            // this.sucmsg = "KYC detail submitted successfully wait after administrator verified.\nWe redirecting to your dashboard...";
+            // setTimeout(()=>{
+              // this.sucmsg;              
+              let msgToPass = "KYC detail submitted successfully wait after administrator verified.\nYour dashboard is ready to use...";
+              this.signup.setRouteMsgPass(msgToPass);
               this.storage.store("AUXAuthLogin",true);
               this.signup.saveToLocal("AUXKYCStatus","done");   //for page             
               this.signup.saveToLocal("AUXTNCStatus","done");  
               this.signup.saveToLocal("AUXHomeStatus","pending"); 
               this.router.navigate(["/home"]);
-            },3500);
+            // },3500);
           }else if( (r.code == 400 && r.kyc == "pending") || r.status == "already_done"){
             this.failmsg("KYC detail is already submitted we redirecting to your dashboard...");
-            setTimeout(()=>{
+            // setTimeout(()=>{
               this.storage.store("AUXAuthLogin",true);
               this.signup.saveToLocal("AUXKYCStatus","done");                
               this.signup.saveToLocal("AUXTNCStatus","done");
               this.signup.saveToLocal("AUXHomeStatus","pending"); //for kyc current
               this.router.navigate(["/home"]);
-            },2010);
+            // },2010);
           }else{
             this.failmsg("Network interuptted to submit KYC detail try again.");
           }
+          this.loadingimage = false;
         },
         (err)=>{
+          this.loadingimage = false;
           this.failmsg("Network interuptted to submit KYC detail try again.");
           //console.log(err);
         }
       )
       .catch((err)=>{
+        this.loadingimage = false;
         this.failmsg("Network interuptted to submit KYC detail try again.");
         //console.log(err);
       });

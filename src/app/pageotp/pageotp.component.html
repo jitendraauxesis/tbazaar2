@@ -66,14 +66,15 @@
                                placeholder="Enter Mobile Number.." required></div>
                     <div class="checkbox">
                         <label> -->
-                            <input type="checkbox" id="agree_terms" name="agree_terms" [(ngModel)]="agreed">
-                            <small>I have read and agree to the <a href="/render_terms_and_conditions/" target="_blank">Terms of Service</a></small>
+                            <!-- <input type="checkbox" id="agree_terms" name="agree_terms" [(ngModel)]="agreed">
+                            <small>I have read and agree to the <a href="/render_terms_and_conditions/" target="_blank">Terms of Service</a></small> -->
                         
                     </div>
                     <div class="col-sm-6 col-xs-8 col-sm-offset-3 col-xs-offset-2">
                         <button (click)="signup_new_user()" value="CONTINUE" id="regFormSubmit"
                                 class="btn btn-primary btn-block custBtnAnchor" accesskey="">
                             <strong style="letter-spacing: 1px;">NEXT</strong>
+                            &nbsp;  <img src="assets/img/loading.gif" *ngIf="loadingimage" class="loadingimglogin">
                         </button>
                     </div>
 

@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 
-// import { ServiceapiService } from '../../services/serviceapi.service';
-// import { SignupService } from '../../services/signup.service';
+import { ServiceapiService } from '../../services/serviceapi.service';
+import { SignupService } from '../../services/signup.service';
 
 import {LocalStorageService, SessionStorageService} from 'ng2-webstorage';
 import sha512 from 'js-sha512';
@@ -23,7 +23,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
   selector: 'app-sidemenu',
   templateUrl: './sidemenu.component.html',
   styleUrls: ['./sidemenu.component.css'],
-  // providers:[SignupService,ServiceapiService]
+  providers:[SignupService,ServiceapiService]
 })
 export class SidemenuComponent implements OnInit {
 
@@ -34,10 +34,10 @@ export class SidemenuComponent implements OnInit {
   isClassActive:string;
 
   constructor(
-    // public serv:ServiceapiService,
+    public serv:ServiceapiService,
     private storage:LocalStorageService,
     private toastr: ToastrService,
-    // public signup:SignupService,
+    public signup:SignupService,
     private route: ActivatedRoute,
     private router: Router,
     private modalService: BsModalService
@@ -61,7 +61,7 @@ export class SidemenuComponent implements OnInit {
   }
 
   confirm(): void {
-   // this.signup.logoutFromApp();
+    this.signup.logoutFromApp();
     this.modalRef.hide();
   }
  

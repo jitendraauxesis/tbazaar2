@@ -23,6 +23,7 @@ export class PageotpComponent implements OnInit {
   public errmsg;public sucmsg;
   //private toasterService: ToasterService;
 
+  loadingimage:boolean = false;
 
   constructor(
     public signup:SignupService,
@@ -51,6 +52,20 @@ export class PageotpComponent implements OnInit {
         this.router.navigate(["login"]);
       }
     );
+
+    this.loadAlert();
+  }
+
+  loadAlert(){
+    //if success msg from login page
+    let retrieve = this.signup.retrieveRouteMsgPass();
+    if(retrieve != null){
+      this.sucmsg = retrieve;
+      setTimeout(()=>{
+        this.sucmsg = "";
+        this.signup.removeRouteMsgPass();
+      },4000);
+    }
   }
 
   printmsg(msg){
@@ -78,12 +93,14 @@ export class PageotpComponent implements OnInit {
   signup_new_user(){
     let otp = this.otpno;
     let agree = this.agreed;
-    if(!agree){
-      this.printmsg("You should agree to terms and condition");
-    }else if(otp == "" || otp == null){
-      this.printmsg("OTP must be at least 8 characters and must contain at least one digit!");
+    // if(!agree){
+    //   this.printmsg("You should agree to terms and condition");
+    // }else 
+    if(otp == "" || otp == null){
+      this.printmsg("OTP must be at least 6 characters!");
     }else{ //Password does not match. Please try again!
       //console.log(agree+" "+otp);
+      this.loadingimage = true;
       let email = this.storage.retrieve("AUXUserEmail");//localStorage.getItem("AUXUserEmail");
       //let pval = this.signup.findUserEmail(email);
       this.signup.makeOtp(email,otp)
@@ -96,53 +113,65 @@ export class PageotpComponent implements OnInit {
             if(res.tnc == false){
               if(res.kyc == false){
                 this.signINFBAuth();
-                this.sucmsg = "Otp is verified";
-                setTimeout(()=>{ 
-                  this.sucmsg = "";
+                // this.sucmsg = "Otp is verified";
+                // setTimeout(()=>{ 
+                  // this.sucmsg = "";
+                  let msgToPass = "Otp is verified";
+                  this.signup.setRouteMsgPass(msgToPass);
                   this.router.navigate(["/terms",email]); 
-                },4000);
+                // },1000);
                 /**FBAuth */this.loggedInFBauth();
               }else{this.printmsg("Otp not verified or may be wrong otp.");}
             }else if(res.tnc == true && (res.kyc == true || res.kyc == "accepted" || res.kyc == "pending" || res.kyc == "rejected")){
               if(res.kyc == false){
                 this.signup.saveToLocal("AUXHomeStatus","pending");
-                this.sucmsg = "Otp is verified but you did not uploaded documents for KYC detail. Submit in next section.";
-                setTimeout(()=>{ 
-                  this.sucmsg = "";                
+                // this.sucmsg = "Otp is verified but you did not uploaded documents for KYC detail. Submit in next section.";
+                // setTimeout(()=>{ 
+                  // this.sucmsg = ""; 
+                  let msgToPass = "Otp is verified but you did not uploaded documents for KYC detail. Submit in next section.";
+                  this.signup.setRouteMsgPass(msgToPass);               
                   this.signup.saveToLocal("AUXTNCStatus","done"); 
                   this.router.navigate(["/kyc"]); 
-                },4000);
+                // },4000);
                 /**FBAuth */this.loggedInFBauth();
               }else if(res.kyc == "accepted"){
                 this.signup.saveToLocal("AUXHomeStatus","done");
-                this.sucmsg = "Otp is verified but your KYC is in pending stage.";
-                setTimeout(()=>{ 
-                  this.sucmsg = ""; 
+                // this.sucmsg = "Otp is verified but your KYC is in pending stage.";
+                // setTimeout(()=>{ 
+                  // this.sucmsg = ""; 
+                  let msgToPass = "Otp is verified but your KYC is in pending stage.";
+                  this.signup.setRouteMsgPass(msgToPass);
                   this.storage.store("AUXAuthLogin",true);
                   this.signup.saveToLocal("AUXKYCStatus","done");                
                   this.signup.saveToLocal("AUXTNCStatus","done"); 
                   this.router.navigate(["/home"]); 
-                },4000);
+                // },4000);
                 /**FBAuth */this.loggedInFBauth();
               }else if(res.kyc == "pending"){
                 this.signup.saveToLocal("AUXHomeStatus","pending");
-                this.sucmsg = "Otp is verified but your KYC is in pending stage.";
-                setTimeout(()=>{ 
-                  this.sucmsg = ""; 
+                // this.sucmsg = "Otp is verified but your KYC is in pending stage.";
+                // setTimeout(()=>{ 
+                  // this.sucmsg = ""; 
+                  let msgToPass = "Otp is verified but your KYC is in pending stage.";
+                  this.signup.setRouteMsgPass(msgToPass);
                   this.storage.store("AUXAuthLogin",true);
                   this.signup.saveToLocal("AUXKYCStatus","done");                
                   this.signup.saveToLocal("AUXTNCStatus","done"); 
                   this.router.navigate(["/home"]); 
-                },4000);
+                // },4000);
                 /**FBAuth */this.loggedInFBauth();
               }else if(res.kyc == "rejected"){
                 this.signup.saveToLocal("AUXHomeStatus","rejected");                
-                this.sucmsg = "Otp is verified and your KYC detail has been rejected.";
-                setTimeout(()=>{ this.sucmsg = "";
+                // this.sucmsg = "Otp is verified and your KYC detail has been rejected.";
+                // setTimeout(()=>{ 
+                  // this.sucmsg = "";
+                  let msgToPass = "Otp is verified and your KYC detail has been rejected.";
+                  this.signup.setRouteMsgPass(msgToPass);
                 this.storage.store("AUXAuthLogin",true);
                 this.signup.saveToLocal("AUXKYCStatus","done");                
                 this.signup.saveToLocal("AUXTNCStatus","done"); 
-                this.router.navigate(["/home"]);  },4000);
+                this.router.navigate(["/home"]);  
+              // },4000);
                 /**FBAuth */this.loggedInFBauth();
               }else{
                 this.printmsg("Otp not verified or may be wrong otp.");
@@ -153,9 +182,11 @@ export class PageotpComponent implements OnInit {
           }else if(res.code == 200 && res.token){//after signup
             //console.log("after signup")
             if((res.tnc == true && (res.kyc == true || res.kyc == false))||(res.tnc == true && (res.kyc == "pending" || res.kyc == "accepted" || res.kyc == "rejected"))){
-              this.sucmsg = "Otp is verified, loading your asset...";
-              setTimeout(()=>{
-                this.sucmsg = "";
+              // this.sucmsg = "Otp is verified, loading your asset...";
+              // setTimeout(()=>{
+                // this.sucmsg = "";
+                  let msgToPass = "Otp is verified, loading your asset...";
+                  this.signup.setRouteMsgPass(msgToPass);
                 this.signup.saveToLocal("AUXHomeUserToken",res.token); 
                 if(res.kyc == false){ this.signup.saveToLocal("AUXHomeStatus","nokyc");  this.signup.saveToLocal("AUXKYCStatus","nokyc");  }
                 if(res.kyc == true){ this.signup.saveToLocal("AUXHomeStatus","done"); this.signup.saveToLocal("AUXKYCStatus","done");       }          
@@ -168,14 +199,16 @@ export class PageotpComponent implements OnInit {
                 this.signup.setUserSession(email,res.token);             
                 this.router.navigate(["/home"]); 
                 /**FBAuth */this.loggedInFBauth();
-              },4000);
+              // },4000);
             }else if(res.tnc == false){
               this.signINFBAuth();
-              this.sucmsg = "Otp is verified";
-              setTimeout(()=>{ 
-                this.sucmsg = "";
+              // this.sucmsg = "Otp is verified";
+              // setTimeout(()=>{ 
+                // this.sucmsg = "";
+                  let msgToPass = "Otp is verified";
+                  this.signup.setRouteMsgPass(msgToPass);
                 this.router.navigate(["/terms",email]); 
-              },4000);
+              // },4000);
               /**FBAuth */this.loggedInFBauth();
             }else{
               this.printmsg("Otp not verified or may be wrong otp.");
@@ -185,12 +218,15 @@ export class PageotpComponent implements OnInit {
           }else{
             this.printmsg("Otp unable to verify right now try again.");
           }
+          this.loadingimage = false;
         },
         err => {  
+          this.loadingimage = false;
           //console.log(err);
           this.printmsg("Otp unable to verify right now try again.");
         }
       ).catch(err => {  
+        this.loadingimage = false;
         //console.log(err);
         this.printmsg("Otp unable to verify right now try again.");
       });

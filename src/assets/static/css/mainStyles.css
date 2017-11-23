@@ -331,7 +331,8 @@ a:hover{
 /*###################Dashboard Styles###################*/
 
 #topbar {
-  padding: 10px 0px 0px 0px;
+  padding: 1% 0 0 4%;
+  /* padding: 10px 0px 0px 0px; */
   /*border-bottom: 1px solid #CCCCCC;*/
 }
 

@@ -22,7 +22,7 @@ export class UsertermsComponent implements OnInit {
   sucmsg:any;
 
   email:any;
-
+  loadingimage:boolean = false;
   constructor(
     public signup:SignupService,
     public api:ServiceapiService,
@@ -57,6 +57,20 @@ export class UsertermsComponent implements OnInit {
     if(tnc == "done"){
       this.router.navigate(["login"]);
     }
+
+    this.loadAlert();
+  }
+
+  loadAlert(){
+    //if success msg from login page
+    let retrieve = this.signup.retrieveRouteMsgPass();
+    if(retrieve != null){
+      this.sucmsg = retrieve;
+      setTimeout(()=>{
+        this.sucmsg = "";
+        this.signup.removeRouteMsgPass();
+      },4000);
+    }
   }
 
   failmsg(msg){
@@ -72,6 +86,7 @@ export class UsertermsComponent implements OnInit {
     }else if(this.name == "" || this.name == null){
       this.failmsg("Name can not be left blank");
     }else{
+      this.loadingimage = true;
       //this.sucmsg = ("I have written "+this.terms+" "+this.name);
       let a = {};
       let email = this.storage.retrieve("AUXUserEmail");
@@ -84,66 +99,81 @@ export class UsertermsComponent implements OnInit {
           //console.log(dat);
           if(dat.code == 200){// && dat.status == "accepted"
             if(dat.tnc == true && dat.kyc == false){
-              this.sucmsg = "Just one step remain uplaod your KYC detail in next section.";//
-              setTimeout(()=>{
-                this.sucmsg = "";
+              // this.sucmsg = "Just one step remain uplaod your KYC detail in next section.";//
+              // setTimeout(()=>{
+                // this.sucmsg = "";
+                  let msgToPass = "Just one step remain, uplaod your KYC detail submit below.";
+                  this.signup.setRouteMsgPass(msgToPass);
                 this.router.navigate(["kyc"]);                
                 this.signup.saveToLocal("AUXTNCStatus","done");  
-              },2500);
+              // },2500);
             }else{
-              this.sucmsg = "Loading your dashboard.";//
-              setTimeout(()=>{
-                this.sucmsg = "";
+              // this.sucmsg = "Loading your dashboard.";//
+              // setTimeout(()=>{
+                // this.sucmsg = "";
+                  let msgToPass = "Dashboard is ready";
+                  this.signup.setRouteMsgPass(msgToPass);
                 this.signup.saveToLocal("AUXTNCStatus","done");
                 this.router.navigate(["home"]);
-              },2500);
+              // },2500);
             }
           }else if(dat.code == 400){
             if(dat.kyc == true){
-              this.sucmsg = "You have already submitted the KYC Details, now we redirecting to your dashboard.";
-              setTimeout(()=>{
-                this.sucmsg = "";
+              // this.sucmsg = "You have already submitted the KYC Details, now we redirecting to your dashboard.";
+              // setTimeout(()=>{
+                // this.sucmsg = "";
+                  let msgToPass = "You have already submitted the KYC Details.";
+                  this.signup.setRouteMsgPass(msgToPass);
                 this.signup.saveToLocal("AUXTNCStatus","done");
                 this.router.navigate(["home"]);
-              },2500);
+              // },2500);
             }else if(dat.kyc == false){
               //console.log("to kyc ");
-              this.sucmsg = "Successfully registered but your KYC detail is not submitted";
-              setTimeout(()=>{
-                this.sucmsg = "";
+              // this.sucmsg = "Successfully registered but your KYC detail is not submitted";
+              // setTimeout(()=>{
+                // this.sucmsg = "";
+                  let msgToPass = "Successfully registered but your KYC detail is not submitted";
+                  this.signup.setRouteMsgPass(msgToPass);
                 this.router.navigate(["kyc"]);                
                 this.signup.saveToLocal("AUXTNCStatus","done");
-              },2500);
+              // },2500);
             }else if(dat.kyc == "pending"){
-              this.sucmsg = "Your KYC details is in pending stage. You are navigating to your dashboard in few moment.";
-              setTimeout(()=>{
-                this.sucmsg = "";
+              // this.sucmsg = "Your KYC details is in pending stage. You are navigating to your dashboard in few moment.";
+              // setTimeout(()=>{
+                // this.sucmsg = "";
+                  let msgToPass = "Your KYC details is in pending stage. You are navigated to your dashboard.";
+                  this.signup.setRouteMsgPass(msgToPass);
                 this.router.navigate(["kyc"]);  
                 this.signup.saveToLocal("AUXKYCStatus","pending");               
                 this.signup.saveToLocal("AUXTNCStatus","done");
                 this.router.navigate(["home"]);
-              },2500);
+              // },2500);
             }else if(dat.kyc == "rejected"){
-              this.sucmsg  = "Your KYC details is rejected. You are navigating to your dashboard in few moment";
-              setTimeout(()=>{
-                this.sucmsg = "";
+              // this.sucmsg  = "Your KYC details is rejected. You are navigating to your dashboard in few moment";
+              // setTimeout(()=>{
+                // this.sucmsg = "";
+                  let msgToPass = "Your KYC details is rejected. You are navigated to your dashboard.";
+                  this.signup.setRouteMsgPass(msgToPass);
                 this.router.navigate(["kyc"]);  
                 this.signup.saveToLocal("AUXKYCStatus","pending");               
                 this.signup.saveToLocal("AUXTNCStatus","done");
                 this.router.navigate(["home"]);
-              },2500);
+              // },2500);
             }else{
               this.failmsg("Unable to verify terms and condition");    
             }
           }else{
             this.failmsg("Unable to verify terms and condition");  
           }
+          this.loadingimage = false;
         },
         (err)=>{
+          this.loadingimage = false;
           //console.log(err);
           this.failmsg("Unable to verify terms and condition");
         }
       ).catch(e=>{
+        this.loadingimage = false;
         this.failmsg("Network unavailable");
       });
     }

@@ -55,6 +55,7 @@ export class UserhomeComponent implements OnInit {
 
   kycalertpanel:number;kycalertpanelview:boolean;
 
+  tokens:any;
 
   constructor(
     public serv:ServiceapiService,
@@ -80,16 +81,19 @@ export class UserhomeComponent implements OnInit {
           //this.cas = cs;
           return false;
         }
+        if(charCode === 46 || charCode === 190 ){
+          return false;
+        }
         //this.cas = parseFloat(this.cas); 
         //console.log(this.cas,evt)
        return true;
   }
   keyup(evt){
-    let cas = (this.cas).toString();
+    let cas = this.cas;//(this.cas).toString();
     let s = cas.match(/^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$/);
-    //console.log(this.cas,cas,s,evt)
+    // console.log(this.cas,cas,s,evt)
     this.signup.saveToLocal("AUXsavelocalamount",this.cas);
-    //console.log(this.cas,this.serv.retrieveFromLocal("AUXsavelocalamount"))
+    // console.log(this.cas,this.serv.retrieveFromLocal("AUXsavelocalamount"))
   }
 
 
@@ -116,6 +120,38 @@ export class UserhomeComponent implements OnInit {
     // },2000);
   }
 
+  loadAlert(){
+    let msg;
+    let seen = this.signup.retrieveFromLocal("AUXHomeNGXSeen");
+    //console.log(seen)
+    if(seen == "seen"){ 
+      //if success msg from login page
+      let retrieve = this.signup.retrieveRouteMsgPass();
+      if(retrieve != null){
+        msg = retrieve;
+        this.toastr.success(msg, 'Welcome!!!',{timeOut:5000});
+        setTimeout(()=>{
+          msg = "";
+          this.signup.removeRouteMsgPass();
+        },4000);
+      }
+    }else{
+      this.signup.saveToLocal("AUXHomeNGXSeen","seen");
+      let retrieve = this.signup.retrieveRouteMsgPass();
+      setTimeout(()=>{
+        if(retrieve != null){
+          msg = retrieve;
+          this.toastr.success('Token bazaar with ease!'+msg, 'Welcome!!!',{timeOut:5000});
+          setTimeout(()=>{
+            msg = "";
+            this.signup.removeRouteMsgPass();
+          },4000);
+        }
+        // this.toastr.success('Token bazaar with ease!', 'Welcome!!!',{timeOut:5000});
+      },500);
+    }
+    
+  }
 
   callme(){
     // console.log("called")
@@ -135,6 +171,7 @@ export class UserhomeComponent implements OnInit {
                 }else{
                   let a = d.user_timeline_list;
                   this.user_timeline_list = a;
+                  this.tokens = d.tokens;
                 }
               }else if(d.code == 401){
                 this.signup.logoutFromApp();
@@ -169,14 +206,15 @@ export class UserhomeComponent implements OnInit {
         this.homeStatusDone = true;
         this.homeStatusYet = false;
         this.user_timeline_listShow = true;
-        let seen = this.signup.retrieveFromLocal("AUXHomeNGXSeen");
-        //console.log(seen)
-        if(seen == "seen"){ 
-          //do not open toastr
-        }else{
-          this.signup.saveToLocal("AUXHomeNGXSeen","seen");
-          setTimeout(()=>{this.toastr.success('Token bazaar with ease!', 'Welcome!!!',{timeOut:5000});},1000);
-        }
+        // let seen = this.signup.retrieveFromLocal("AUXHomeNGXSeen");
+        // //console.log(seen)
+        // if(seen == "seen"){ 
+        //   //do not open toastr
+        // }else{
+        //   this.signup.saveToLocal("AUXHomeNGXSeen","seen");
+        //   setTimeout(()=>{this.toastr.success('Token bazaar with ease!', 'Welcome!!!',{timeOut:5000});},1000);
+        // }
+        this.loadAlert();
         if(status == "nokyc"){
           this.viewAlways(0);
         }else if(status == "done"){
@@ -229,17 +267,22 @@ export class UserhomeComponent implements OnInit {
     }
   }
   viewAlways(view){
-    this.kycalertpanelview = true;
-    this.kycalertpanel = view;
     let a = this.serv.retrieveFromLocal("AUXKYCDetailSeenAlways");
     //console.log(a)
     if(a || a == "seen"){
-      setTimeout(()=>{
-        this.kycalertpanelview = false;
-      },5000);
-    }else{
-      this.kycalertpanelview = true;
-      this.kycalertpanel = view;
+      // console.log("Do nothing bcoze one seen success msg of seen")
+    }else{ 
+      if( view == 1 ){
+        this.kycalertpanelview = true;
+        this.kycalertpanel = view;
+        this.serv.saveToLocal("AUXKYCDetailSeenAlways","seen");
+        setTimeout(()=>{
+            this.kycalertpanelview = false;
+        },8000);
+      }else{
+        this.kycalertpanelview = true;
+        this.kycalertpanel = view;
+      }
     }
   }
 
@@ -264,8 +307,8 @@ export class UserhomeComponent implements OnInit {
               if(kyc == null)  this.serv.saveToLocal("AUXHomeStatus","nokyc");
               if(kyc == "pending")  this.serv.saveToLocal("AUXHomeStatus","pending");
               if(kyc == "rejected")  this.serv.saveToLocal("AUXHomeStatus","rejected");
-              if(kyc == true)  {this.serv.saveToLocal("AUXHomeStatus","done");this.serv.saveToLocal("AUXKYCDetailSeenAlways","seen");}
-              if(kyc == "accepted") { this.serv.saveToLocal("AUXHomeStatus","done");this.serv.saveToLocal("AUXKYCDetailSeenAlways","seen");}
+              if(kyc == true)  {this.serv.saveToLocal("AUXHomeStatus","done");}
+              if(kyc == "accepted") { this.serv.saveToLocal("AUXHomeStatus","done");}
                
               // this.user_timeline_list = d.user_timeline_list;
               if(d.user_timeline_list == "" || d.user_timeline_list == null){
@@ -282,6 +325,7 @@ export class UserhomeComponent implements OnInit {
                 //     a.push(value);
                 //   }
                 // });
+                this.tokens = d.tokens;
                 this.user_timeline_list = a;
                 //this.user_timeline_listShow = true;
                 // if(this.homeStatusDone == true){
@@ -308,6 +352,5 @@ export class UserhomeComponent implements OnInit {
     let date = moment.unix(timestamp).fromNow();//.format("MMM Do, YYYY");
     return date;
   }
-  //https://ng4demo.000webhostapp.com/
 
 }

@@ -110,3 +110,9 @@ a.settingclass {
 ul.collapsenavsetting {
   list-style-type: none;
 }
+
+/* ethereum */
+img.ethereum {
+  width: 22px;
+  padding-bottom: 2%;
+}

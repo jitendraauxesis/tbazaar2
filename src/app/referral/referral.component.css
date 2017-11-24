@@ -5,3 +5,24 @@ p.earned {
     float: right;
     word-wrap: break-word;
 }
+
+.row.rowreferral {
+    margin-top: 3%;
+}
+img.loadingimgdonereferral {
+    width: 15px;
+    margin: 0.5%;
+}
+
+button.btnreferral {
+    width: 50%;
+    text-align: center;
+}
+
+img.loadingimgdone {
+    width: 15px;
+    margin: 0.5%;
+}
+.row.rowreferralotp {
+    margin-top: 10%;
+}

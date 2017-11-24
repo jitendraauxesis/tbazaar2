@@ -26,6 +26,9 @@ export class AddreferralComponent implements OnInit {
 
   formReferral:FormGroup;
 
+  bitcoinaddress:any;
+  etheraddress:any;
+
   constructor(
     public signup:SignupService,
     private route: ActivatedRoute,
@@ -41,8 +44,38 @@ export class AddreferralComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadAddReferralAuth();
   }
 
+  loadAddReferralAuth(){
+    let isAuth = this.storage.retrieve("AUXAuthLogin");
+    let cookieExists = this.signup.checkUserActivity();
+    if(isAuth == null){
+      this.signup.UnAuthlogoutFromApp(); 
+    }
+    else if(cookieExists == false){
+      this.storage.store("AUXAuthLogin",false);
+      this.signup.UnAuthlogoutFromApp();
+    }
+    else{
+      // console.log("isAuthorized",isAuth,cookieExists);
+      this.loadifReferral();
+    }
+  }
+
+  loadifReferral(){
+    let etheraddress = this.storage.retrieve("AUXUserReferralEtherAddress");
+    let bitcoinaddress = this.storage.retrieve("AUXUserReferralBitcoinAddress");
+    if(etheraddress == "" || etheraddress == null || !etheraddress){
+      console.log("do not touch form inputs");
+    }else if(bitcoinaddress == "" || bitcoinaddress == null || !bitcoinaddress){
+      console.log("do not touch form inputs"); 
+    }else{
+      this.bitcoinaddress = bitcoinaddress;// console.log("append to btcaddress");
+      this.etheraddress = etheraddress;// console.log("append to etheraddress");
+    }
+  }
+  
   printmsg(msg){
     this.errmsg = msg;
     setTimeout(()=>{

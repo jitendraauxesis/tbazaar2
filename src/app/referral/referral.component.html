@@ -66,8 +66,8 @@
                         <li class="list-group-item">Withdrawn :<p class="earned">XX</p></li>
                         <li class="list-group-item">Pending :<p class="earned">XX</p></li>
                       </ul>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="#" class="btn btn-primary">Withdraw</a>
+                      <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                      <a  (click)="open_btc_modal(btcmodal)" class="btn btn-primary">Withdraw</a>
                     </div>
                   </div>
               </div>
@@ -76,14 +76,14 @@
                   <div class="card">
                     <!-- <img class="card-img-top" src="assets/img/tb-logo.png" alt="Card image cap"> -->
                     <div class="card-body">
-                      <h4 class="card-title"><i class="fa fa-btc" aria-hidden="true"></i> ETH </h4>
+                      <h4 class="card-title"><img class="ethereum" src="assets/img/ethereum.png"> ETH </h4>
                       <ul class="list-group list-group-flush">
                         <li class="list-group-item">Earned :<p class="earned">XX</p></li>
                         <li class="list-group-item">Withdrawn :<p class="earned">XX</p></li>
                         <li class="list-group-item">Pending :<p class="earned">XX</p></li>
                       </ul>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="#" class="btn btn-primary">Withdraw</a>
+                      <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                      <a  (click)="open_eth_modal(ethmodal)" class="btn btn-primary">Withdraw</a>
                     </div>
                   </div>
               </div>
@@ -118,11 +118,216 @@
               </div>
           </div>
 
-        </div>
 
+          <!-- Modal BTC -->
+          <ng-template #btcmodal>
+            <div class="modal-header">
+              <button type="button" class="close pull-right" aria-label="Close" (click)="hideme()">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+              <h3 id="myModalLabel" class="noMarg text-left">
+                      <span class="pull-left padRightOnly" style="font-size:28px;"><i class="fa fa-chevron-down" aria-hidden="true"></i></span>
+                  <span id="modal-header-content">Withdraw BTC</span>
+              </h3>
+            </div>
+            <div class="modal-body customModalHeight" id="normalModalBody">
+              <div class="tab-content">
 
+                <div class="tab-pane fade in active" *ngIf="btcwithdrawntab == 1">
+                  <div class="container-fluid">
+                      <div class="col-sm-12">
+                          <div class="card">
+                              <!-- <img class="card-img-top" src="assets/img/tb-logo.png" alt="Card image cap"> -->
+                              <div class="card-body">
+                                <!-- <h4 class="card-title"><i class="fa fa-btc" aria-hidden="true"></i> ETH </h4> -->
+                                <div class="row rowreferral">    
+                                  <div class="col-sm-5">
+                                      <label for="pendingamntBTC">Pending Amount:</label>
+                                  </div>
+                                  <div class="col-sm-7">
+                                      <input type="text" class="form-control" id="pendingamntBTC" placeholder="Enter pending amount" #pendingamount  readonly="readonly" value="tx3423">
+                                  </div>
+                                </div>
+                                
+                                <div class="row rowreferral">
+                                  <div class="col-sm-5">
+                                      <label for="withdrawnaddrsBTC">Withdrawn Address:</label>
+                                  </div>
+                                  <div class="col-sm-7">
+                                      <input type="text" class="form-control" id="withdrawnaddrsBTC" placeholder="Enter withdrawn address" #withdrawnaddress  readonly="readonly" value="tx342386869">
+                                  </div>
+                                </div>
 
-          
+                                <div class="row rowreferral">
+                                  <div class="col-sm-5">
+                                      <label for="bitcoinminBTC">Bitcoin Mining Fee:</label>
+                                  </div>
+                                  <div class="col-sm-7">
+                                      <input type="text" class="form-control" id="bitcoinminBTC" placeholder="Enter bitcoin mining fee" #bitcoinminingfee  readonly="readonly" value="0.0">
+                                  </div>
+                                </div>
+
+                                <div class="row rowreferral">
+                                  <div class="col-sm-5">
+                                      <label for="withdrawnamntBTC">Withdrawn Amount:</label>
+                                  </div>
+                                  <div class="col-sm-7">
+                                      <input type="text" class="form-control" id="withdrawnamntBTC" placeholder="Enter withdrawn amount" #withdrawnamount  readonly="readonly" value="0.0">
+                                  </div>
+                                </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="container-fluid">
+                      <div class="col-sm-12 col-sm-offset-3 text-center">
+                          <br>
+                          <button type="button" class="btn btn-primary btn-block btnreferral" (click)="sendBTC()">
+                              Send&nbsp;  <img src="assets/img/loading.gif" *ngIf="loadingimage" class="loadingimgdone">
+                          </button>
+                      </div>
+                  </div>              
+                </div>
+
+                <div class="tab-pane fade in active" *ngIf="btcwithdrawntab == 2">
+                  <div class="container-fluid">
+                    <div class="col-sm-12">
+                      <div class="card">
+                          <!-- <img class="card-img-top" src="assets/img/tb-logo.png" alt="Card image cap"> -->
+                          <div class="card-body">
+                            <h5 class="card-title"><i class="fa fa-btc" aria-hidden="true"></i> Please enter OTP sent at mail to confirm transaction </h5>
+                            
+                            <div class="row rowreferralotp">    
+                                <div class="col-sm-5">
+                                    <label for="otpBTC">Enter OTP:</label>
+                                </div>
+                                <div class="col-sm-7">
+                                    <input type="password" class="form-control" id="otpBTC" placeholder="Enter otp" #otpBTC  required="required" value="">
+                                </div>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="container-fluid">
+                      <div class="col-sm-12 col-sm-offset-3 text-center">
+                          <br>
+                          <button type="button" class="btn btn-primary btn-block btnreferral" (click)="confirmBTC()">
+                              Confirm&nbsp;  <img src="assets/img/loading.gif" *ngIf="loadingimage" class="loadingimgdone">
+                          </button>
+                      </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </ng-template>
+          <!-- Modal BTC END -->
+          <!-- Modal ETH -->
+          <ng-template #ethmodal>
+              <div class="modal-header">
+                  <button type="button" class="close pull-right" aria-label="Close" (click)="hideme()">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+                  <h3 id="myModalLabel" class="noMarg text-left">
+                          <span class="pull-left padRightOnly" style="font-size:28px;"><i class="fa fa-chevron-down" aria-hidden="true"></i></span>
+                      <span id="modal-header-content">Withdraw ETH</span>
+                  </h3>
+                </div>
+                <div class="modal-body customModalHeight" id="normalModalBody">
+                  <div class="tab-content">
+    
+                    <div class="tab-pane fade in active" *ngIf="ethwithdrawntab == 1">
+                      <div class="container-fluid">
+                          <div class="col-sm-12">
+                              <div class="card">
+                                  <!-- <img class="card-img-top" src="assets/img/tb-logo.png" alt="Card image cap"> -->
+                                  <div class="card-body">
+                                    <!-- <h4 class="card-title"><i class="fa fa-btc" aria-hidden="true"></i> ETH </h4> -->
+                                    <div class="row rowreferral">    
+                                      <div class="col-sm-5">
+                                          <label for="pendingamntETH">Pending Amount:</label>
+                                      </div>
+                                      <div class="col-sm-7">
+                                          <input type="text" class="form-control" id="pendingamntETH" placeholder="Enter pending amount" #pendingamount  readonly="readonly" value="tx3423">
+                                      </div>
+                                    </div>
+                                    
+                                    <div class="row rowreferral">
+                                      <div class="col-sm-5">
+                                          <label for="withdrawnaddrsETH">Withdrawn Address:</label>
+                                      </div>
+                                      <div class="col-sm-7">
+                                          <input type="text" class="form-control" id="withdrawnaddrsETH" placeholder="Enter withdrawn address" #withdrawnaddress  readonly="readonly" value="tx342386869">
+                                      </div>
+                                    </div>
+    
+                                    <div class="row rowreferral">
+                                      <div class="col-sm-5">
+                                          <label for="etherminETH">Ether Mining Fee:</label>
+                                      </div>
+                                      <div class="col-sm-7">
+                                          <input type="text" class="form-control" id="etherminETH" placeholder="Enter bitcoin mining fee" #bitcoinminingfee  readonly="readonly" value="0.0">
+                                      </div>
+                                    </div>
+    
+                                    <div class="row rowreferral">
+                                      <div class="col-sm-5">
+                                          <label for="withdrawnamntETH">Withdrawn Amount:</label>
+                                      </div>
+                                      <div class="col-sm-7">
+                                          <input type="text" class="form-control" id="withdrawnamntETH" placeholder="Enter withdrawn amount" #withdrawnamount  readonly="readonly" value="0.0">
+                                      </div>
+                                    </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="container-fluid">
+                          <div class="col-sm-12 col-sm-offset-3 text-center">
+                              <br>
+                              <button type="button" class="btn btn-primary btn-block btnreferral" (click)="sendETH()">
+                                  Send&nbsp;  <img src="assets/img/loading.gif" *ngIf="loadingimage" class="loadingimgdone">
+                              </button>
+                          </div>
+                      </div>              
+                    </div>
+    
+                    <div class="tab-pane fade in active" *ngIf="ethwithdrawntab == 2">
+                      <div class="container-fluid">
+                        <div class="col-sm-12">
+                          <div class="card">
+                              <!-- <img class="card-img-top" src="assets/img/tb-logo.png" alt="Card image cap"> -->
+                              <div class="card-body">
+                                <h5 class="card-title"><img class="ethereum" src="assets/img/ethereum.png"> Please enter OTP sent at mail to confirm transaction </h5>
+                                
+                                <div class="row rowreferralotp">    
+                                    <div class="col-sm-5">
+                                        <label for="otpETH">Enter OTP:</label>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <input type="password" class="form-control" id="otpETH" placeholder="Enter otp" #otpETH  required="required" value="">
+                                    </div>
+                                </div>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="container-fluid">
+                          <div class="col-sm-12 col-sm-offset-3 text-center">
+                              <br>
+                              <button type="button" class="btn btn-primary btn-block btnreferral" (click)="confirmETH()">
+                                  Confirm&nbsp;  <img src="assets/img/loading.gif" *ngIf="loadingimage" class="loadingimgdone">
+                              </button>
+                          </div>
+                      </div>
+                    </div>
+    
+                  </div>
+                </div>
+          </ng-template>
+          <!-- Modal ETH END -->
+        </div><!--topbar-->
       </div>
   </div>
 </section> 

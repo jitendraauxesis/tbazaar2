@@ -63,6 +63,14 @@ const routes: Routes = [
         component: ReferralComponent
     },
     {
+        path: 'referral/address',
+        component: ReferralComponent
+    },
+    {
+        path: 'referral/address/:refid',
+        component: ReferralComponent
+    },
+    {
         path: 'addreferral',
         component: AddreferralComponent
     },

@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { FormGroup, FormControl,FormBuilder, Validators } from '@angular/forms';
 
+import { ServiceapiService } from '../services/serviceapi.service';
 import { SignupService } from '../services/signup.service';
 
 import { Observable } from 'rxjs/Observable';
@@ -29,7 +30,10 @@ export class AddreferralComponent implements OnInit {
   bitcoinaddress:any;
   etheraddress:any;
 
+  referralbtnTxt:string = "Next";
+
   constructor(
+    public serv:ServiceapiService,
     public signup:SignupService,
     private route: ActivatedRoute,
     private router: Router,
@@ -64,13 +68,25 @@ export class AddreferralComponent implements OnInit {
   }
 
   loadifReferral(){
-    let etheraddress = this.storage.retrieve("AUXUserReferralEtherAddress");
-    let bitcoinaddress = this.storage.retrieve("AUXUserReferralBitcoinAddress");
+    let retrieve = this.signup.retrieveRouteMsgPass();
+    let msg;
+    if(retrieve != null){
+      msg = retrieve;
+      this.printmsg(msg);
+      setTimeout(()=>{
+        msg = "";
+        this.signup.removeRouteMsgPass();
+      },2000);
+    }
+
+    let etheraddress = this.storage.retrieve("AUXUserRefundEtherAddress");
+    let bitcoinaddress = this.storage.retrieve("AUXUserRefundBitcoinAddress");
     if(etheraddress == "" || etheraddress == null || !etheraddress){
       console.log("do not touch form inputs");
     }else if(bitcoinaddress == "" || bitcoinaddress == null || !bitcoinaddress){
       console.log("do not touch form inputs"); 
     }else{
+      this.referralbtnTxt = "Update";
       this.bitcoinaddress = bitcoinaddress;// console.log("append to btcaddress");
       this.etheraddress = etheraddress;// console.log("append to etheraddress");
     }
@@ -94,9 +110,59 @@ export class AddreferralComponent implements OnInit {
         this.printmsg("Ether address are invalid, try again.");
       }else{
         console.log(this.formReferral);
+        this.sendToReferral(btc,eth);
       }
     }else{
       this.printmsg("Addresses are invalid, try again.");
     }
+  }
+
+  sendToReferral(btc,eth){
+    this.loadingimage = true;
+    let d = {
+      'email':this.signup.retrieveFromLocal("AUXUserEmail"),
+      'token':this.signup.retrieveFromLocal("AUXHomeUserToken"),
+      'refund_btc_address':btc,
+      'refund_eth_address':eth
+    };
+    console.info(d);
+    this.serv.resolveApi("set_btc_eth_refund_address",d)
+    .subscribe(
+      res=>{
+        this.loadingimage = false;
+        let response = JSON.parse(JSON.stringify(res));
+        if(response != null || response != ""){
+          console.log(response);
+          if(response.code == 200){
+            //n3qoMXxdmuwFxSZkFhvXqXiDRzsfy7MqCm tx4343654645754767
+            this.signup.setRouteMsgPass("BTH & ETH address is added");
+            this.storage.store("AUXUserRefundEtherAddress",eth);
+            this.storage.store("AUXUserRefundBitcoinAddress",btc);
+            this.router.navigate(["/referral"]);
+          }else if(response.code == 400){
+            if(response.eth_address_validation == false){
+              this.printmsg("Ether address is invalid");
+            }else if(response.btc_address_validation == false){
+              this.printmsg("Bitcoin address is invalid");
+            }else{
+              this.printmsg("Addresses are invalid");
+            }
+          }else if(response.code == 401){
+            this.signup.UnAuthlogoutFromApp();
+          }else{
+            // logout
+            this.signup.UnAuthlogoutFromApp();
+          }
+        }else{
+          console.log(response);
+          this.printmsg("Addressess are unable to processed try again");
+        }
+      },
+      err=>{
+          this.loadingimage = false;
+          console.error(err);
+          this.printmsg("Addresses are failed to submit");
+      }
+    );
   }
 }

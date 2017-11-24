@@ -80,21 +80,36 @@ export class ReferralComponent implements OnInit {
     else{
       // console.log("isAuthorized",isAuth,cookieExists);
       this.checkReferral();
-      this.callApi();//call in referral
-      this.referraladdressvalue = this.sendUrl+"/address/"+"009000";
+      // this.callApi();//call in referral
+      this.referraladdressvalue = this.sendUrl+"/address/";
     }
   }
 
   checkReferral(){
-    let etheraddress = this.storage.retrieve("AUXUserReferralEtherAddress");
-    let bitcoinaddress = this.storage.retrieve("AUXUserReferralBitcoinAddress");
+    let retrieve = this.signup.retrieveRouteMsgPass();
+    let msg;
+    if(retrieve != null){
+      msg = retrieve;
+      setTimeout(()=>{this.toastr.success('Refund address is taken!', 'Done!',{timeOut:1200});},1200);
+      setTimeout(()=>{
+        msg = "";
+        this.signup.removeRouteMsgPass();
+      },2000);
+    }
+
+    let etheraddress = this.storage.retrieve("AUXUserRefundEtherAddress");
+    let bitcoinaddress = this.storage.retrieve("AUXUserRefundBitcoinAddress");
     if(etheraddress == "" || etheraddress == null || !etheraddress){
-      console.log("Redirect to addreferral");
+      // console.log("Redirect to addreferral");
+      this.signup.setRouteMsgPass("BTH & ETH address is not taken try to add");
+      this.router.navigate(["/addreferral"]);
     }else if(bitcoinaddress == "" || bitcoinaddress == null || !bitcoinaddress){
-      console.log("Redirect to addreferral");
+      // console.log("Redirect to addreferral");
+      this.signup.setRouteMsgPass("BTH & ETH address is not taken try to add");
+      this.router.navigate(["/addreferral"]);
     }else{
       console.log("proceed to callapi()");
-      //this.callApi();
+      this.callApi();
     }
   }
 
@@ -125,21 +140,36 @@ export class ReferralComponent implements OnInit {
       'email':this.signup.retrieveFromLocal("AUXUserEmail"),
       'token':this.signup.retrieveFromLocal("AUXHomeUserToken")
     };
+    console.info(d);
     this.serv.resolveApi("get_referral_details",d)
     .subscribe(
       res=>{
         let response = JSON.parse(JSON.stringify(res));
         if(response != null || response != ""){
           console.log(response);
+          if(response.code == 200){
+            this.referridvalue = response.referral_json.ref_id;
+            this.referraladdressvalue = this.sendUrl+"/address/"+this.referridvalue;
+
+          }else if(response.code == 400){
+            this.signup.setRouteMsgPass("BTH & ETH address is not taken try to add");
+            this.router.navigate(["/addreferral"]);
+          }else if(response.code == 401){
+            this.signup.UnAuthlogoutFromApp();
+          }else{
+            // logout
+            this.signup.UnAuthlogoutFromApp();
+          }
         }else{
-          console.log(response);
+          // console.log(response);
+          this.toastr.error('Referral detail not retrieved', 'Not a valid response',{timeOut:2500});
         }
       },
       err=>{
-          console.error(err);
+          // console.error(err);
           this.toastr.error('Referral detail not retrieved', 'Not a valid response',{timeOut:2500});
-        }
-      );
+      }
+    );
   }
 
   hideme(){

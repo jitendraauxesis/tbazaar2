@@ -49,6 +49,9 @@ export class ReferralComponent implements OnInit {
   referral_details_list:any;referral_details_list_alert:boolean = false;
   child_details:any;child_details_alert:boolean = false;
 
+  modalbtcpending_amount:any;modalbtcwithdraw_address:any;modalbtcamount_to_be_paid:any;modalbtcfee:any;
+  modalethpending_amount:any;modalethwithdraw_address:any;modalethamount_to_be_paid:any;modalethfee:any;
+
   constructor(
     public serv:ServiceapiService,
     private storage:LocalStorageService,
@@ -153,18 +156,30 @@ export class ReferralComponent implements OnInit {
         if(response != null || response != ""){
           console.log(response);
           if(response.code == 200){
-            // this.modalRef = this.modalService.show(
-            //   modal,
-            //     Object.assign({}, this.config, { class: 'gray modal-md' })
-            // );
+            let data = response.data;
+            if(type == 'btc'){
+              this.modalbtcpending_amount = data.pending_amount;
+              this.modalbtcwithdraw_address = data.withdraw_address;
+              this.modalbtcamount_to_be_paid = data.amount_to_be_paid;
+              this.modalbtcfee = data.fee;
+            }
+            if(type == 'eth'){
+              this.modalethpending_amount = data.pending_amount;
+              this.modalethwithdraw_address = data.withdraw_address;
+              this.modalethamount_to_be_paid = data.amount_to_be_paid;
+              this.modalethfee = data.fee;
+            }
+            this.modalRef = this.modalService.show(
+              modal,
+                Object.assign({}, this.config, { class: 'gray modal-md' })
+            );
           }else if(response.code == 400){
-            // this.signup.setRouteMsgPass("BTH & ETH address is not taken try to add");
-            // this.router.navigate(["/addreferral"]);
+            this.toastr.error('Unable to calculate mining fee for '+type, 'Mining Fee Error',{timeOut:2500});
           }else if(response.code == 401){
-            // this.signup.UnAuthlogoutFromApp();
+            this.signup.UnAuthlogoutFromApp();
           }else{
             // logout
-            // this.signup.UnAuthlogoutFromApp();
+            this.signup.UnAuthlogoutFromApp();
           }
         }else{
           // console.log(response);

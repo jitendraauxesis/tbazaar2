@@ -88,7 +88,10 @@
                               <span class="dragger-item">
                               </span>
                               <input type="checkbox" class="form-checkbox validate[required]" id="input_7_0" name="q7_terms" [(ngModel)]="terms" required="">
-                              <label id="label_input_7_0" for="input_7_0"> I  <input type="text" class="pass" [(ngModel)]="name" placeholder=" My name ">, agree to the terms and agreement.  </label>
+                              <label id="label_input_7_0" for="input_7_0"> 
+                                  I  <input type="text" class="pass" [(ngModel)]="name" placeholder=" My name ">, 
+                                  referred by referenced ID  <input type="text" class="pass" [(ngModel)]="referral" placeholder=" Referral id ">, 
+                                agree to the terms and agreement.  </label>
                             </span>
                             <div class="col-sm-6">
                                   <button (click)="token_verification()"

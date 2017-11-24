@@ -230,12 +230,17 @@ export class SignupService {
     });
   }
 
-  makeTNC(name,email){
+  makeTNC(name,email,refid){
     //console.log(email);
     let email2 = localStorage.getItem("AUXUserEmailLocal");//this.findUserEmail(email);//get encrypted email
-    //console.log(email2)
-    let data = JSON.stringify({name:name,email:email2});
-    //console.log(data);
+    let data;
+    if(refid == "" || refid == null || refid == undefined || !refid){
+      data = JSON.stringify({name:name,email:email2});
+    }
+    else{
+      data = JSON.stringify({name:name,email:email2,ref_id:refid});
+    } 
+
     return new Promise((resolve,reject)=>{
       this.http.post(this.url+"tnc/",data)
       .map(res => res.json())

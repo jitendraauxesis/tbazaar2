@@ -64,14 +64,8 @@ export class ReferralComponent implements OnInit {
       this.router.navigate(["/login"]);
     }
     // console.log(this.router.url,this.sendUrl)
-    // this.urlShortener();
   } 
 
-  urlShortener(){
-    let url = this.referraladdressvalue;
-    let spliturl = url.split("?=");
-    console.log(spliturl[1])
-  }
 
   loadReferralAuth(){
     let isAuth = this.storage.retrieve("AUXAuthLogin");
@@ -87,7 +81,7 @@ export class ReferralComponent implements OnInit {
       // console.log("isAuthorized",isAuth,cookieExists);
       this.checkReferral();
       this.callApi();//call in referral
-      this.referraladdressvalue = this.sendUrl+"/address/"+"someotherreferral";
+      this.referraladdressvalue = this.sendUrl+"/address/"+"009000";
     }
   }
 

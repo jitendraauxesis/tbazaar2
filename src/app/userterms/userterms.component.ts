@@ -23,6 +23,9 @@ export class UsertermsComponent implements OnInit {
 
   email:any;
   loadingimage:boolean = false;
+
+  referral:any;
+
   constructor(
     public signup:SignupService,
     public api:ServiceapiService,
@@ -71,6 +74,17 @@ export class UsertermsComponent implements OnInit {
         this.signup.removeRouteMsgPass();
       },4000);
     }
+
+    this.loadIfReferral();
+  }
+
+  loadIfReferral(){
+    let referralid = this.signup.retrieveReferralId("AUXUserReferralID");
+    if(referralid == "" || referralid == null || referralid == undefined || !referralid){
+      this.referral = null;
+    }else{
+      this.referral = referralid;
+    }
   }
 
   failmsg(msg){
@@ -92,7 +106,8 @@ export class UsertermsComponent implements OnInit {
       let email = this.storage.retrieve("AUXUserEmail");
       //console.log(this.signup.findUserEmail(email));
       let name = this.name;
-      this.signup.makeTNC(name,email)
+      let ref = this.referral;
+      this.signup.makeTNC(name,email,ref)
       .then(
         (data)=>{
           let dat = JSON.parse(JSON.stringify(data));

@@ -66,14 +66,17 @@
                       <!-- <button class="btn btn-link btn-sm pull-right">Recover Funds?</button>
                       <br> -->
                       <br>
-                      <div class="col-sm-6">
-                          <button (click)="addreferral()" class="btn btn-primary btn-block col-sm-offset-6 custBtnAnchor">
+                      <div class="col-sm-12 text-center">
+                          <button (click)="addreferral()" class="btn btn-primary custBtnAnchor referralbtnsubmit">
                               <strong style="letter-spacing: 1px;">{{referralbtnTxt}}</strong>
                               &nbsp;  <img src="assets/img/loading.gif" *ngIf="loadingimage" class="loadingimglogin">
                               <!-- <div class="ngloader">Loading...</div> -->
                           </button>
                       </div>
                     </form>
+                    <div class="col-sm-12">
+                      <div class="skipdiv text-center"><a (click)="notnow()"  class="skip">Note now</a> </div>
+                    </div>
                 </div>
             </div>
         </div>

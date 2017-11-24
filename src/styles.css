@@ -116,3 +116,8 @@ img.ethereum {
   width: 22px;
   padding-bottom: 2%;
 }
+
+/* addreferral */
+.btn.btn-primary.custBtnAnchor.referralbtnsubmit {
+  width: 50%;
+}

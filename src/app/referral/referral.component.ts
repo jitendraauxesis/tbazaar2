@@ -15,6 +15,8 @@ import {LocalStorageService, SessionStorageService} from 'ng2-webstorage';
 import sha512 from 'js-sha512';
 import CryptoJS from 'crypto-js';
 
+import _ from 'lodash';
+
 @Component({
   selector: 'app-referral',
   templateUrl: './referral.component.html',
@@ -40,6 +42,13 @@ export class ReferralComponent implements OnInit {
 
   sendUrl = location.href;
 
+  //populateScope
+  cardbtcearned:any;cardbtcwithdrawn:any;cardbtcpending:any;
+  cardethearned:any;cardethwithdrawn:any;cardethpending:any;
+
+  referral_details_list:any;referral_details_list_alert:boolean = false;
+  child_details:any;child_details_alert:boolean = false;
+
   constructor(
     public serv:ServiceapiService,
     private storage:LocalStorageService,
@@ -54,7 +63,7 @@ export class ReferralComponent implements OnInit {
     let loadurl = this.router.url;
     if(loadurl == "/referral"){
       this.loadReferralAuth();
-      console.log("its current url");
+      // console.log("its current url");
     }else if(loadurl == "/referral/address"){
       this.router.navigate(["/referral"]);
     }else{//if url in /referral/address/refid
@@ -108,7 +117,7 @@ export class ReferralComponent implements OnInit {
       this.signup.setRouteMsgPass("BTH & ETH address is not taken try to add");
       this.router.navigate(["/addreferral"]);
     }else{
-      console.log("proceed to callapi()");
+      // console.log("proceed to callapi()");
       this.callApi();
     }
   }
@@ -122,16 +131,50 @@ export class ReferralComponent implements OnInit {
   }
 
   open_btc_modal(btcmodal: TemplateRef<any>){
-    this.modalRef = this.modalService.show(
-      btcmodal,
-        Object.assign({}, this.config, { class: 'gray modal-md' })
-    );
+    this.callToOpenModal('btc',btcmodal);
   }
 
   open_eth_modal(ethmodal: TemplateRef<any>){
-    this.modalRef = this.modalService.show(
-      ethmodal,
-        Object.assign({}, this.config, { class: 'gray modal-md' })
+    this.callToOpenModal('eth',ethmodal);
+  }
+
+  callToOpenModal(type,modal){
+    let d = {
+      'email':this.signup.retrieveFromLocal("AUXUserEmail"),
+      'token':this.signup.retrieveFromLocal("AUXHomeUserToken"),
+      'currency':type
+    };
+    console.info(d);
+    this.serv.resolveApi("init_withdraw",d)
+    .subscribe(
+      res=>{
+        let response = JSON.parse(JSON.stringify(res));
+        console.log()
+        if(response != null || response != ""){
+          console.log(response);
+          if(response.code == 200){
+            // this.modalRef = this.modalService.show(
+            //   modal,
+            //     Object.assign({}, this.config, { class: 'gray modal-md' })
+            // );
+          }else if(response.code == 400){
+            // this.signup.setRouteMsgPass("BTH & ETH address is not taken try to add");
+            // this.router.navigate(["/addreferral"]);
+          }else if(response.code == 401){
+            // this.signup.UnAuthlogoutFromApp();
+          }else{
+            // logout
+            // this.signup.UnAuthlogoutFromApp();
+          }
+        }else{
+          // console.log(response);
+          this.toastr.error('Withdrawn detail not available', 'Not a valid response',{timeOut:2500});
+        }
+      },
+      err=>{
+          console.error(err);
+          this.toastr.error('Withdrawn detail not retrieved', 'Not a valid response',{timeOut:2500});
+      }
     );
   }
 
@@ -140,7 +183,7 @@ export class ReferralComponent implements OnInit {
       'email':this.signup.retrieveFromLocal("AUXUserEmail"),
       'token':this.signup.retrieveFromLocal("AUXHomeUserToken")
     };
-    console.info(d);
+    // console.info(d);
     this.serv.resolveApi("get_referral_details",d)
     .subscribe(
       res=>{
@@ -148,8 +191,31 @@ export class ReferralComponent implements OnInit {
         if(response != null || response != ""){
           console.log(response);
           if(response.code == 200){
+
             this.referridvalue = response.referral_json.ref_id;
             this.referraladdressvalue = this.sendUrl+"/address/"+this.referridvalue;
+
+            this.cardbtcearned = response.referral_json.earned_btc;
+            this.cardbtcwithdrawn = response.referral_json.withdrawn_btc;
+            this.cardbtcpending = response.referral_json.pending_btc;
+
+            this.cardethearned = response.referral_json.earned_eth;
+            this.cardethwithdrawn = response.referral_json.withdrawn_eth;
+            this.cardethpending = response.referral_json.pending_eth;
+
+            this.referral_details_list = response.referral_json.referral_details_list;
+            if(this.referral_details_list.length > 0){
+              this.referral_details_list_alert = true;
+            }else{
+              this.referral_details_list_alert = false;
+            }
+
+            this.child_details = response.referral_json.child_details;
+            if(this.child_details.length > 0){
+              this.child_details_alert = true;
+            }else{
+              this.child_details_alert = false;
+            }
 
           }else if(response.code == 400){
             this.signup.setRouteMsgPass("BTH & ETH address is not taken try to add");

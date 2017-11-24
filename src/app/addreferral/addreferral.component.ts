@@ -165,4 +165,8 @@ export class AddreferralComponent implements OnInit {
       }
     );
   }
+
+  notnow(){
+    this.router.navigate(["/referral"]);
+  }
 }

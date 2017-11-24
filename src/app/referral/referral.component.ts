@@ -220,14 +220,14 @@ export class ReferralComponent implements OnInit {
 
             this.referral_details_list = response.referral_json.referral_details_list;
             if(this.referral_details_list.length > 0){
-              this.referral_details_list_alert = true;
+              this.referral_details_list_alert = true;//populate it
             }else{
               this.referral_details_list_alert = false;
             }
 
             this.child_details = response.referral_json.child_details;
             if(this.child_details.length > 0){
-              this.child_details_alert = true;
+              this.child_details_alert = true;//populate it
             }else{
               this.child_details_alert = false;
             }

@@ -1,3 +1,128 @@
-<p>
-  referral works!
-</p>
+<app-navbar></app-navbar>
+<section id="main-sec">  
+  <div class="container-fluid" id="main-container">
+      <div class="hidden-xs">
+          <div id="sidebar-wrapper">
+              <nav id="sidenav" #sidenav>
+                  <app-sidemenu></app-sidemenu>
+              </nav>
+          </div>
+      </div> 
+      <div class="col-sm-9 col-md-10 pull-right nopad">
+        <div id="topbar">
+          
+          <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-12">&nbsp;</div>
+                <div class="col-sm-2 col-sm-offset-2 col-md-2 col-lg-2 col-xs-12">
+                    <label for="refid">Your Referral ID Is:</label>
+                </div>
+                <div class="col-sm-5 col-md-5 col-lg-5  col-xs-12">
+                    <div class="form-group">
+                      <input type="text" class="form-control" id="refid" placeholder="Enter referral id"  #referrid  readonly="readonly"  value="{{referridvalue}}">
+                    </div>
+                </div>
+                <div class="col-sm-1 col-md-1 col-lg-1 col-xs-6 text-center">
+                    <button class="btn  btn-primary" id="copyBtn" [ngxClipboard]="referrid" (click)="copytext2(referrid)">Copy
+                      </button>
+                </div>
+              </div>
+          </div>
+ 
+          <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-2 col-sm-offset-2 col-md-2 col-lg-2 col-xs-12">
+                    <label for="refid">Referral Address:</label>
+                </div>
+                <div class="col-sm-5 col-md-5 col-lg-5  col-xs-12">
+                    <div class="form-group">
+                      <input type="text" class="form-control" id="refid" placeholder="Enter referral address" #referraladdress  readonly="readonly" value="{{referraladdressvalue}}">
+                    </div>
+                </div>
+                <div class="col-sm-1 col-md-1 col-lg-1 col-xs-6 text-center">
+                    <button class="btn btn-primary" id="copyBtn" [ngxClipboard]="referraladdress" (click)="copytext(referraladdress)">Copy
+                      </button>
+                </div>
+              </div>
+          </div>
+          <hr>
+          
+          <!-- <button data-toggle="collapse" data-target="#demo">Collapsible</button>
+          
+          <div id="demo" class="collapse">
+          Lorem ipsum dolor text....
+          </div> -->
+
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-6 col-md-6 col-xs-12">
+                  
+                  <div class="card">
+                    <!-- <img class="card-img-top" src="assets/img/tb-logo.png" alt="Card image cap"> -->
+                    <div class="card-body">
+                      <h4 class="card-title"><i class="fa fa-btc" aria-hidden="true"></i> BTC </h4>
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Earned :<p class="earned">XX</p></li>
+                        <li class="list-group-item">Withdrawn :<p class="earned">XX</p></li>
+                        <li class="list-group-item">Pending :<p class="earned">XX</p></li>
+                      </ul>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <a href="#" class="btn btn-primary">Withdraw</a>
+                    </div>
+                  </div>
+              </div>
+              <div class="col-sm-6 col-md-6 col-xs-12">
+                  
+                  <div class="card">
+                    <!-- <img class="card-img-top" src="assets/img/tb-logo.png" alt="Card image cap"> -->
+                    <div class="card-body">
+                      <h4 class="card-title"><i class="fa fa-btc" aria-hidden="true"></i> ETH </h4>
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Earned :<p class="earned">XX</p></li>
+                        <li class="list-group-item">Withdrawn :<p class="earned">XX</p></li>
+                        <li class="list-group-item">Pending :<p class="earned">XX</p></li>
+                      </ul>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <a href="#" class="btn btn-primary">Withdraw</a>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+          <div class="container-fluid">
+              <div class="col-sm-12">
+                  <div class="table-responsive">          
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th>Sr No.</th>
+                            <th>Name</th>
+                            <th>Degree</th>
+                            <th>Earned BTC</th>
+                            <th>Earned ETH</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>1</td>
+                            <td>Anna</td>
+                            <td>Pitt</td>
+                            <td>35</td>
+                            <td>New York</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      </div>
+              </div>
+          </div>
+
+        </div>
+
+
+
+          
+      </div>
+  </div>
+</section> 

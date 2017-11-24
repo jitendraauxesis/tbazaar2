@@ -101,3 +101,12 @@ img.img-responsive.tblogo {
     height: 5em;
   }
 }
+
+
+/* sidemenu sidemenu.html */
+a.settingclass {
+  cursor: pointer;
+}
+ul.collapsenavsetting {
+  list-style-type: none;
+}

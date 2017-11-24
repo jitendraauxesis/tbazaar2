@@ -1,0 +1,7 @@
+@import '~assets/static/css/w3css.css';
+p.earned {
+    position: relative;
+    right: 0;
+    float: right;
+    word-wrap: break-word;
+}

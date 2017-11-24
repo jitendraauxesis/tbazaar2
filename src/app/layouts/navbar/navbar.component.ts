@@ -58,7 +58,7 @@ export class NavbarComponent implements OnInit {
   }
 
   closeNav(){
-    this.mySidenav.nativeElement.style.width = "0";
+    // this.mySidenav.nativeElement.style.width = "0";
   }
 
   doLogout(template: TemplateRef<any>){

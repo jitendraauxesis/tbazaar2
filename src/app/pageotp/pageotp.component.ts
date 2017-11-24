@@ -185,7 +185,7 @@ export class PageotpComponent implements OnInit {
               // this.sucmsg = "Otp is verified, loading your asset...";
               // setTimeout(()=>{
                 // this.sucmsg = "";
-                  let msgToPass = "Otp is verified, loading your asset...";
+                  let msgToPass = "Otp is verified, dashboard is ready...";
                   this.signup.setRouteMsgPass(msgToPass);
                 this.signup.saveToLocal("AUXHomeUserToken",res.token); 
                 if(res.kyc == false){ this.signup.saveToLocal("AUXHomeStatus","nokyc");  this.signup.saveToLocal("AUXKYCStatus","nokyc");  }

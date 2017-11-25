@@ -121,3 +121,18 @@ img.ethereum {
 .btn.btn-primary.custBtnAnchor.referralbtnsubmit {
   width: 50%;
 }
+
+/* sidemenu kyc */
+.nopad.kyc {
+  cursor: pointer;
+}
+@media (max-width: 767px) { 
+  button.menubtn{
+      display:block;
+  }
+}
+@media (min-width:768px){
+  button.menubtn{
+      display:none;
+  }
+}

@@ -570,7 +570,7 @@ export class UserhomebtcmodalComponent implements OnInit {
       this.initialCount = 0;
       this.toastr.info('Wait for admin mail that verify transaction.', 'Note:',{timeOut:8000});
       this.toastr.info('You can make new transaction.', 'Make another transaction',{timeOut:3000});
-      setTimeout(()=>{location.reload();},8000);
+      // setTimeout(()=>{location.reload();},8000);
     },5000);
   }
   /**

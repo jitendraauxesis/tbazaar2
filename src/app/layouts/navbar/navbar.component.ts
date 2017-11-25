@@ -63,7 +63,7 @@ export class NavbarComponent implements OnInit {
   }
 
   closeNav(){
-    // this.mySidenav.nativeElement.style.width = "0";
+    this.mySidenav.nativeElement.style.width = "0";
   }
 
   doLogout(template: TemplateRef<any>){
@@ -84,6 +84,7 @@ export class NavbarComponent implements OnInit {
 
   checkKYC(){
     let status = this.signup.retrieveFromLocal("AUXKYCStatus"); 
+    this.mySidenav.nativeElement.style.width = "0";
     if(status == "nokyc"){
       this.toastr.error("You have not uploaded the KYC documents","Upload KYC",{timeOut:2500});
       this.router.navigate(["/kyc"]);

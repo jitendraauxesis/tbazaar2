@@ -119,11 +119,11 @@
                           </thead>
                           <tbody *ngIf="referral_details_list_alert == true">
                             <tr *ngFor="let r of referral_details_list">
-                              <td>1</td>
-                              <td>Anna</td>
-                              <td>Pitt</td>
-                              <td>35</td>
-                              <td>New York</td>
+                              <td>{{r.srno}}</td>
+                              <td>{{r.name}}</td>
+                              <td>{{r.degree}}</td>
+                              <td>{{r.amount_in_btc}}</td>
+                              <td>{{r.amount_in_eth}}</td>
                             </tr>
                           </tbody>
                           <tbody *ngIf="referral_details_list_alert == false">

@@ -292,22 +292,22 @@ export class ReferralComponent implements OnInit {
   }
   populateChildList(child_details){
     // console.log(JSON.stringify(child_details));
-    child_details = [
-      {
-        "1": [
-          [
-            "abcd tester","Hola tester","khskfhls","asdfsdfd","asdfsdf","asdfsdf"
-          ]
-        ]
-      },
-      {
-        "2":[
-          [
-            "userr2","user221"  
-          ]  
-        ]
-      }
-    ]
+    // child_details = [
+    //   {
+    //     "1": [
+    //       [
+    //         "abcd tester","Hola tester","khskfhls","asdfsdfd","asdfsdf","asdfsdf"
+    //       ]
+    //     ]
+    //   },
+    //   {
+    //     "2":[
+    //       [
+    //         "userr2","user221"  
+    //       ]  
+    //     ]
+    //   }
+    // ]
     // console.log(JSON.stringify(child_details));
     let arr = [];
     child_details.forEach((value,key) => {

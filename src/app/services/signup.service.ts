@@ -132,12 +132,13 @@ export class SignupService {
   saveReferralId(name,str){
     let token = "Referral-Key-For-User";
     let storeStr = (CryptoJS.AES.encrypt(str,token)).toString();
-    this.storage.store(name,storeStr);
+    // this.storage.store(name,storeStr);
+    this.cookieService.set(name,storeStr);
   }
 
   retrieveReferralId(name){
     let token = "Referral-Key-For-User";
-    let fromStorage = this.storage.retrieve(name);
+    let fromStorage = this.cookieService.get(name);
     if(fromStorage == "" || fromStorage == null){
       return null;
     }else{
@@ -254,12 +255,12 @@ export class SignupService {
     let email2 = localStorage.getItem("AUXUserEmailLocal");//this.findUserEmail(email);//get encrypted email
     let data;
     if(refid == "" || refid == null || refid == undefined || !refid){
-      data = JSON.stringify({name:name,email:email2});
+      data = JSON.stringify({name:name,email:email2,ref_id:refid});
     }
     else{
       data = JSON.stringify({name:name,email:email2,ref_id:refid});
     } 
-
+    console.log(data);
     return new Promise((resolve,reject)=>{
       this.http.post(this.url+"tnc/",data)
       .map(res => res.json())

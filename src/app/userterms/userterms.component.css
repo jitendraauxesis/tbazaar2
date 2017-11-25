@@ -8,3 +8,6 @@
     -ms-flex-pack: justify;
     justify-content: flex-start;
 }
+input.pass.refid {
+    width: 40%;
+}

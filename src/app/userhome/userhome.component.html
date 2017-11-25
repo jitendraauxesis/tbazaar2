@@ -116,8 +116,7 @@
                                           <!-- Line component -->
                                           <div class="line text-muted"></div>
                     
-                                          <article class="panel panel-default" *ngFor="let t of user_timeline_list | orderBy: timestamp: reverse">
-                                              <!-- Icon -->
+                                          <!-- <article class="panel panel-default" *ngFor="let t of user_timeline_list | orderBy: timestamp: reverse">
                                               <div class="panel-heading icon">
                                                   <i class="fa fa-file-text-o" aria-hidden="true"></i>
                                               </div>
@@ -128,9 +127,6 @@
                                                   <div class="col-md-6 col-sm-6 text-right">
                                                         <i class="fa fa-clock-o" aria-hidden="true"></i> {{convertToDate(t.timestamp)}}
                                                   </div>
-                                                  <!-- <div class="col-md-6 col-sm-6 text-right">
-                                                        <span class="recieve">{{t.type}}</span>
-                                                  </div> -->
                                                   <div class="col-md-12 col-sm-12 text-left"  *ngIf="t.type == 'btc_transaction'">
                                                     <span class="recieve done">BTC done with amount </span>     
                                                         <i class="fa fa-btc" aria-hidden="true"></i> {{t.content}}
@@ -145,17 +141,40 @@
                                                         <img class="ethereum home" src="assets/img/ethereum.png" *ngIf="t.currency == 'eth'"> {{t.content}}
 
                                                   </div>
-                                                  <!-- <div class="col-sm-3">Transaction</div>
-                                                  <div class="col-sm-3">{{convertToDate(t.timestamp)}}</div>
-                  
-                                                  <div class="col-sm-6 text-right"><span class="recieve">{{t.type}}</span> {{t.content}} {{t.currency}}
-                                                  </div> -->
                   
                                               </div>
-                                              <!-- /Body -->
-                                          </article>
+                                          </article> -->
                   
-                                          
+                                          <div  *ngFor="let t of user_timeline_list | orderBy: timestamp: reverse">
+                                                <article class="panel panel-default" *ngIf="t.type == 'btc_transaction'">
+                                                    <div class="panel-heading icon">
+                                                            <i class="fa fa-btc" aria-hidden="true"></i>
+                                                    </div>
+                                                    <div class="panel-body"> 
+                                                        <div class="col-md-6 col-sm-6">
+                                                                Transaction
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6 text-right">
+                                                                <i class="fa fa-clock-o" aria-hidden="true"></i> {{convertToDate(t.timestamp)}}
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 text-left"  *ngIf="t.type == 'btc_transaction'">
+                                                            <span class="recieve done">BTC done with amount </span>     
+                                                                <i class="fa fa-btc" aria-hidden="true"></i> {{t.content}}
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 text-left"  *ngIf="t.type == 'eth_transaction'">
+                                                                <span class="recieve done">ETH done with amount </span>   
+                                                                <img class="ethereum home" src="assets/img/ethereum.png"> {{t.content}}
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 text-left"  *ngIf="t.type == 'payment_initiation'">
+                                                                <span class="recieve" >Payment initiated of </span> 
+                                                                <i class="fa fa-btc" aria-hidden="true" *ngIf="t.currency == 'btc'"></i>
+                                                                <img class="ethereum home" src="assets/img/ethereum.png" *ngIf="t.currency == 'eth'"> {{t.content}}
+        
+                                                        </div>
+                        
+                                                    </div>
+                                                </article>
+                                          </div>
                   
                                       </div>
                   

@@ -135,7 +135,7 @@ export class AddreferralComponent implements OnInit {
           console.log(response);
           if(response.code == 200){
             //n3qoMXxdmuwFxSZkFhvXqXiDRzsfy7MqCm tx4343654645754767
-            this.signup.setRouteMsgPass("BTH & ETH address is stored");
+            this.signup.setRouteMsgPass("BTC & ETH addresses are stored");
             this.signup.saveRefundAddress("AUXUserRefundEtherAddress",eth);
             this.signup.saveRefundAddress("AUXUserRefundBitcoinAddress",btc);
             this.router.navigate(["/referral"]);

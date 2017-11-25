@@ -54,6 +54,9 @@ export class ReferralComponent implements OnInit {
 
   otpBTC:any;otpETH:any;
 
+  btcbtnDisabled:boolean = true;
+  ethbtnDisabled:boolean = true;
+
   @ViewChild('panelScroll') private panelScroll:ElementRef;
 
   constructor(
@@ -80,6 +83,8 @@ export class ReferralComponent implements OnInit {
       this.router.navigate(["/login"]);
     }
     // console.log(this.router.url,this.sendUrl)
+
+    
   } 
 
 
@@ -135,11 +140,11 @@ export class ReferralComponent implements OnInit {
   }
 
   copytext(referraladdress){
-    this.toastr.info(null,'Referral address is copied to your clipboard!',{timeOut:1200});
+    this.toastr.info(null,'Referral address copied to your clipboard!',{timeOut:1500});
   }
 
   copytext2(referrid){
-    this.toastr.info(null, 'Referral Id copied to your clipboard.',{timeOut:1200});
+    this.toastr.info(null, 'Referral Id copied to your clipboard.',{timeOut:1500});
   }
 
   open_btc_modal(btcmodal: TemplateRef<any>){
@@ -235,6 +240,22 @@ export class ReferralComponent implements OnInit {
               this.cardethearned = response.referral_json.earned_eth;
               this.cardethwithdrawn = response.referral_json.withdrawn_eth;
               this.cardethpending = response.referral_json.pending_eth;
+
+              // check pending amount to open modal 
+              if(this.cardbtcpending >= 0.001){
+                // console.log("btc greater")
+                this.btcbtnDisabled = false;
+              }else{
+                // console.log("btc lesser")
+                this.btcbtnDisabled = true;
+              }
+              if(this.cardethpending >= 0.01){
+                // console.log("eth greater")
+                this.ethbtnDisabled = false;
+              }else{
+                // console.log("eth lesser")
+                this.ethbtnDisabled = true;
+              }
 
               let referral_details_list = response.referral_json.referral_details_list;
               if(referral_details_list.length > 0){

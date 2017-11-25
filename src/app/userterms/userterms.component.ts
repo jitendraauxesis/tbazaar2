@@ -177,6 +177,8 @@ export class UsertermsComponent implements OnInit {
                 this.signup.saveToLocal("AUXTNCStatus","done");
                 this.router.navigate(["home"]);
               // },2500);
+            }else if(dat.error == "invalid_ref_id"){
+              this.failmsg("Invalid Referral ID");   
             }else{
               this.failmsg("Unable to verify terms and condition");    
             }

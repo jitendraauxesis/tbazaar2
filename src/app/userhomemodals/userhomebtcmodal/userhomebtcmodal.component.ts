@@ -177,17 +177,17 @@ export class UserhomebtcmodalComponent implements OnInit {
                 }
             }else{
               this.loadingimage = false;
-              this.toastr.error('CAS is invalid', 'Not a valid CAS',{timeOut:2500});  
+              this.toastr.error('Minimum $20 worth of MASS Coin can be bought. Please enter a higher amount.', 'Not a valid CAS',{timeOut:2500});  
             }
           }else{
             this.loadingimage = false;
-            this.toastr.error('CAS is invalid', 'Not a valid CAS',{timeOut:2500});  
+            this.toastr.error('Minimum $20 worth of MASS Coin can be bought. Please enter a higher amount.', 'Not a valid CAS',{timeOut:2500});  
           }
         },
         err=>{
           this.loadingimage = false;
           //console.error(err);
-          this.toastr.error('CAS is invalid', 'Not a valid CAS',{timeOut:2500});
+          this.toastr.error('Minimum $20 worth of MASS Coin can be bought. Please enter a higher amount.', 'Not a valid CAS',{timeOut:2500});
         }
       );
 
@@ -237,17 +237,17 @@ export class UserhomebtcmodalComponent implements OnInit {
 
             //this.childModal.show();
           }else{
-            this.toastr.error('Invalid currency detected', 'Not a valid CAS/Currency',{timeOut:2500});
+            this.toastr.error('Minimum $20 worth of MASS Coin can be bought. Please enter a higher amount.', 'Not a valid CAS',{timeOut:2500});
           }
         }else{
           this.loadingimage = false;
-          this.toastr.error('Invalid currency detected', 'Not a valid CAS/Currency',{timeOut:2500});
+          this.toastr.error('Minimum $20 worth of MASS Coin can be bought. Please enter a higher amount.', 'Not a valid CAS',{timeOut:2500});
         }
       },
       (err)=>{
         //console.error(err);
         this.loadingimage = false;
-        this.toastr.error('Invalid currency detected', 'Not a valid CAS/Currency',{timeOut:2500});
+        this.toastr.error('Minimum $20 worth of MASS Coin can be bought. Please enter a higher amount.', 'Not a valid CAS',{timeOut:2500});
       }
     );
   }
@@ -605,6 +605,6 @@ export class UserhomebtcmodalComponent implements OnInit {
   }
 
   copytext(btcaddress){
-    this.toastr.info(null, 'Address copied to your clipboard.',{timeOut:1200});
+    this.toastr.info(null, 'Address copied to your clipboard.',{timeOut:1500});
   }
 }

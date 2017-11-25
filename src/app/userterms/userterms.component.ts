@@ -132,6 +132,9 @@ export class UsertermsComponent implements OnInit {
                 this.router.navigate(["home"]);
               // },2500);
             }
+            if(dat.token){
+              this.signup.setUserSession(email,dat.token);
+            }
           }else if(dat.code == 400){
             if(dat.kyc == true){
               // this.sucmsg = "You have already submitted the KYC Details, now we redirecting to your dashboard.";
@@ -176,6 +179,9 @@ export class UsertermsComponent implements OnInit {
               // },2500);
             }else{
               this.failmsg("Unable to verify terms and condition");    
+            }
+            if(dat.token){
+              this.signup.setUserSession(email,dat.token);
             }
           }else{
             this.failmsg("Unable to verify terms and condition");  

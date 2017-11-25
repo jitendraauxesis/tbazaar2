@@ -347,7 +347,7 @@ export class UserhomeComponent implements OnInit {
         this.serv.resolveApi(this.apiMethod,data) 
         .subscribe(
           res=>{
-            console.log(res);
+            // console.log(res);
             let d = JSON.parse(JSON.stringify(res));
             if(d.status == 200){
               let kyc = d.kyc; 

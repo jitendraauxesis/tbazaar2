@@ -67,6 +67,8 @@ export class UserhomeethmodalComponent implements OnInit {
   //fb params
 
   message:any;
+
+  etherurl:any = "https://etherscan.io/tx";//https://etherscan.io/tx/0xb541ca450c1d7079eaca54ffb8a70164cf49e8e818f80a7c41e4400c8f6956a9
   
   constructor(
     public afAuth: AngularFireAuth, 
@@ -454,6 +456,7 @@ export class UserhomeethmodalComponent implements OnInit {
               if(email == useremail && currency == 'eth'  && useraddress == check_address){
                 key = d.key;
                 val = d.payload.val();
+                this.showtransidin3 = d.payload.val().txid;
                 ar.push(d);
                 this.initialCount = d.payload.val().confirmations;
                 //console.log(key,d.payload.val())
@@ -466,7 +469,7 @@ export class UserhomeethmodalComponent implements OnInit {
         if(this.initialCount == 0 || val.confirmations == 0){
           this.progresstype = "danger";
           this.progressvalue = 0;
-          this.showtransidin3 = this.serv.retrieveFromLocal("AUXETHTransaction_id");
+          this.showtransidin3 = val.txid;//this.serv.retrieveFromLocal("AUXETHTransaction_id");
           this.stepRecieveETH = 3;this.ethmodaltitle = "Pay through ETH";//next firebase
         }
         if(this.initialCount == 1 || val.confirmations == 1){
@@ -477,7 +480,7 @@ export class UserhomeethmodalComponent implements OnInit {
           this.progresstype = "info";
           this.progressvalue = 100;
         }
-        if(val.confirmations == 3){
+        if(val.confirmations >= 3){
           this.progresstype = "success";
           this.progressvalue = 150;
           setTimeout(()=>{

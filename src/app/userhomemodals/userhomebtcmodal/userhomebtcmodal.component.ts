@@ -77,6 +77,8 @@ export class UserhomebtcmodalComponent implements OnInit {
   message:any;
 
   @ViewChild("btcmodal") btcmodal:Element;
+
+  bitcoinurl:any = "https://blockchain.info/tx";//https://blockchain.info/tx/5d832e96383a1e8ff741d27b4878e929647425a8713d2410764fdb2132afead5
  
   constructor(
     public afAuth: AngularFireAuth, 
@@ -465,7 +467,7 @@ export class UserhomebtcmodalComponent implements OnInit {
     //console.log(useraddress,useremail)
     let ar = [];
     return this.itemsRef.snapshotChanges().map(arr => {
-      // console.log(arr)
+      console.log(arr)
       if(arr.length>0){
         
         let key;let val;
@@ -485,6 +487,7 @@ export class UserhomebtcmodalComponent implements OnInit {
               if(email == useremail && currency == 'btc' && useraddress == check_address){// 
                 key = d.key;
                 val = d.payload.val();
+                this.showtransidin3 = d.payload.val().txid;
                 ar.push(d);
                 this.initialCount = d.payload.val().confirmations;
                 //console.log(key,d.payload.val())
@@ -497,7 +500,7 @@ export class UserhomebtcmodalComponent implements OnInit {
         if(this.initialCount == 0 || val.confirmations == 0){
           this.progresstype = "danger";
           this.progressvalue = 0;
-          this.showtransidin3 = this.serv.retrieveFromLocal("AUXBTCTransaction_id");
+          this.showtransidin3 = val.txid;//this.serv.retrieveFromLocal("AUXBTCTransaction_id");
           this.stepRecieveBTH = 3;this.btcmodaltitle = "Pay through BTC";//next firebase
         }
         if(this.initialCount == 1 || val.confirmations == 1){
@@ -508,7 +511,7 @@ export class UserhomebtcmodalComponent implements OnInit {
           this.progresstype = "info";
           this.progressvalue = 100;
         }
-        if(val.confirmations == 3){
+        if(val.confirmations >= 3){
           this.progresstype = "success";
           this.progressvalue = 150;
           setTimeout(()=>{

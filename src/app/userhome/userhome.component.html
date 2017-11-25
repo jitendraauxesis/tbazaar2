@@ -131,11 +131,19 @@
                                                   <!-- <div class="col-md-6 col-sm-6 text-right">
                                                         <span class="recieve">{{t.type}}</span>
                                                   </div> -->
-                                                  <div class="col-md-12 col-sm-12 text-left">
-                                                    <span class="recieve done" *ngIf="t.type == 'btc_transaction'">BTC done with amount </span>     
-                                                    <span class="recieve done" *ngIf="t.type == 'eth_transaction'">ETH done with amount </span>     
-                                                    <span class="recieve" *ngIf="t.type == 'payment_initiation'">Initiated amount </span> 
+                                                  <div class="col-md-12 col-sm-12 text-left"  *ngIf="t.type == 'btc_transaction'">
+                                                    <span class="recieve done">BTC done with amount </span>     
                                                         <i class="fa fa-btc" aria-hidden="true"></i> {{t.content}}
+                                                  </div>
+                                                  <div class="col-md-12 col-sm-12 text-left"  *ngIf="t.type == 'eth_transaction'">
+                                                        <span class="recieve done">ETH done with amount </span>   
+                                                        <img class="ethereum home" src="assets/img/ethereum.png"> {{t.content}}
+                                                  </div>
+                                                  <div class="col-md-12 col-sm-12 text-left"  *ngIf="t.type == 'payment_initiation'">
+                                                        <span class="recieve" >Initiated amount </span> 
+                                                        <i class="fa fa-btc" aria-hidden="true" *ngIf="t.currency == 'btc'"></i>
+                                                        <img class="ethereum home" src="assets/img/ethereum.png" *ngIf="t.currency == 'eth'"> {{t.content}}
+
                                                   </div>
                                                   <!-- <div class="col-sm-3">Transaction</div>
                                                   <div class="col-sm-3">{{convertToDate(t.timestamp)}}</div>

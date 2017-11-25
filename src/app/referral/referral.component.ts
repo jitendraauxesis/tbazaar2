@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, ElementRef } from '@angular/core';
 
 import { ToastrService } from 'ngx-toastr';
 
@@ -53,6 +53,8 @@ export class ReferralComponent implements OnInit {
   modalethpending_amount:any;modalethwithdraw_address:any;modalethamount_to_be_paid:any;modalethfee:any;
 
   otpBTC:any;otpETH:any;
+
+  @ViewChild('panelScroll') private panelScroll:ElementRef;
 
   constructor(
     public serv:ServiceapiService,
@@ -129,6 +131,7 @@ export class ReferralComponent implements OnInit {
 
   toscroll(){
     window.scrollTo(0,document.body.scrollHeight);
+    this.scrollToBottom(); 
   }
 
   copytext(referraladdress){
@@ -384,6 +387,12 @@ export class ReferralComponent implements OnInit {
 
   confirmETH(){
     this.confirmWithdrawOTP('eth');
+  }
+
+  scrollToBottom(): void {
+      try {
+          this.panelScroll.nativeElement.scrollTop = this.panelScroll.nativeElement.scrollHeight;
+      } catch(err) { }                 
   }
 
 }

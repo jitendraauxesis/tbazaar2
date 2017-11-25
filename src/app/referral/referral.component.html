@@ -135,7 +135,7 @@
                 </div>
               </div>
             </div>
-
+ 
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h4 class="panel-title">
@@ -277,7 +277,7 @@
                                       <label for="pendingamntBTC">Pending Amount:</label>
                                   </div>
                                   <div class="col-sm-7">
-                                      <input type="text" class="form-control" id="pendingamntBTC" placeholder="Enter pending amount" #pendingamount  readonly="readonly" value="tx3423">
+                                      <input type="text" class="form-control" id="pendingamntBTC" placeholder="Enter pending amount" #pendingamount  readonly="readonly" value="{{modalbtcpending_amount}}">
                                   </div>
                                 </div>
                                 
@@ -286,7 +286,7 @@
                                       <label for="withdrawnaddrsBTC">Withdrawn Address:</label>
                                   </div>
                                   <div class="col-sm-7">
-                                      <input type="text" class="form-control" id="withdrawnaddrsBTC" placeholder="Enter withdrawn address" #withdrawnaddress  readonly="readonly" value="tx342386869">
+                                      <input type="text" class="form-control" id="withdrawnaddrsBTC" placeholder="Enter withdrawn address" #withdrawnaddress  readonly="readonly" value="{{modalbtcwithdraw_address}}">
                                   </div>
                                 </div>
 
@@ -295,7 +295,7 @@
                                       <label for="bitcoinminBTC">Bitcoin Mining Fee:</label>
                                   </div>
                                   <div class="col-sm-7">
-                                      <input type="text" class="form-control" id="bitcoinminBTC" placeholder="Enter bitcoin mining fee" #bitcoinminingfee  readonly="readonly" value="0.0">
+                                      <input type="text" class="form-control" id="bitcoinminBTC" placeholder="Enter bitcoin mining fee" #bitcoinminingfee  readonly="readonly" value="{{modalbtcfee}}">
                                   </div>
                                 </div>
 
@@ -304,7 +304,7 @@
                                       <label for="withdrawnamntBTC">Withdrawn Amount:</label>
                                   </div>
                                   <div class="col-sm-7">
-                                      <input type="text" class="form-control" id="withdrawnamntBTC" placeholder="Enter withdrawn amount" #withdrawnamount  readonly="readonly" value="0.0">
+                                      <input type="text" class="form-control" id="withdrawnamntBTC" placeholder="Enter withdrawn amount" #withdrawnamount  readonly="readonly" value="{{modalbtcamount_to_be_paid}}">
                                   </div>
                                 </div>
                               </div>
@@ -334,7 +334,7 @@
                                     <label for="otpBTC">Enter OTP:</label>
                                 </div>
                                 <div class="col-sm-7">
-                                    <input type="password" class="form-control" id="otpBTC" placeholder="Enter otp" #otpBTC  required="required" value="">
+                                    <input type="password" class="form-control" id="otpBTC" placeholder="Enter otp"  [(ngModel)]="otpBTC" required="required" value="">
                                 </div>
                             </div>
                           </div>
@@ -381,7 +381,7 @@
                                           <label for="pendingamntETH">Pending Amount:</label>
                                       </div>
                                       <div class="col-sm-7">
-                                          <input type="text" class="form-control" id="pendingamntETH" placeholder="Enter pending amount" #pendingamount  readonly="readonly" value="tx3423">
+                                          <input type="text" class="form-control" id="pendingamntETH" placeholder="Enter pending amount" #pendingamount  readonly="readonly" value="{{modalethpending_amount}}">
                                       </div>
                                     </div>
                                     
@@ -390,7 +390,7 @@
                                           <label for="withdrawnaddrsETH">Withdrawn Address:</label>
                                       </div>
                                       <div class="col-sm-7">
-                                          <input type="text" class="form-control" id="withdrawnaddrsETH" placeholder="Enter withdrawn address" #withdrawnaddress  readonly="readonly" value="tx342386869">
+                                          <input type="text" class="form-control" id="withdrawnaddrsETH" placeholder="Enter withdrawn address" #withdrawnaddress  readonly="readonly" value="{{modalethwithdraw_address}}">
                                       </div>
                                     </div>
     
@@ -399,7 +399,7 @@
                                           <label for="etherminETH">Ether Mining Fee:</label>
                                       </div>
                                       <div class="col-sm-7">
-                                          <input type="text" class="form-control" id="etherminETH" placeholder="Enter bitcoin mining fee" #bitcoinminingfee  readonly="readonly" value="0.0">
+                                          <input type="text" class="form-control" id="etherminETH" placeholder="Enter bitcoin mining fee" #bitcoinminingfee  readonly="readonly" value="{{modalethfee}}">
                                       </div>
                                     </div>
     
@@ -408,7 +408,7 @@
                                           <label for="withdrawnamntETH">Withdrawn Amount:</label>
                                       </div>
                                       <div class="col-sm-7">
-                                          <input type="text" class="form-control" id="withdrawnamntETH" placeholder="Enter withdrawn amount" #withdrawnamount  readonly="readonly" value="0.0">
+                                          <input type="text" class="form-control" id="withdrawnamntETH" placeholder="Enter withdrawn amount" #withdrawnamount  readonly="readonly" value="{{modalethamount_to_be_paid}}">
                                       </div>
                                     </div>
                                   </div>
@@ -438,7 +438,7 @@
                                         <label for="otpETH">Enter OTP:</label>
                                     </div>
                                     <div class="col-sm-7">
-                                        <input type="password" class="form-control" id="otpETH" placeholder="Enter otp" #otpETH  required="required" value="">
+                                        <input type="password" class="form-control" id="otpETH" placeholder="Enter otp"  [(ngModel)]="otpETH" required="required" value="">
                                     </div>
                                 </div>
                               </div>

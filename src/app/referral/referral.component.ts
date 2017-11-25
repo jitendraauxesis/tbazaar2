@@ -52,6 +52,8 @@ export class ReferralComponent implements OnInit {
   modalbtcpending_amount:any;modalbtcwithdraw_address:any;modalbtcamount_to_be_paid:any;modalbtcfee:any;
   modalethpending_amount:any;modalethwithdraw_address:any;modalethamount_to_be_paid:any;modalethfee:any;
 
+  otpBTC:any;otpETH:any;
+
   constructor(
     public serv:ServiceapiService,
     private storage:LocalStorageService,
@@ -72,7 +74,7 @@ export class ReferralComponent implements OnInit {
     }else{//if url in /referral/address/refid
       let referenceid = this.route.snapshot.paramMap.get("refid");
       // console.log("its ref url",referenceid,"\nredirect and save");
-      this.signup.saveToLocal("AUXUserReferralID",referenceid);
+      this.signup.saveReferralId("AUXUserReferralID",referenceid);
       this.router.navigate(["/login"]);
     }
     // console.log(this.router.url,this.sendUrl)
@@ -99,30 +101,30 @@ export class ReferralComponent implements OnInit {
 
   checkReferral(){
     let retrieve = this.signup.retrieveRouteMsgPass();
+    let etheraddress = this.signup.retrieveRefundAddress("AUXUserRefundEtherAddress");
+    let bitcoinaddress = this.signup.retrieveRefundAddress("AUXUserRefundBitcoinAddress");
     let msg;
-    if(retrieve != null){
+    if(retrieve != null && etheraddress != null && bitcoinaddress != null){
       msg = retrieve;
-      setTimeout(()=>{this.toastr.success('Refund address is taken!', 'Done!',{timeOut:1200});},1200);
+      setTimeout(()=>{this.toastr.success(msg, 'Done!',{timeOut:1200});},1200);
       setTimeout(()=>{
         msg = "";
         this.signup.removeRouteMsgPass();
       },2000);
     }
 
-    let etheraddress = this.storage.retrieve("AUXUserRefundEtherAddress");
-    let bitcoinaddress = this.storage.retrieve("AUXUserRefundBitcoinAddress");
-    if(etheraddress == "" || etheraddress == null || !etheraddress){
-      // console.log("Redirect to addreferral");
-      this.signup.setRouteMsgPass("BTH & ETH address is not taken try to add");
-      this.router.navigate(["/addreferral"]);
-    }else if(bitcoinaddress == "" || bitcoinaddress == null || !bitcoinaddress){
-      // console.log("Redirect to addreferral");
-      this.signup.setRouteMsgPass("BTH & ETH address is not taken try to add");
-      this.router.navigate(["/addreferral"]);
-    }else{
+    // if(etheraddress == "" || etheraddress == null || !etheraddress){
+    //   // console.log("Redirect to addreferral");
+    //   this.signup.setRouteMsgPass("BTH & ETH address is not taken try to add");
+    //   this.router.navigate(["/addreferral"]);
+    // }else if(bitcoinaddress == "" || bitcoinaddress == null || !bitcoinaddress){
+    //   // console.log("Redirect to addreferral");
+    //   this.signup.setRouteMsgPass("BTH & ETH address is not taken try to add");
+    //   this.router.navigate(["/addreferral"]);
+    // }else{
       // console.log("proceed to callapi()");
       this.callApi();
-    }
+    // }
   }
 
   copytext(referraladdress){
@@ -152,18 +154,20 @@ export class ReferralComponent implements OnInit {
     .subscribe(
       res=>{
         let response = JSON.parse(JSON.stringify(res));
-        console.log()
+        // console.log()
         if(response != null || response != ""){
           console.log(response);
           if(response.code == 200){
             let data = response.data;
             if(type == 'btc'){
+              console.log("im btc")
               this.modalbtcpending_amount = data.pending_amount;
               this.modalbtcwithdraw_address = data.withdraw_address;
               this.modalbtcamount_to_be_paid = data.amount_to_be_paid;
               this.modalbtcfee = data.fee;
             }
             if(type == 'eth'){
+              console.log("im eth")
               this.modalethpending_amount = data.pending_amount;
               this.modalethwithdraw_address = data.withdraw_address;
               this.modalethamount_to_be_paid = data.amount_to_be_paid;
@@ -206,49 +210,59 @@ export class ReferralComponent implements OnInit {
         if(response != null || response != ""){
           console.log(response);
           if(response.code == 200){
-
-            this.referridvalue = response.referral_json.ref_id;
-            this.referraladdressvalue = this.sendUrl+"/address/"+this.referridvalue;
-
-            this.cardbtcearned = response.referral_json.earned_btc;
-            this.cardbtcwithdrawn = response.referral_json.withdrawn_btc;
-            this.cardbtcpending = response.referral_json.pending_btc;
-
-            this.cardethearned = response.referral_json.earned_eth;
-            this.cardethwithdrawn = response.referral_json.withdrawn_eth;
-            this.cardethpending = response.referral_json.pending_eth;
-
-            this.referral_details_list = response.referral_json.referral_details_list;
-            if(this.referral_details_list.length > 0){
-              this.referral_details_list_alert = true;//populate it
+            let btcrefund = response.referral_json.btc_refund_address;
+            let ethrefund = response.referral_json.eth_refund_address;
+            if(btcrefund == null || btcrefund == "" || ethrefund == null || ethrefund == ""){
+              this.signup.setRouteMsgPass("BTH & ETH refund address is not taken try to add first");
+              this.router.navigate(["/addreferral"]);
             }else{
-              this.referral_details_list_alert = false;
-            }
+              this.signup.saveRefundAddress("AUXUserRefundEtherAddress",ethrefund);
+              this.signup.saveRefundAddress("AUXUserRefundBitcoinAddress",btcrefund);
+              this.referridvalue = response.referral_json.ref_id;
+              this.referraladdressvalue = this.sendUrl+"/address/"+this.referridvalue;
 
-            this.child_details = response.referral_json.child_details;
-            if(this.child_details.length > 0){
-              this.child_details_alert = true;//populate it
-            }else{
-              this.child_details_alert = false;
+              this.cardbtcearned = response.referral_json.earned_btc;
+              this.cardbtcwithdrawn = response.referral_json.withdrawn_btc;
+              this.cardbtcpending = response.referral_json.pending_btc;
+
+              this.cardethearned = response.referral_json.earned_eth;
+              this.cardethwithdrawn = response.referral_json.withdrawn_eth;
+              this.cardethpending = response.referral_json.pending_eth;
+
+              this.referral_details_list = response.referral_json.referral_details_list;
+              if(this.referral_details_list.length > 0){
+                this.referral_details_list_alert = true;//populate it
+              }else{
+                this.referral_details_list_alert = false;
+              }
+
+              this.child_details = response.referral_json.child_details;
+              if(this.child_details.length > 0){
+                this.child_details_alert = true;//populate it
+              }else{
+                this.child_details_alert = false;
+              }
             }
 
           }else if(response.code == 400){
-            this.signup.setRouteMsgPass("BTH & ETH address is not taken try to add");
+            this.signup.setRouteMsgPass("BTH & ETH refund address is not taken try to add first");
             this.router.navigate(["/addreferral"]);
           }else if(response.code == 401){
             this.signup.UnAuthlogoutFromApp();
           }else{
-            // logout
-            this.signup.UnAuthlogoutFromApp();
+            this.signup.setRouteMsgPass("BTH & ETH refund address is not taken try to add first");
+            this.router.navigate(["/addreferral"]);
           }
         }else{
           // console.log(response);
           this.toastr.error('Referral detail not retrieved', 'Not a valid response',{timeOut:2500});
+          history.back();
         }
       },
       err=>{
           // console.error(err);
           this.toastr.error('Referral detail not retrieved', 'Not a valid response',{timeOut:2500});
+          history.back();
       }
     );
   }
@@ -258,23 +272,113 @@ export class ReferralComponent implements OnInit {
   }
 
   sendBTC(){
-    this.btcwithdrawntab = 2;
+    this.sendingToWithdrawOTP('btc');
+  }
+
+
+  sendingToWithdrawOTP(type){
+    this.loadingimage = true;
+    let d = {
+      'email':this.signup.retrieveFromLocal("AUXUserEmail"),
+      'token':this.signup.retrieveFromLocal("AUXHomeUserToken")
+    };
+    // console.info(d);
+    this.serv.resolveApi("send_withdraw_otp",d)
+    .subscribe(
+      res=>{
+        this.loadingimage = false;
+        let response = JSON.parse(JSON.stringify(res));
+        if(response != null || response != ""){
+          console.log(response);
+          if(response.code == 200){
+            if(type == 'btc'){
+              this.btcwithdrawntab = 2;
+            }else if(type == 'eth'){
+              this.ethwithdrawntab = 2;
+            }
+            this.toastr.success('OTP sended to your mailbox.', 'Done!',{timeOut:2500});
+          }else if(response.code == 400){
+            this.toastr.error('Mail not send for otp, try again', 'Ubandoned',{timeOut:2500});
+          }else if(response.code == 401){
+            this.signup.UnAuthlogoutFromApp();
+          }else{
+            this.toastr.error('Unable to request for otp, try again', 'Ubandoned',{timeOut:2500});
+          }
+        }else{
+          console.log(response);
+          this.toastr.error('Unable to send mail', 'Ubandoned',{timeOut:2500});
+        }
+      },
+      err=>{
+          this.loadingimage = false;
+          console.error(err);
+          this.toastr.error('Unable to send mail try again', 'Ubandoned',{timeOut:2500});
+      }
+    );
+  }
+
+  confirmWithdrawOTP(type){
+    let otp;
+    if(type == 'btc') otp = this.otpBTC;
+    if(type == 'eth') otp = this.otpETH;
+    if(otp == null || otp == ""){
+      this.toastr.error('Field otp is required to proceed further', 'OTP required',{timeOut:2500});     
+    }else{
+      this.loadingimage = true;
+      let d = {
+        'email':this.signup.retrieveFromLocal("AUXUserEmail"),
+        'token':this.signup.retrieveFromLocal("AUXHomeUserToken"),
+        'otp':otp
+      };
+      console.info(d);
+      this.serv.resolveApi("confirm_withdraw",d)
+      .subscribe(
+        res=>{
+          this.loadingimage = false;
+          let response = JSON.parse(JSON.stringify(res));
+          if(response != null || response != ""){
+            console.log(response);
+            if(response.code == 200){
+              this.modalRef.hide();
+              let cap;
+              if(type == 'btc') {
+                this.otpBTC = "";cap = "BTC";this.btcwithdrawntab = 1;
+              }
+              if(type == 'eth') {
+                this.otpETH = "";cap = "ETH";this.ethwithdrawntab = 1;
+              }
+              this.toastr.success('OTP verified and your '+cap+' transaction is completed.', 'Done!',{timeOut:2500});
+            }else if(response.code == 400){
+              this.toastr.error('OTP is wrong, try again', 'Failed',{timeOut:2500});
+            }else if(response.code == 401){
+              this.signup.UnAuthlogoutFromApp();
+            }else{
+              this.toastr.error('Unable to verify for otp, try again', 'Ubandoned',{timeOut:2500});
+            }
+          }else{
+            console.log(response);
+            this.toastr.error('Unable to verify otp', 'Ubandoned',{timeOut:2500});
+          }
+        },
+        err=>{
+          this.loadingimage = false;
+            console.error(err);
+            this.toastr.error('Unable to verify otp try again', 'Ubandoned',{timeOut:2500});
+        }
+      );
+    }
   }
 
   confirmBTC(){
-    this.modalRef.hide();
-    this.btcwithdrawntab = 1;
-    this.toastr.success('BTC withdrawn successfully completed!', 'Done!',{timeOut:5000});
+    this.confirmWithdrawOTP('btc');
   }
 
   sendETH(){
-    this.ethwithdrawntab = 2;
+    this.sendingToWithdrawOTP('eth');
   }
 
   confirmETH(){
-    this.modalRef.hide();
-    this.ethwithdrawntab = 1;
-    this.toastr.success('ETH withdrawn successfully completed!', 'Done!',{timeOut:5000});
+    this.confirmWithdrawOTP('eth');
   }
 
 }

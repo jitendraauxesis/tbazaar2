@@ -79,8 +79,8 @@ export class AddreferralComponent implements OnInit {
       },2000);
     }
 
-    let etheraddress = this.storage.retrieve("AUXUserRefundEtherAddress");
-    let bitcoinaddress = this.storage.retrieve("AUXUserRefundBitcoinAddress");
+    let etheraddress = this.signup.retrieveRefundAddress("AUXUserRefundEtherAddress");
+    let bitcoinaddress = this.signup.retrieveRefundAddress("AUXUserRefundBitcoinAddress");
     if(etheraddress == "" || etheraddress == null || !etheraddress){
       console.log("do not touch form inputs");
     }else if(bitcoinaddress == "" || bitcoinaddress == null || !bitcoinaddress){
@@ -135,9 +135,9 @@ export class AddreferralComponent implements OnInit {
           console.log(response);
           if(response.code == 200){
             //n3qoMXxdmuwFxSZkFhvXqXiDRzsfy7MqCm tx4343654645754767
-            this.signup.setRouteMsgPass("BTH & ETH address is added");
-            this.storage.store("AUXUserRefundEtherAddress",eth);
-            this.storage.store("AUXUserRefundBitcoinAddress",btc);
+            this.signup.setRouteMsgPass("BTH & ETH address is stored");
+            this.signup.saveRefundAddress("AUXUserRefundEtherAddress",eth);
+            this.signup.saveRefundAddress("AUXUserRefundBitcoinAddress",btc);
             this.router.navigate(["/referral"]);
           }else if(response.code == 400){
             if(response.eth_address_validation == false){
@@ -167,6 +167,10 @@ export class AddreferralComponent implements OnInit {
   }
 
   notnow(){
-    this.router.navigate(["/referral"]);
+    if(this.referralbtnTxt == "Update"){
+      this.router.navigate(["/referral"]);
+    }else{
+      this.router.navigate(["/home"]);
+    }
   }
 }

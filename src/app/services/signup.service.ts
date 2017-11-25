@@ -148,6 +148,25 @@ export class SignupService {
     }
   }
 
+  saveRefundAddress(name,str){
+    let token = "Refund-Address-For-User";
+    let storeStr = (CryptoJS.AES.encrypt(str,token)).toString();
+    this.storage.store(name,storeStr);
+  }
+
+  retrieveRefundAddress(name){
+    let token = "Refund-Address-For-User";
+    let fromStorage = this.storage.retrieve(name);
+    if(fromStorage == "" || fromStorage == null){
+      return null;
+    }else{
+      let getDecrypt = CryptoJS.AES.decrypt(fromStorage,token);
+      let finalStr = "";
+      finalStr = getDecrypt.toString(CryptoJS.enc.Utf8);
+      return finalStr;
+    }
+  }
+
   saveToLocal(name,str){
     let token = this.storage.retrieve("secureLocalTokenAuth");
     //console.log(token)

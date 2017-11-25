@@ -422,7 +422,7 @@ export class UserhomeethmodalComponent implements OnInit {
     //console.log("calling fb");
     this.fbinterval = "";
     this.fbinterval = setInterval(()=>{
-      console.log('interval started');
+      // console.log('interval started');
       this.items = this.gettransaction_details();
     },2000);
   }
@@ -434,7 +434,7 @@ export class UserhomeethmodalComponent implements OnInit {
     //console.log(useraddress,useremail)
     let ar = [];
     return this.itemsRef.snapshotChanges().map(arr => {
-      console.log(arr)
+      // console.log(arr)
       if(arr.length>0){
         
         let key;let val;
@@ -513,6 +513,7 @@ export class UserhomeethmodalComponent implements OnInit {
     this.ethmodaltitle = "Congratulations";
     //this.toastr.success('ETH transaction is done successfully', 'Transaction completed');
     this.stepRecieveETH = 4;
+    this.signup.saveToLocal("AUXPageChange","yes");
     let cas = this.serv.retrieveFromLocal("AUXETHTransaction_token_amount");
     let transaction_id = this.serv.retrieveFromLocal("AUXETHTransaction_id");
     this.message = cas+" CAS Token from transaction id "+transaction_id+"  is deposited in your account.";

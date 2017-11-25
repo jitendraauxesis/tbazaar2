@@ -118,6 +118,17 @@ export class UserhomeComponent implements OnInit {
     // setInterval(()=>{
     //   console.log(this.homeprop++);
     // },2000);
+    this.signup.saveToLocal("AUXPageChange","no");
+  }
+
+  ngDoCheck(){
+    let take = this.signup.retrieveFromLocal("AUXPageChange");
+    // console.log(take)
+    if(take=="yes"){
+      // console.log("2:",take)
+      setTimeout(()=>{this.signup.saveToLocal("AUXPageChange","no");},600);
+      this.loadHomeData();
+    }
   }
 
   loadAlert(){

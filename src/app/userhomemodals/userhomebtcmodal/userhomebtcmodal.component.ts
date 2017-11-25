@@ -465,7 +465,7 @@ export class UserhomebtcmodalComponent implements OnInit {
     //console.log(useraddress,useremail)
     let ar = [];
     return this.itemsRef.snapshotChanges().map(arr => {
-      console.log(arr)
+      // console.log(arr)
       if(arr.length>0){
         
         let key;let val;
@@ -545,6 +545,7 @@ export class UserhomebtcmodalComponent implements OnInit {
     this.btcmodaltitle = "Congratulations";
     //this.toastr.success('BTC transaction is done successfully', 'Transaction completed');
     this.stepRecieveBTH = 4;
+    this.signup.saveToLocal("AUXPageChange","yes");
     let cas = this.serv.retrieveFromLocal("AUXBTCTransaction_token_amount");
     let transaction_id = this.serv.retrieveFromLocal("AUXBTCTransaction_id");
     this.message = cas+" CAS Token from transaction id "+transaction_id+"  is deposited in your account.";

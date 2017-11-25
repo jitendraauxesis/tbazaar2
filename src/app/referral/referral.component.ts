@@ -15,7 +15,7 @@ import {LocalStorageService, SessionStorageService} from 'ng2-webstorage';
 import sha512 from 'js-sha512';
 import CryptoJS from 'crypto-js';
 
-import _ from 'lodash';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-referral',
@@ -236,16 +236,18 @@ export class ReferralComponent implements OnInit {
               this.cardethwithdrawn = response.referral_json.withdrawn_eth;
               this.cardethpending = response.referral_json.pending_eth;
 
-              this.referral_details_list = response.referral_json.referral_details_list;
-              if(this.referral_details_list.length > 0){
+              let referral_details_list = response.referral_json.referral_details_list;
+              if(referral_details_list.length > 0){
                 this.referral_details_list_alert = true;//populate it
+                this.populateReferralList(referral_details_list);
               }else{
                 this.referral_details_list_alert = false;
               }
 
-              this.child_details = response.referral_json.child_details;
-              if(this.child_details.length > 0){
+              let child_details = response.referral_json.child_details;
+              if(child_details.length > 0){
                 this.child_details_alert = true;//populate it
+                this.populateChildList(child_details);
               }else{
                 this.child_details_alert = false;
               }
@@ -272,6 +274,71 @@ export class ReferralComponent implements OnInit {
           history.back();
       }
     );
+  }
+
+  populateReferralList(referral_details_list){
+    console.log(referral_details_list.length,referral_details_list);
+    let arr = [];
+    referral_details_list.forEach((value,key) => {
+      arr.push({
+        srno:(key+1),
+        name:value.name,
+        degree:value.degree,
+        amount_in_btc:value.amount_in_btc,
+        amount_in_eth:value.amount_in_eth
+      });
+    });
+    this.referral_details_list = arr;
+  }
+  populateChildList(child_details){
+    // console.log(JSON.stringify(child_details));
+    child_details = [
+      {
+        "1": [
+          [
+            "abcd tester","Hola tester","khskfhls","asdfsdfd","asdfsdf","asdfsdf"
+          ]
+        ]
+      },
+      {
+        "2":[
+          [
+            "userr2","user221"  
+          ]  
+        ]
+      }
+    ]
+    // console.log(JSON.stringify(child_details));
+    let arr = [];
+    child_details.forEach((value,key) => {
+      let degreearr = Object.keys(value);
+      let nameobj = Object.values(value);
+      let names = "";
+      // console.log(value,key,Object.values(nameobj),degreearr);// value,key,nameobj.values,
+      nameobj.forEach((v,k)=>{
+        // console.log(v,k)
+        let nameobj2 = Object.values(v);
+        // console.log(nameobj2)
+        nameobj2.forEach((v2,k2)=>{
+          // console.log(v2,k2)
+          let nameobj3 = Object.values(v);       
+          nameobj3.forEach((v3,k3)=>{
+            // console.log(v3,k3)
+            names += ""+v3 + " , ";
+          });
+        });
+      })
+      names = names.replace(/,\s*$/, "");
+      arr.push({
+        srno:(key+1),
+        name:names,
+        degree:degreearr[0],
+        namearr:value,
+        degreearr:value
+      })
+    });
+    // console.log(arr);
+    this.child_details = arr;
   }
 
   hideme(){

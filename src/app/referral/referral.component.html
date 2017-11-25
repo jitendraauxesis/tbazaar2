@@ -100,7 +100,7 @@
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h4 class="panel-title">
-                  <a data-toggle="collapse" href="#collapse1"><b>Referral Detail List</b></a>
+                  <a data-toggle="collapse" href="#collapse1" (click)="toscroll()"><b>Referral Detail List</b></a>
                 </h4>
               </div>
               <div id="collapse1" class="panel-collapse collapse">
@@ -145,7 +145,7 @@
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#collapse2"><b>Child Detail List</b></a>
+                    <a data-toggle="collapse" href="#collapse2" (click)="toscroll()"><b>Child Detail List</b></a>
                 </h4>
               </div>
               <div id="collapse2" class="panel-collapse collapse">
@@ -163,7 +163,7 @@
                             <tr>
                               <td>1</td>
                               <td>Anna</td>
-                              <td>Pitt</td>
+                              <td>1</td> 
                             </tr>
                           </tbody>
                           <tbody *ngIf="child_details_alert == false">

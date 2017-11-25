@@ -173,4 +173,8 @@ export class AddreferralComponent implements OnInit {
       this.router.navigate(["/home"]);
     }
   }
+
+  gohome(){
+    this.router.navigate(["/home"]);
+  }
 }

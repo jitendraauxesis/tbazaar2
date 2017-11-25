@@ -127,6 +127,10 @@ export class ReferralComponent implements OnInit {
     // }
   }
 
+  toscroll(){
+    window.scrollTo(0,document.body.scrollHeight);
+  }
+
   copytext(referraladdress){
     this.toastr.info('Referral address is copied to your clipboard!', 'Copied text!!!',{timeOut:1200});
   }
@@ -328,7 +332,8 @@ export class ReferralComponent implements OnInit {
       let d = {
         'email':this.signup.retrieveFromLocal("AUXUserEmail"),
         'token':this.signup.retrieveFromLocal("AUXHomeUserToken"),
-        'otp':otp
+        'otp':otp,
+        'currency':type
       };
       console.info(d);
       this.serv.resolveApi("confirm_withdraw",d)

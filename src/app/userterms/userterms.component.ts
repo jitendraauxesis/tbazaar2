@@ -126,7 +126,7 @@ export class UsertermsComponent implements OnInit {
               // this.sucmsg = "Loading your dashboard.";//
               // setTimeout(()=>{
                 // this.sucmsg = "";
-                  let msgToPass = "Dashboard is ready";
+                  let msgToPass = "Welcome to MASS Cryp ICO Platform! Your login is successful.";
                   this.signup.setRouteMsgPass(msgToPass);
                 this.signup.saveToLocal("AUXTNCStatus","done");
                 this.router.navigate(["home"]);
@@ -159,7 +159,7 @@ export class UsertermsComponent implements OnInit {
               // this.sucmsg = "Your KYC details is in pending stage. You are navigating to your dashboard in few moment.";
               // setTimeout(()=>{
                 // this.sucmsg = "";
-                  let msgToPass = "Your KYC details is in pending stage. You are navigated to your dashboard.";
+                  let msgToPass = "Welcome to MASS Cryp ICO Platform! Your login is successful.";
                   this.signup.setRouteMsgPass(msgToPass);
                 this.router.navigate(["kyc"]);  
                 this.signup.saveToLocal("AUXKYCStatus","pending");               
@@ -170,10 +170,10 @@ export class UsertermsComponent implements OnInit {
               // this.sucmsg  = "Your KYC details is rejected. You are navigating to your dashboard in few moment";
               // setTimeout(()=>{
                 // this.sucmsg = "";
-                  let msgToPass = "Your KYC details is rejected. You are navigated to your dashboard.";
+                  let msgToPass = "Welcome to MASS Cryp ICO Platform! Your login is successful.";
                   this.signup.setRouteMsgPass(msgToPass);
                 this.router.navigate(["kyc"]);  
-                this.signup.saveToLocal("AUXKYCStatus","pending");               
+                this.signup.saveToLocal("AUXKYCStatus","rejected");               
                 this.signup.saveToLocal("AUXTNCStatus","done");
                 this.router.navigate(["home"]);
               // },2500);

@@ -62,7 +62,7 @@ export class PageotpComponent implements OnInit {
     if(retrieve != null){
       this.sucmsg = retrieve;
       setTimeout(()=>{
-        this.sucmsg = "";
+        // this.sucmsg = "";
         this.signup.removeRouteMsgPass();
       },4000);
     }
@@ -96,6 +96,7 @@ export class PageotpComponent implements OnInit {
     // if(!agree){
     //   this.printmsg("You should agree to terms and condition");
     // }else 
+    this.sucmsg = "";
     if(otp == "" || otp == null){
       this.printmsg("OTP must be at least 6 characters!");
     }else{ //Password does not match. Please try again!
@@ -121,7 +122,7 @@ export class PageotpComponent implements OnInit {
                   this.router.navigate(["/terms",email]); 
                 // },1000);
                 /**FBAuth */this.loggedInFBauth();
-              }else{this.printmsg("Otp not verified or may be wrong otp.");}
+              }else{this.printmsg("Wrong OTP, please check the e-mail and try again.");}
             }else if(res.tnc == true && (res.kyc == true || res.kyc == "accepted" || res.kyc == "pending" || res.kyc == "rejected")){
               if(res.kyc == false){
                 this.signup.saveToLocal("AUXHomeStatus","pending");
@@ -139,7 +140,7 @@ export class PageotpComponent implements OnInit {
                 // this.sucmsg = "Otp is verified but your KYC is in pending stage.";
                 // setTimeout(()=>{ 
                   // this.sucmsg = ""; 
-                  let msgToPass = "Otp is verified but your KYC is in pending stage.";
+                  let msgToPass = "Welcome to MASS Cryp ICO Platform! Your login is successful.";
                   this.signup.setRouteMsgPass(msgToPass);
                   this.storage.store("AUXAuthLogin",true);
                   this.signup.saveToLocal("AUXKYCStatus","done");                
@@ -152,7 +153,7 @@ export class PageotpComponent implements OnInit {
                 // this.sucmsg = "Otp is verified but your KYC is in pending stage.";
                 // setTimeout(()=>{ 
                   // this.sucmsg = ""; 
-                  let msgToPass = "Otp is verified but your KYC is in pending stage.";
+                  let msgToPass = "Welcome to MASS Cryp ICO Platform! Your login is successful.";
                   this.signup.setRouteMsgPass(msgToPass);
                   this.storage.store("AUXAuthLogin",true);
                   this.signup.saveToLocal("AUXKYCStatus","done");                
@@ -165,7 +166,7 @@ export class PageotpComponent implements OnInit {
                 // this.sucmsg = "Otp is verified and your KYC detail has been rejected.";
                 // setTimeout(()=>{ 
                   // this.sucmsg = "";
-                  let msgToPass = "Otp is verified and your KYC detail has been rejected.";
+                  let msgToPass = "Welcome to MASS Cryp ICO Platform! Your login is successful.";
                   this.signup.setRouteMsgPass(msgToPass);
                 this.storage.store("AUXAuthLogin",true);
                 this.signup.saveToLocal("AUXKYCStatus","done");                
@@ -174,10 +175,10 @@ export class PageotpComponent implements OnInit {
               // },4000);
                 /**FBAuth */this.loggedInFBauth();
               }else{
-                this.printmsg("Otp not verified or may be wrong otp.");
+                this.printmsg("Wrong OTP, please check the e-mail and try again.");
               }
             }else{
-              this.printmsg("Otp not verified or may be wrong otp.");
+              this.printmsg("Wrong OTP, please check the e-mail and try again.");
             }
           }else if(res.code == 200 && res.token){//after signup
             //console.log("after signup")
@@ -185,7 +186,7 @@ export class PageotpComponent implements OnInit {
               // this.sucmsg = "Otp is verified, loading your asset...";
               // setTimeout(()=>{
                 // this.sucmsg = "";
-                  let msgToPass = "Otp is verified, dashboard is ready...";
+                  let msgToPass = "Welcome to MASS Cryp ICO Platform! Your login is successful.";
                   this.signup.setRouteMsgPass(msgToPass);
                 this.signup.saveToLocal("AUXHomeUserToken",res.token); 
                 if(res.kyc == false){ this.signup.saveToLocal("AUXHomeStatus","nokyc");  this.signup.saveToLocal("AUXKYCStatus","nokyc");  }
@@ -211,24 +212,24 @@ export class PageotpComponent implements OnInit {
               // },4000);
               /**FBAuth */this.loggedInFBauth();
             }else{
-              this.printmsg("Otp not verified or may be wrong otp.");
+              this.printmsg("Wrong OTP, please check the e-mail and try again.");
             }
           }else if(res.code == 400){
-            this.printmsg("Otp not verified or may be wrong otp.");
+            this.printmsg("Wrong OTP, please check the e-mail and try again.");
           }else{
-            this.printmsg("Otp unable to verify right now try again.");
+            this.printmsg("Wrong OTP, please check the e-mail and try again.");
           }
           this.loadingimage = false;
         },
         err => {  
           this.loadingimage = false;
           //console.log(err);
-          this.printmsg("Otp unable to verify right now try again.");
+          this.printmsg("Wrong OTP, please check the e-mail and try again.");
         }
       ).catch(err => {  
         this.loadingimage = false;
         //console.log(err);
-        this.printmsg("Otp unable to verify right now try again.");
+        this.printmsg("Wrong OTP, please check the e-mail and try again.");
       });
     }
   }

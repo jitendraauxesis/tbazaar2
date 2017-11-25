@@ -46,7 +46,7 @@ export class UserhomebtcmodalComponent implements OnInit {
   @Output() homeprop: EventEmitter<any> = new EventEmitter();
   stepRecieveBTH:number;//0 for first erc20 form ,1 for refund address, 2 for calc submit ,3 for firebase confirm,4 for congtrats
   //param for btc payment
-  btcmodaltitle:string = "Pay through BTC (ERC20 Token)";
+  btcmodaltitle:string = "Pay through BTC";
   btcwalletname:string;
   btcwalletaddress:any;
   btcrefundaddress:any;
@@ -230,7 +230,7 @@ export class UserhomebtcmodalComponent implements OnInit {
               this.btcrefundaddress = response.refund_address;
               this.amount_to_pay = response.amount_to_pay;
             }
-            this.stepRecieveBTH = 1;this.btcmodaltitle = "Pay through BTC (Refund Address Form)";
+            this.stepRecieveBTH = 1;this.btcmodaltitle = "Pay through BTC";
  
 
             //this.childModal.show();
@@ -337,7 +337,7 @@ export class UserhomebtcmodalComponent implements OnInit {
              this.btcrefundaddress = response.refund_address;
              this.amount_to_pay = response.amount_to_pay;
            }
-           this.stepRecieveBTH = 1;this.btcmodaltitle = "Pay through BTC (Refund Address Form)";
+           this.stepRecieveBTH = 1;this.btcmodaltitle = "Pay through BTC";
 
            //test
           //  this.toastr.warning('Test', 'Test',{timeOut:5000});
@@ -345,12 +345,12 @@ export class UserhomebtcmodalComponent implements OnInit {
           //   this.stepRecieveBTH = 0;
           //  },5000);
         }else{
-          this.toastr.error('Wallet address & name is invalid', 'Wrong Input!');  
+          this.toastr.error('Please check and retry.', 'Invalid Bitcoin Address!');  
         }
       },
       (err)=>{
         this.loadingimage = false;
-        this.toastr.error('Wallet address & name is invalid', 'Wrong Input!');
+        this.toastr.error('Please check and retry.', 'Invalid Bitcoin Address!');
       }
     );
   }
@@ -432,17 +432,17 @@ export class UserhomebtcmodalComponent implements OnInit {
           this.token_amount = response.token_amount;
           //this.amount_to_pay = response.amount_to_pay;
           this.qrvalue = this.generated_address;
-          this.stepRecieveBTH = 2;this.btcmodaltitle = "Pay through BTC (Details)";//next firebase
+          this.stepRecieveBTH = 2;this.btcmodaltitle = "Pay through BTC";//next firebase
           setTimeout(()=>{
             this.callfb();
           },5000);
         }else{
-            this.toastr.error('Wallet refund address is invalid', 'Wrong Input!');  
+            this.toastr.error('Please check and retry.', 'Invalid Bitcoin Address!');  
         }
       },
       (err)=>{
         this.loadingimage = false;
-        this.toastr.error('Wallet is invalid', 'Wrong Input!');
+        this.toastr.error('Please check and retry.', 'Invalid Bitcoin Address!');
       }
     );
   }
@@ -498,7 +498,7 @@ export class UserhomebtcmodalComponent implements OnInit {
           this.progresstype = "danger";
           this.progressvalue = 0;
           this.showtransidin3 = this.serv.retrieveFromLocal("AUXBTCTransaction_id");
-          this.stepRecieveBTH = 3;this.btcmodaltitle = "Pay through BTC (Transfer Confirmation)";//next firebase
+          this.stepRecieveBTH = 3;this.btcmodaltitle = "Pay through BTC";//next firebase
         }
         if(this.initialCount == 1 || val.confirmations == 1){
           this.progresstype = "warning";
@@ -558,7 +558,7 @@ export class UserhomebtcmodalComponent implements OnInit {
       this.storage.clear("AUXBTCTransaction_to_address");
       this.storage.clear("AUXBTCTransaction_token_amount");
       this.stepRecieveBTH = 0;
-      this.btcmodaltitle = "Pay through BTC (ERC20 Token)";
+      this.btcmodaltitle = "Pay through BTC";
       this.btcwalletname = "";
       this.btcwalletaddress="";
       this.btcrefundaddress="";
@@ -602,6 +602,6 @@ export class UserhomebtcmodalComponent implements OnInit {
   }
 
   copytext(btcaddress){
-    this.toastr.info('Text  copied to your clipboard!', 'Copied text!!!',{timeOut:1200});
+    this.toastr.info(null, 'Address copied to your clipboard.',{timeOut:1200});
   }
 }

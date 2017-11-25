@@ -135,11 +135,11 @@ export class ReferralComponent implements OnInit {
   }
 
   copytext(referraladdress){
-    this.toastr.info('Referral address is copied to your clipboard!', 'Copied text!!!',{timeOut:1200});
+    this.toastr.info(null,'Referral address is copied to your clipboard!',{timeOut:1200});
   }
 
   copytext2(referrid){
-    this.toastr.info('Referral id is copied to your clipboard!', 'Copied text!!!',{timeOut:1200});
+    this.toastr.info(null, 'Referral Id copied to your clipboard.',{timeOut:1200});
   }
 
   open_btc_modal(btcmodal: TemplateRef<any>){

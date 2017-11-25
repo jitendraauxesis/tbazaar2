@@ -29,7 +29,7 @@
                               <div class="col-sm-12 col-xs-11 text-right">
                                   <div class="col-sm-12 col-xs-12 nopad">
                                       <h3 class="montBold">
-                                          <span id="balance">{{tokens}}</span> CAS
+                                          <span id="balance">{{tokens}}</span> MASS
                                       </h3>
                                   </div>
                                   <!--<div class="col-sm-12 col-xs-12 nopad">-->
@@ -45,18 +45,18 @@
                       <hr>
                       <div *ngIf="kycalertpanel  == 0 && kycalertpanelview == true"><!--nokyc-->
                         <div class="container-fluid">
-                            <div class="col-sm-3 col-sm-offset-4 alert alert-danger" id="email_sent" role="alert">
+                            <div class="col-sm-6 col-sm-offset-3 alert alert-danger" id="email_sent" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     
                                 </button>
-                                <span>Complete KYC by<button class="btn btn-link" [routerLink]="['/kyc']">clicking here.</button></span>
+                                <span>Please complete your KYC by <button class="btn btn-link" [routerLink]="['/kyc']">clicking here.</button>. You must submit your KYC details by 31st December 2017.</span>
                             </div>
                         </div>
                         <hr>
                       </div>
                       <div *ngIf="kycalertpanel  == 1 && kycalertpanelview == true"><!--done-->
                             <div class="container-fluid">
-                                <div class="col-sm-3 col-sm-offset-4 alert alert-success" id="email_sent" role="alert">
+                                <div class="col-sm-6 col-sm-offset-3  alert alert-success" id="email_sent" role="alert">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         
                                     </button>
@@ -67,18 +67,18 @@
                       </div>
                       <div *ngIf="kycalertpanel  == 2 && kycalertpanelview == true"><!--pending-->
                             <div class="container-fluid">
-                                <div class="col-sm-3 col-sm-offset-4 alert alert-warning" id="email_sent" role="alert">
+                                <div class="col-sm-6 col-sm-offset-3  alert alert-warning" id="email_sent" role="alert">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         
                                     </button>
-                                    <span>Waiting for approval of KYC detail by administrator</span>
+                                    <span>KYC Details submitted successfully, waiting for administrator approval. You can continue buying MASS Coins.</span>
                                 </div>
                             </div>
                             <hr>
                       </div>
                       <div *ngIf="kycalertpanel  == 3 && kycalertpanelview == true"><!--rejected-->
                             <div class="container-fluid">
-                                <div class="col-sm-3 col-sm-offset-4 alert alert-danger" id="email_sent" role="alert">
+                                <div class="col-sm-6 col-sm-offset-3  alert alert-danger" id="email_sent" role="alert">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         
                                     </button>
@@ -140,7 +140,7 @@
                                                         <img class="ethereum home" src="assets/img/ethereum.png"> {{t.content}}
                                                   </div>
                                                   <div class="col-md-12 col-sm-12 text-left"  *ngIf="t.type == 'payment_initiation'">
-                                                        <span class="recieve" >Initiated amount </span> 
+                                                        <span class="recieve" >Payment initiated of </span> 
                                                         <i class="fa fa-btc" aria-hidden="true" *ngIf="t.currency == 'btc'"></i>
                                                         <img class="ethereum home" src="assets/img/ethereum.png" *ngIf="t.currency == 'eth'"> {{t.content}}
 
@@ -247,7 +247,7 @@
                                             <div class="input-group col-sm-10">
                                                 <input  type="text"  class="form-control" placeholder="0" [(ngModel)]="cas" aria-describedby="basic-addon2" (keypress)="keyevent($event)" (keyup)="keyup($event)">
                                                 <!--  (keyup)="keyevent($event)"   ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01"-->
-                                                <span class="input-group-addon" id="basic-addon2">CAS</span>
+                                                <span class="input-group-addon" id="basic-addon2">MASS</span>
                                             </div>
                     
                                             <div class="col-sm-12 nopad">

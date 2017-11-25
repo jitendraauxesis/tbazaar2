@@ -139,7 +139,7 @@ export class LoginComponent implements OnInit {
           //   this.router.navigate(['/otp',token]);
           // },5000);
           // console.log("before",this.signup.retrieveRouteMsgPass());
-          let msgToPass = "Email has been sent to your inbox. Get otp and paste it in otp field.";
+          let msgToPass = "1. OTP is sent at your provided E-mail ID. Please check Spam/Others box if you don’t receive it under 2 minutes.";
           let token = this.storage.retrieve("AUXUserEmail");
           this.signup.setRouteMsgPass(msgToPass);
           // console.log("after",this.signup.retrieveRouteMsgPass());

@@ -38,7 +38,7 @@ export class UserhomeethmodalComponent implements OnInit {
 
   stepRecieveETH:number;//0 for first erc20 form ,1 for refund address, 2 for calc submit ,3 for firebase confirm,4 for congtrats
   //param for eth payment
-  ethmodaltitle:string = "Pay through ETH (ERC20 Token)";
+  ethmodaltitle:string = "Pay through ETH";
   ethwalletname:string;
   ethwalletaddress:any;
   ethrefundaddress:any;
@@ -216,7 +216,7 @@ export class UserhomeethmodalComponent implements OnInit {
               this.ethrefundaddress = response.refund_address;
               this.amount_to_pay = response.amount_to_pay;
             }
-             this.stepRecieveETH = 1;this.ethmodaltitle = "Pay through ETH (Refund Address Form)";
+             this.stepRecieveETH = 1;this.ethmodaltitle = "Pay through ETH";
           }else{
             this.toastr.error('Invalid currency detected', 'Not a valid CAS/Currency',{timeOut:2500});
           }
@@ -317,14 +317,14 @@ export class UserhomeethmodalComponent implements OnInit {
           if(response.refund_address != null){
             this.ethrefundaddress = response.refund_address;
           }
-           this.stepRecieveETH = 1;this.ethmodaltitle = "Pay through ETH (Refund Address Form)";
+           this.stepRecieveETH = 1;this.ethmodaltitle = "Pay through ETH";
         }else{
-          this.toastr.error('Wallet address & name is invalid', 'Wrong Input!');  
+          this.toastr.error('Please check and retry.', 'Invalid Ether Address!');  
         }
       },
       (err)=>{
         this.loadingimage = false;
-        this.toastr.error('Wallet address & name is invalid', 'Wrong Input!');
+        this.toastr.error('Please check and retry.', 'Invalid Ether Address!');
       }
     );
   }
@@ -400,17 +400,17 @@ export class UserhomeethmodalComponent implements OnInit {
           this.token_amount = response.token_amount;
           // this.amount_to_pay = response.amount_to_pay;
           this.qrvalue = this.generated_address;
-          this.stepRecieveETH = 2;this.ethmodaltitle = "Pay through ETH (Details)";//next firebase
+          this.stepRecieveETH = 2;this.ethmodaltitle = "Pay through ETH";//next firebase
           setTimeout(()=>{
             this.callfb();
           },5000);
         }else{
-          this.toastr.error('Wallet refund address is invalid', 'Wrong Input!');  
+          this.toastr.error('Please check and retry.', 'Invalid Ether Address!');  
         }
       },
       (err)=>{
         this.loadingimage = false;
-        this.toastr.error('Wallet is invalid', 'Wrong Input!');
+        this.toastr.error('Please check and retry.', 'Invalid Ether Address!');
       }
     );
   }
@@ -467,7 +467,7 @@ export class UserhomeethmodalComponent implements OnInit {
           this.progresstype = "danger";
           this.progressvalue = 0;
           this.showtransidin3 = this.serv.retrieveFromLocal("AUXETHTransaction_id");
-          this.stepRecieveETH = 3;this.ethmodaltitle = "Pay through ETH (Transfer Confirmation)";//next firebase
+          this.stepRecieveETH = 3;this.ethmodaltitle = "Pay through ETH";//next firebase
         }
         if(this.initialCount == 1 || val.confirmations == 1){
           this.progresstype = "warning";
@@ -526,7 +526,7 @@ export class UserhomeethmodalComponent implements OnInit {
       this.storage.clear("AUXETHTransaction_to_address");
       this.storage.clear("AUXETHTransaction_token_amount");
       this.stepRecieveETH = 0;
-      this.ethmodaltitle = "Pay through ETH (ERC20 Token)";
+      this.ethmodaltitle = "Pay through ETH";
       this.ethwalletname = "";
       this.ethwalletaddress="";
       this.ethrefundaddress="";
@@ -556,7 +556,7 @@ export class UserhomeethmodalComponent implements OnInit {
     this.storage.clear("AUXETHTransaction_to_address");
     this.storage.clear("AUXETHTransaction_token_amount");
     this.stepRecieveETH = 0;
-    this.ethmodaltitle = "Pay through ETH (ERC20 Token)";
+    this.ethmodaltitle = "Pay through ETH";
     this.ethwalletname = "";
     this.ethwalletaddress="";
     this.ethrefundaddress="";
@@ -570,7 +570,7 @@ export class UserhomeethmodalComponent implements OnInit {
   }
 
   copytext(ethaddress){
-    this.toastr.info('Text  copied to your clipboard!', 'Copied text!!!',{timeOut:1200});
+    this.toastr.info(null, 'Address copied to your clipboard.',{timeOut:1200});
   }
 
 }

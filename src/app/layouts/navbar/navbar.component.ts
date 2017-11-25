@@ -5,6 +5,9 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ToastrService } from 'ngx-toastr';
  import { SignupService } from '../../services/signup.service';
+ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+ import 'rxjs/add/operator/switchMap'; //to fetch url params
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -27,7 +30,9 @@ export class NavbarComponent implements OnInit {
     public element:ElementRef,
     private toastr: ToastrService,
     public signup:SignupService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private route: ActivatedRoute,
+    private router: Router,
   ) { 
     this.shown = false;
     this.year = new Date().getFullYear();
@@ -75,5 +80,29 @@ export class NavbarComponent implements OnInit {
   decline(): void {
     this.toastr.info("You are continuing token bazaar","Continued...",{timeOut:2500});
     this.modalRef.hide();
+  }
+
+  checkKYC(){
+    let status = this.signup.retrieveFromLocal("AUXKYCStatus"); 
+    if(status == "nokyc"){
+      this.toastr.error("You have not uploaded the KYC documents","Upload KYC",{timeOut:2500});
+      this.router.navigate(["/kyc"]);
+    }else if(status == "done"){
+      this.toastr.success("You are KYC detail is verified by administrator","KYC is verified",{timeOut:2500});
+    }else if(status == "pending"){
+      this.toastr.warning("You are KYC detail is pending from administrator, wait while admin verified it.","KYC is in pending stage",{timeOut:2500});
+    }else if(status == "rejected"){
+      this.toastr.error("You are KYC detail has been rejected","KYC rejected",{timeOut:2500});
+    }else if(status == false){
+      this.toastr.error("You have not uploaded the KYC documents","Upload KYC",{timeOut:2500});
+      this.router.navigate(["/kyc"]);
+    }else if(status == true){
+      this.toastr.success("You are KYC detail is verified by administrator","KYC is verified",{timeOut:2500});
+    }else if(status == "accepted"){
+      this.toastr.success("You are KYC detail is verified by administrator","KYC is verified",{timeOut:2500});
+    }else{
+      this.toastr.error("You have not uploaded the KYC documents","Upload KYC",{timeOut:2500});
+      this.router.navigate(["/kyc"]);
+    }
   }
 }

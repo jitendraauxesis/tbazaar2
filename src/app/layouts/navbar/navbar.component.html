@@ -52,7 +52,7 @@
         <div id="demomenu" class="collapse">
             <ul class="collapsenavsetting">
                 <li>
-                    <a [routerLink]="['/referral']" class="nopad"><i class="fa fa-arrows" aria-hidden="true"></i> KYC</a>
+                    <a (click)="checkKYC()" class="nopad kyc"><i class="fa fa-arrows" aria-hidden="true"></i> KYC</a>
                 </li>
                 <li><a [routerLink]="['/addreferral']" ><i class="fa fa-address-card-o" aria-hidden="true"></i> Address</a></li>
             </ul>

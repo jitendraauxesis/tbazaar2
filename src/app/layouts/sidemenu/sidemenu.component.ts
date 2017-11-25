@@ -70,4 +70,28 @@ export class SidemenuComponent implements OnInit {
     this.modalRef.hide();
   }
 
+  checkKYC(){
+    let status = this.signup.retrieveFromLocal("AUXKYCStatus"); 
+    if(status == "nokyc"){
+      this.toastr.error("You have not uploaded the KYC documents","Upload KYC",{timeOut:2500});
+      this.router.navigate(["/kyc"]);
+    }else if(status == "done"){
+      this.toastr.success("You are KYC detail is verified by administrator","KYC is verified",{timeOut:2500});
+    }else if(status == "pending"){
+      this.toastr.warning("You are KYC detail is pending from administrator, wait while admin verified it.","KYC is in pending stage",{timeOut:2500});
+    }else if(status == "rejected"){
+      this.toastr.error("You are KYC detail has been rejected","KYC rejected",{timeOut:2500});
+    }else if(status == false){
+      this.toastr.error("You have not uploaded the KYC documents","Upload KYC",{timeOut:2500});
+      this.router.navigate(["/kyc"]);
+    }else if(status == true){
+      this.toastr.success("You are KYC detail is verified by administrator","KYC is verified",{timeOut:2500});
+    }else if(status == "accepted"){
+      this.toastr.success("You are KYC detail is verified by administrator","KYC is verified",{timeOut:2500});
+    }else{
+      this.toastr.error("You have not uploaded the KYC documents","Upload KYC",{timeOut:2500});
+      this.router.navigate(["/kyc"]);
+    }
+  }
+
 }

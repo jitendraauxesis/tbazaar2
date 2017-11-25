@@ -145,11 +145,17 @@
                                               </div>
                                           </article> -->
                   
-                                          <div  *ngFor="let t of user_timeline_list | orderBy: timestamp: reverse">
-                                                <article class="panel panel-default" *ngIf="t.type == 'btc_transaction'">
-                                                    <div class="panel-heading icon">
+                                                <article class="panel panel-default"  *ngFor="let t of user_timeline_list | orderBy: timestamp: reverse">
+                                                    <div class="panel-heading icon"  *ngIf="t.type == 'btc_transaction'">
                                                             <i class="fa fa-btc" aria-hidden="true"></i>
                                                     </div>
+                                                    <div class="panel-heading icon"  *ngIf="t.type == 'eth_transaction'">
+                                                            <img class="ethereumico home" src="assets/img/ethereumico.png">
+                                                    </div>
+                                                    <div class="panel-heading icon"  *ngIf="t.type != 'btc_transaction' && t.type != 'eth_transaction'">
+                                                            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                                                    </div>
+
                                                     <div class="panel-body"> 
                                                         <div class="col-md-6 col-sm-6">
                                                                 Transaction
@@ -158,12 +164,12 @@
                                                                 <i class="fa fa-clock-o" aria-hidden="true"></i> {{convertToDate(t.timestamp)}}
                                                         </div>
                                                         <div class="col-md-12 col-sm-12 text-left"  *ngIf="t.type == 'btc_transaction'">
-                                                            <span class="recieve done">BTC done with amount </span>     
-                                                                <i class="fa fa-btc" aria-hidden="true"></i> {{t.content}}
+                                                            <span class="recieve done">Purchase of {{t.mass}} MASS Coin successful with <i class="fa fa-btc" aria-hidden="true"></i> {{t.amount}} BTC </span>     
+                                                                 <!-- {{t.content}} -->
                                                         </div>
                                                         <div class="col-md-12 col-sm-12 text-left"  *ngIf="t.type == 'eth_transaction'">
-                                                                <span class="recieve done">ETH done with amount </span>   
-                                                                <img class="ethereum home" src="assets/img/ethereum.png"> {{t.content}}
+                                                                <span class="recieve done">Purchase of {{t.mass}} MASS Coin successful with <img class="ethereum home" src="assets/img/ethereum.png"> {{t.amount}} ETH </span>   
+                                                                 <!-- {{t.content}} -->
                                                         </div>
                                                         <div class="col-md-12 col-sm-12 text-left"  *ngIf="t.type == 'payment_initiation'">
                                                                 <span class="recieve" >Payment initiated of </span> 
@@ -174,7 +180,6 @@
                         
                                                     </div>
                                                 </article>
-                                          </div>
                   
                                       </div>
                   

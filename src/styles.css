@@ -120,6 +120,10 @@ img.ethereum.home {
   width: 16px;
   margin-top: 0.5%;
 } 
+img.ethereumico.home {
+  width: 16px;
+  margin: 4px;
+}
 
 /* addreferral */
 .btn.btn-primary.custBtnAnchor.referralbtnsubmit {

@@ -132,7 +132,9 @@ export class UsertermsComponent implements OnInit {
                 this.router.navigate(["home"]);
               // },2500);
             }
-            if(dat.token){
+            if(dat.token){  
+              this.storage.store("AUXAuthLogin",true);
+              this.signup.saveToLocal("AUXHomeUserToken",dat.token);
               this.signup.setUserSession(email,dat.token);
             }
           }else if(dat.code == 400){
@@ -182,7 +184,9 @@ export class UsertermsComponent implements OnInit {
             }else{
               this.failmsg("Unable to verify terms and condition");    
             }
-            if(dat.token){
+            if(dat.token){  
+              this.storage.store("AUXAuthLogin",true);
+              this.signup.saveToLocal("AUXHomeUserToken",dat.token);
               this.signup.setUserSession(email,dat.token);
             }
           }else{

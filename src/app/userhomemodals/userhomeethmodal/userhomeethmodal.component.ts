@@ -139,7 +139,7 @@ export class UserhomeethmodalComponent implements OnInit {
     let cash = this.signup.retrieveFromLocal("AUXsavelocalamount");
     //console.log(type,cash)
     if(cash == undefined || cash == "" || cash == null){
-      this.toastr.error('Please give specific cash amount', 'Cash Invalid',{timeOut:2000});
+      this.toastr.error('Minimum $20 worth of MASS Coin can be bought. Please enter a higher amount.', null,{timeOut:2000});
     }else if(type == undefined || type == "" || type == null){
       this.toastr.error('Choose any one payment method!', 'Not a payment type',{timeOut:2000});
     }else{ 
@@ -167,17 +167,17 @@ export class UserhomeethmodalComponent implements OnInit {
                 }
             }else{
               this.loadingimage = false;
-              this.toastr.error('Minimum $20 worth of MASS Coin can be bought. Please enter a higher amount.', 'Not a valid CAS',{timeOut:2500});  
+              this.toastr.error('Minimum $20 worth of MASS Coin can be bought. Please enter a higher amount.', null,{timeOut:2500});  
             }
           }else{
             this.loadingimage = false;
-            this.toastr.error('Minimum $20 worth of MASS Coin can be bought. Please enter a higher amount.', 'Not a valid CAS',{timeOut:2500});  
+            this.toastr.error('Minimum $20 worth of MASS Coin can be bought. Please enter a higher amount.', null,{timeOut:2500});  
           }
         },
         err=>{
           this.loadingimage = false;
           //console.error(err);
-          this.toastr.error('Minimum $20 worth of MASS Coin can be bought. Please enter a higher amount.', 'Not a valid CAS',{timeOut:2500});
+          this.toastr.error('Minimum $20 worth of MASS Coin can be bought. Please enter a higher amount.', null,{timeOut:2500});
         }
       );
 
@@ -220,17 +220,17 @@ export class UserhomeethmodalComponent implements OnInit {
             }
              this.stepRecieveETH = 1;this.ethmodaltitle = "Pay through ETH";
           }else{
-            this.toastr.error('Minimum $20 worth of MASS Coin can be bought. Please enter a higher amount.', 'Not a valid CAS',{timeOut:2500});
+            this.toastr.error('Minimum $20 worth of MASS Coin can be bought. Please enter a higher amount.', null,{timeOut:2500});
           }
         }else{
           this.loadingimage = false;
-          this.toastr.error('Minimum $20 worth of MASS Coin can be bought. Please enter a higher amount.', 'Not a valid CAS',{timeOut:2500});
+          this.toastr.error('Minimum $20 worth of MASS Coin can be bought. Please enter a higher amount.', null,{timeOut:2500});
         }
       },
       (err)=>{
         //console.error(err);
         this.loadingimage = false;
-        this.toastr.error('Minimum $20 worth of MASS Coin can be bought. Please enter a higher amount.', 'Not a valid CAS',{timeOut:2500});
+        this.toastr.error('Minimum $20 worth of MASS Coin can be bought. Please enter a higher amount.', null,{timeOut:2500});
       }
     );
   }  

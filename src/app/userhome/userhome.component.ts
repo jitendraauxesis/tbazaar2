@@ -119,6 +119,8 @@ export class UserhomeComponent implements OnInit {
     //   console.log(this.homeprop++);
     // },2000);
     this.signup.saveToLocal("AUXPageChange","no");
+
+    
   }
 
   ngDoCheck(){
@@ -181,7 +183,42 @@ export class UserhomeComponent implements OnInit {
                   this.user_timeline_listShow = false;
                 }else{
                   let a = d.user_timeline_list;
-                  this.user_timeline_list = a;
+                  let b = [];
+                  _.forEach(a,(value,key)=>{
+                    let x;let y;
+                    if(value.currency == 'btc' && value.type != 'payment_initiation'){
+                      let s = value.content;
+                      let s1 = s.split(",");
+                      // console.log(s1)
+                      let s1_1 = (s1[0].trim()).replace('btc','');
+                      let s1_2 = (s1[1].trim()).replace('tokens','');
+                      // console.log(s1_1,s1_2)
+                      x = s1_1;y=s1_2;
+                    }
+                    if(value.currency == 'eth' && value.type != 'payment_initiation'){
+                      let s = value.content;
+                      let s1 = s.split(",");
+                      // console.log(s1)
+                      let s1_1 = (s1[0].trim()).replace('eth','');
+                      let s1_2 = (s1[1].trim()).replace('tokens','');
+                      // console.log(s1_1,s1_2)
+                      x = s1_1;y=s1_2;
+                    }
+                    b.push({
+                      amount_to_pay:value.amount_to_pay,
+                      content:value.content,
+                      currency:value.currency,
+                      email:value.email,
+                      erc_address:value.erc_address,
+                      rate:value.rate,
+                      timestamp:value.timestamp,
+                      token_amount:value.token_amount,
+                      type:value.type,
+                      mass:y,
+                      amount:x
+                    })
+                  })
+                  this.user_timeline_list = b;
                   this.tokens = d.tokens;
                 }
               }else if(d.code == 401){
@@ -310,7 +347,7 @@ export class UserhomeComponent implements OnInit {
         this.serv.resolveApi(this.apiMethod,data) 
         .subscribe(
           res=>{
-            //console.log(res);
+            console.log(res);
             let d = JSON.parse(JSON.stringify(res));
             if(d.status == 200){
               let kyc = d.kyc; 
@@ -337,7 +374,46 @@ export class UserhomeComponent implements OnInit {
                 //   }
                 // });
                 this.tokens = d.tokens;
-                this.user_timeline_list = a;
+
+                // 
+                
+
+                let b = [];
+                _.forEach(a,(value,key)=>{
+                  let x;let y;
+                  if(value.currency == 'btc' && value.type != 'payment_initiation'){
+                    let s = value.content;
+                    let s1 = s.split(",");
+                    // console.log(s1)
+                    let s1_1 = (s1[0].trim()).replace('btc','');
+                    let s1_2 = (s1[1].trim()).replace('tokens','');
+                    // console.log(s1_1,s1_2)
+                    x = s1_1;y=s1_2;
+                  }
+                  if(value.currency == 'eth' && value.type != 'payment_initiation'){
+                    let s = value.content;
+                    let s1 = s.split(",");
+                    // console.log(s1)
+                    let s1_1 = (s1[0].trim()).replace('eth','');
+                    let s1_2 = (s1[1].trim()).replace('tokens','');
+                    // console.log(s1_1,s1_2)
+                    x = s1_1;y=s1_2;
+                  }
+                  b.push({
+                    amount_to_pay:value.amount_to_pay,
+                    content:value.content,
+                    currency:value.currency,
+                    email:value.email,
+                    erc_address:value.erc_address,
+                    rate:value.rate,
+                    timestamp:value.timestamp,
+                    token_amount:value.token_amount,
+                    type:value.type,
+                    mass:y,
+                    amount:x
+                  })
+                })
+                this.user_timeline_list = b;
                 //this.user_timeline_listShow = true;
                 // if(this.homeStatusDone == true){
                 //   this.user_timeline_listShow = true;

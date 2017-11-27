@@ -7,7 +7,7 @@
   </li> -->
   <br>
   <li>
-      <a [routerLink]="['/referral']" class="nopad"><span class="sidebar-icon"><i class="fa fa-arrows" aria-hidden="true"></i></span>Referral</a>
+      <a (click)="clickonReferral()" class="nopad referral"><span class="sidebar-icon"><i class="fa fa-arrows" aria-hidden="true"></i></span>Referral</a>
   </li>
   <br>
   <!-- <li class="dropdown">
@@ -34,7 +34,7 @@
             <li>
                 <a (click)="checkKYC()" class="nopad kyc"><i class="fa fa-arrows" aria-hidden="true"></i> KYC</a>
             </li>
-            <li><a (click)="clickonReferral()" ><i class="fa fa-address-card-o" aria-hidden="true"></i> Address</a></li>
+            <li><a [routerLink]="['/addreferral']" ><i class="fa fa-address-card-o" aria-hidden="true"></i> Address</a></li>
         </ul>
     </div>
   </li>

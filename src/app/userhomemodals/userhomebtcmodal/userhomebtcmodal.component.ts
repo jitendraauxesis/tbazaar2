@@ -325,7 +325,7 @@ export class UserhomebtcmodalComponent implements OnInit {
     }
   } 
   callingApiForBTCScreen2(walletfor,data){//call web api for create_erc_address ***********web
-    console.log(walletfor,this.btcwalletaddress,this.btcwalletname,data)
+    // console.log(walletfor,this.btcwalletaddress,this.btcwalletname,data)
     this.loadingimage = true;
      
     this.serv.resolveApi(walletfor,data)
@@ -333,7 +333,7 @@ export class UserhomebtcmodalComponent implements OnInit {
       (res)=>{
         this.loadingimage = false;
         let response = JSON.parse(JSON.stringify(res));
-        console.log(response);
+        // console.log(response);
         if(response.success == true || response.code == 200){
            if(response.refund_address != null){
              this.btcrefundaddress = response.refund_address;
@@ -467,7 +467,7 @@ export class UserhomebtcmodalComponent implements OnInit {
     //console.log(useraddress,useremail)
     let ar = [];
     return this.itemsRef.snapshotChanges().map(arr => {
-      console.log(arr)
+      // console.log(arr)
       if(arr.length>0){
         
         let key;let val;
@@ -479,7 +479,7 @@ export class UserhomebtcmodalComponent implements OnInit {
             if(secretaddress == to_address){
               if(this.fbinterval){
                 clearInterval(this.fbinterval);
-                console.log("interval stopped...")
+                // console.log("interval stopped...")
               }
               let check_address = d.payload.val().to_address;
               let email = d.payload.val().email_id;

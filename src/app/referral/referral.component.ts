@@ -277,11 +277,14 @@ export class ReferralComponent implements OnInit {
             }
 
           }else if(response.code == 400){
+            this.signup.saveToLocal("AUXUserAddReferralStatus","none");
             // this.signup.setRouteMsgPass("BTH & ETH refund address is not taken try to add first");
             this.router.navigate(["/addreferral"]);
           }else if(response.code == 401){
+            this.signup.saveToLocal("AUXUserAddReferralStatus","none");
             this.signup.UnAuthlogoutFromApp();
           }else{
+            this.signup.saveToLocal("AUXUserAddReferralStatus","none");
             // this.signup.setRouteMsgPass("BTH & ETH refund address is not taken try to add first");
             this.router.navigate(["/addreferral"]);
           }

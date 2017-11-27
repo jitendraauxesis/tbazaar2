@@ -314,7 +314,8 @@ export class UserhomeethmodalComponent implements OnInit {
     .subscribe(
       (res)=>{
         this.loadingimage = false;
-        let response = JSON.parse(JSON.stringify(res));console.log(response);
+        let response = JSON.parse(JSON.stringify(res));
+        // console.log(response);
         if(response.success == true || response.code == 200){
           if(response.refund_address != null){
             this.ethrefundaddress = response.refund_address;

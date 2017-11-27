@@ -156,3 +156,7 @@ img.ethereumico.home {
 a.skip {
   cursor: pointer;
 }
+
+a.nopad.referral {
+  cursor: pointer;
+}

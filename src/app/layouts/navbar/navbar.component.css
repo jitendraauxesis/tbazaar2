@@ -116,3 +116,7 @@ img.img-responsive.tblogo {
     /* margin-left: 3%; */
     /* margin-top: 1.5%; */
 }
+
+a.nopad.referral {
+    cursor: pointer;
+}

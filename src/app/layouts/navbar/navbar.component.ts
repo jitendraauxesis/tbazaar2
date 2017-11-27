@@ -64,7 +64,8 @@ export class NavbarComponent implements OnInit {
 
   clickonReferral(){
     let status = this.signup.retrieveFromLocal("AUXUserAddReferralStatus");//,"none" // "done"
-    if(status == "done" || status){
+    console.log(status)
+    if(status == "done"){
       this.router.navigate(["/referral"]);
     }else{
       this.router.navigate(["/addreferral"]);

@@ -17,3 +17,6 @@ ul.sidebar-nav.nav {
     padding-top: 15% !important;
 }
 
+a.nopad.referral {
+    cursor: pointer;
+}

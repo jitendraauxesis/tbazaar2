@@ -496,7 +496,7 @@ export class UserhomebtcmodalComponent implements OnInit {
             }
           }
         )
-        console.log(key,val,val.confirmations);
+        // console.log(key,val,val.confirmations);
         if(this.initialCount == 0 || val.confirmations == 0){
           this.progresstype = "danger";
           this.progressvalue = 0;

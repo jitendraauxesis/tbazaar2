@@ -109,7 +109,7 @@ export class AddreferralComponent implements OnInit {
       }else if(eth == null || eth == ""){
         this.printmsg("Ether address are invalid, try again.");
       }else{
-        console.log(this.formReferral);
+        // console.log(this.formReferral);
         this.sendToReferral(btc,eth);
       }
     }else{
@@ -125,14 +125,14 @@ export class AddreferralComponent implements OnInit {
       'refund_btc_address':btc,
       'refund_eth_address':eth
     };
-    console.info(d);
+    // console.info(d);
     this.serv.resolveApi("set_btc_eth_refund_address",d)
     .subscribe(
       res=>{
         this.loadingimage = false;
         let response = JSON.parse(JSON.stringify(res));
         if(response != null || response != ""){
-          console.log(response);
+          // console.log(response);
           if(response.code == 200){
             //n3qoMXxdmuwFxSZkFhvXqXiDRzsfy7MqCm tx4343654645754767
             this.signup.setRouteMsgPass("BTC & ETH addresses are stored");
@@ -154,13 +154,13 @@ export class AddreferralComponent implements OnInit {
             this.signup.UnAuthlogoutFromApp();
           }
         }else{
-          console.log(response);
+          // console.log(response);
           this.printmsg("Addressess are unable to processed try again");
         }
       },
       err=>{
           this.loadingimage = false;
-          console.error(err);
+          // console.error(err);
           this.printmsg("Addresses are failed to submit");
       }
     );

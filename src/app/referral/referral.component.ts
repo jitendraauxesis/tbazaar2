@@ -161,7 +161,7 @@ export class ReferralComponent implements OnInit {
       'token':this.signup.retrieveFromLocal("AUXHomeUserToken"),
       'currency':type
     };
-    console.info(d);
+    // console.info(d);
     this.serv.resolveApi("init_withdraw",d)
     .subscribe(
       res=>{
@@ -411,7 +411,7 @@ export class ReferralComponent implements OnInit {
       },
       err=>{
           this.loadingimage = false;
-          console.error(err);
+          // console.error(err);
           this.toastr.error('Unable to send mail try again', 'Ubandoned',{timeOut:2500});
       }
     );
@@ -431,7 +431,7 @@ export class ReferralComponent implements OnInit {
         'otp':otp,
         'currency':type
       };
-      console.info(d);
+      // console.info(d);
       this.serv.resolveApi("confirm_withdraw",d)
       .subscribe(
         res=>{
@@ -470,7 +470,7 @@ export class ReferralComponent implements OnInit {
         },
         err=>{
           this.loadingimage = false;
-            console.error(err);
+            // console.error(err);
             this.toastr.error('Unable to verify otp try again', 'Ubandoned',{timeOut:2500});
         }
       );

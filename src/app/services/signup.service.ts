@@ -78,7 +78,7 @@ export class SignupService {
   private handleError(error: any) {
       let errMsg = (error.message) ? error.message :
           error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-      console.error(errMsg);
+      // console.error(errMsg);
       return Observable.throw(errMsg);
   }
   //////////////////////////////////////////////////Demo//////////////////////
@@ -212,13 +212,13 @@ export class SignupService {
   }
 
   findUserEmail2(email){
-    console.log(email)
+    // console.log(email)
     let token = (this.storage.retrieve("secureLocalTokenAuth")).toString();
-    console.log(token)
+    // console.log(token)
     let getDecrypt = (CryptoJS.AES.decrypt(email,token)).toString();
     alert(getDecrypt);
     let finalStr = getDecrypt.toString(CryptoJS.enc.Utf8);
-    console.log(finalStr)
+    // console.log(finalStr)
     return email;
   }
 
@@ -260,7 +260,7 @@ export class SignupService {
     else{
       data = JSON.stringify({name:name,email:email2,ref_id:refid});
     } 
-    console.log(data);
+    // console.log(data);
     return new Promise((resolve,reject)=>{
       this.http.post(this.url+"tnc/",data)
       .map(res => res.json())

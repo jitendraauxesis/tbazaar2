@@ -44,7 +44,7 @@ export class FbapiService {
       .auth
       .signInWithEmailAndPassword(email, password)
       .then(value => {
-        //console.log('Nice, it worked!',value);
+        // console.log('Nice, it worked!',value);
       })
       .catch(err => {
         //console.log('Something went wrong:',err.message);

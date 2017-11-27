@@ -107,7 +107,7 @@ export class PageotpComponent implements OnInit {
       this.signup.makeOtp(email,otp)
       .then(
         data =>{
-          console.log(data);//{kyc: "pending", code: 200, tnc: true}
+          // console.log(data);//{kyc: "pending", code: 200, tnc: true}
           let res = JSON.parse(JSON.stringify(data));
           if(res.code == 200 && !res.token){//before signup
             //console.log("before signup")
@@ -202,7 +202,7 @@ export class PageotpComponent implements OnInit {
                 /**FBAuth */this.loggedInFBauth();
               // },4000);
             }else if(res.tnc == false){
-              console.log("im going in false verifyotp")
+              // console.log("im going in false verifyotp")
               this.signup.saveToLocal("AUXHomeUserToken",res.token); 
               this.signINFBAuth();
               // this.sucmsg = "Otp is verified";

@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    
     let isAuth = this.storage.retrieve("AUXAuthLogin");
     let cookieExists = this.signup.checkUserActivity();
     //console.log("isAuthorized",isAuth,cookieExists);

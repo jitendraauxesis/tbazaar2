@@ -11,9 +11,13 @@
                     <span class="icon-bar"></span>
                 </button> -->
                 <a class="navbar-brand" routerLink="">
-                    <img src="assets/img/tb-logo.png" class="img-responsive tblogo" alt="tokenbazaar">
+                    <img src="assets/img/masscryp.png" class="img-responsive tblogo" alt="tokenbazaar">
                 </a>
                 <button class="menubtn" (click)="openNav()"><i class="fa fa-cog  fa-3x fa-fw" aria-hidden="true"></i></button>
+                <div class="profileDescDiv">
+                        <img src="assets/img/man.png" class="img-responsive manhomelogo">
+                        <p class="manhomename">{{username}}</p>
+                </div>
                 <!-- fa-spin -->
             </div>
   
@@ -30,10 +34,13 @@
         <!-- /.container-fluid -->
     </nav>
   </header>
+  <!-- body view above  -->
 <!-- Overlay sidemenu for mobile view -->
   <div id="mySidenav" class="sidenav"  #mySidenav>
-    <div class="divlogo"  (click)="closeNav()">
-        <img src="assets/img/tokenBazar.jpg" class="img-responsive logo">
+    <div class="divlogo text-center"  (click)="closeNav()">
+        <!-- <img src="assets/img/tokenBazar.jpg" class="img-responsive logo"> -->
+        <img src="assets/img/man.png" class="img-responsive manlogo">
+        <p class="manname">{{username}}</p>
     </div>
     <!-- <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">
         &nbsp;&times;
@@ -61,7 +68,7 @@
         <a (click)="doLogout(template)" class="logoutlink" data-scroll=""><span class="sidebar-icon"><i class="fa fa-sign-out" aria-hidden="true"></i></span>Logout</a>
     </div>
     <div class="sidemenufooter">
-        <p>&copy;{{year}}</p>
+        <p>&copy; {{year}}</p>
     </div>
   </div>
   <ng-template #template>

@@ -59,6 +59,14 @@ export class ReferralComponent implements OnInit {
 
   @ViewChild('panelScroll') private panelScroll:ElementRef;
 
+  @ViewChild('successmodal') successmodal:ElementRef;
+  successCurrency:any;
+  successMessage:any;
+  successcap:any;
+
+  bitcoinurl:any = "https://blockchain.info/tx";
+  etherurl:any = "https://etherscan.io/tx";
+
   constructor(
     public serv:ServiceapiService,
     private storage:LocalStorageService,
@@ -84,7 +92,7 @@ export class ReferralComponent implements OnInit {
     }
     // console.log(this.router.url,this.sendUrl)
 
-    
+    this.openSuccessModal('eth','#txid');
   } 
 
 
@@ -113,7 +121,7 @@ export class ReferralComponent implements OnInit {
     let msg;
     if(retrieve != null && etheraddress != null && bitcoinaddress != null){
       msg = retrieve;
-      setTimeout(()=>{this.toastr.success(msg, 'Done!',{timeOut:1200});},2500);
+      setTimeout(()=>{this.toastr.success(msg, 'Done!',{timeOut:1200});},1200);
       setTimeout(()=>{
         msg = "";
         this.signup.removeRouteMsgPass();
@@ -448,7 +456,9 @@ export class ReferralComponent implements OnInit {
               if(type == 'eth') {
                 this.otpETH = "";cap = "ETH";this.ethwithdrawntab = 1;
               }
-              this.toastr.success('OTP verified and your '+cap+' transaction is completed.', 'Done!',{timeOut:2500});
+              let txid = response.txid;
+              this.openSuccessModal(cap,txid);
+              
             }else if(response.code == 400){
               //
               let msg = response.error;//"transaction_failed"
@@ -487,6 +497,20 @@ export class ReferralComponent implements OnInit {
 
   confirmETH(){
     this.confirmWithdrawOTP('eth');
+  }
+
+  openSuccessModal(cap,txid){
+    this.successcap = cap;
+    this.successCurrency = cap;
+    this.successMessage = txid;
+    this.modalRef = this.modalService.show(
+      this.successmodal,
+        Object.assign({}, this.config, { class: 'gray modal-md' })
+    );
+    this.toastr.success('OTP verified and your '+cap+' transaction is completed.', 'Done!',{timeOut:2500});
+  }
+  donefinally(){
+    this.modalRef.hide();
   }
 
   scrollToBottom(): void {

@@ -299,6 +299,7 @@ export class SignupService {
     this.fbapi.logout();
     this.storage.store("AUXUserUrl",url);
     this.router.navigate(["/login","you_are_unauthorized"]);
+    location.reload();
     //this.router.navigateByUrl("/login?why=you_are_unauthorized");
   }
 
@@ -310,6 +311,7 @@ export class SignupService {
     this.clearUserSession();
     this.storage.store("AUXUserUrl",url);
     this.router.navigate(["/login"]);
+    location.reload();
   }
 
   setUserSession(email,token){

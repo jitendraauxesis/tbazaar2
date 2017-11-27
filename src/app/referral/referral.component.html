@@ -464,6 +464,57 @@
                   </div>
                 </div>
           </ng-template>
+
+          <!-- Success Modal -->
+          <ng-template #successmodal>
+              <div class="modal-header">
+                  <button type="button" class="close pull-right" aria-label="Close" (click)="hideme()">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+                  <h6 id="myModalLabel" class="noMarg text-left">
+                          <span class="pull-left padRightOnly" style="font-size:28px;"><i class="fa fa-chevron-down" aria-hidden="true"></i></span>
+                      <span id="modal-header-content">Withdraw Completed</span>
+                  </h6>
+                </div>
+                <div class="modal-body customModalHeight" id="normalModalBody">
+                  <div class="tab-content">
+    
+    
+                    <div class="tab-pane fade in active">
+                      <div class="container-fluid">
+                        <div class="col-sm-12">
+                          <div class="card">
+                              <!-- <img class="card-img-top" src="assets/img/tb-logo.png" alt="Card image cap"> -->
+                              <div class="card-body" *ngIf="successcap == 'btc'">
+                                <h5 class="card-title">
+                                    
+                                    We have successfully deposited earned bitcoins at provided address.<br>
+                                    Your <i class="fa fa-btc" aria-hidden="true" ></i>  transaction id is <a href="{{bitcoinurl}}/{{successMessage}}">{{successMessage}}</a>.
+                                </h5>
+                              </div>
+                              <div class="card-body" *ngIf="successcap == 'eth'">
+                                  <h5 class="card-title">
+                                    
+                                    We have successfully deposited earned bitcoins at provided address.<br>
+                                    Your <img class="ethereum" src="assets/img/ethereum.png">  transaction id is <a href="{{etherurl}}/{{successMessage}}">{{successMessage}}</a>.
+                                  </h5>
+                                </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="container-fluid">
+                          <div class="col-sm-12 col-sm-offset-3 text-center">
+                              <br>
+                              <button type="button" class="btn btn-primary btn-block btnreferral" (click)="donefinally()">
+                                  Close
+                              </button>
+                          </div>
+                      </div>
+                    </div>
+    
+                  </div>
+                </div>
+          </ng-template>
           <!-- Modal ETH END -->
         </div><!--topbar-->
       </div>

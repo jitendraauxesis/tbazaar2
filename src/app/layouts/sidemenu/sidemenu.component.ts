@@ -56,6 +56,7 @@ export class SidemenuComponent implements OnInit {
   }
 
   clickonReferral(){
+    // console.log("sdf")
     let status = this.signup.retrieveFromLocal("AUXUserAddReferralStatus");//,"none" // "done"
     if(status == "done" || status){
       this.router.navigate(["/referral"]);
@@ -107,3 +108,4 @@ export class SidemenuComponent implements OnInit {
   }
 
 }
+// body

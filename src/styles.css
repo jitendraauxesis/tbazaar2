@@ -29,7 +29,7 @@ body {
 }
 
 img.img-responsive.tblogo {
-    width: 200px;
+  width: 60%;
     /* margin: 2px; */
     /* position: fixed; */
     left: 0;
@@ -159,4 +159,65 @@ a.skip {
 
 a.nopad.referral {
   cursor: pointer;
+}
+
+div.p.due {
+  margin-top: 40%;
+  color: brown;
+  text-align: center;
+}
+
+
+/* sidemenu mobile view */
+img.img-responsive.manlogo {
+  width: 50%;
+  /* margin: 5%; */
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-top: 10%;
+}
+p.manname {
+  color: white;
+  font-size: 18px;
+  margin-top: 5%;
+  font-weight: 600;
+}
+
+/* ProfileDescDiv */
+@media (max-width: 767px){
+  div.profileDescDiv {
+      display: none;
+  }
+}
+@media (min-width:768px){
+  div.profileDescDiv {
+      display:block;
+  }
+}
+
+
+/* navbar profile view header */
+.profileDescDiv {
+  position: absolute;
+  right: 0;
+}
+img.img-responsive.manhomelogo {
+  width: 40px;
+  height: 40px;
+  /* position: absolute; */
+  /* right: 0; */
+  /* padding: 5px; */
+  margin-right: 120px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+p.manhomename {
+  position: absolute;
+  top: 0;
+  margin: 6%;
+  padding: 5%;
+  margin-left: 30%;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
 }

@@ -26,6 +26,8 @@ export class NavbarComponent implements OnInit {
 
   year:any;
 
+  username:any;
+
   constructor(
     public element:ElementRef,
     private toastr: ToastrService,
@@ -40,6 +42,8 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     //this.sidenav.nativeElement.style.display = "none";
+
+    this.username = this.signup.retrieveFromLocal("AUXMassUserName");
   }
 
   showcollapse(){
@@ -120,3 +124,4 @@ export class NavbarComponent implements OnInit {
     }
   }
 }
+// mobile view

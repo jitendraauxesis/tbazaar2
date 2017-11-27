@@ -157,6 +157,10 @@
                                                     <div *ngIf="radioclick=='eth'">
                                                         <app-userhomeethmodal (click)="callme()"></app-userhomeethmodal>
                                                     </div>
+
+                                                    <div class="p due">
+                                                        ICO Platform start on 9 am.
+                                                    </div>
                                                     <!-- <div *ngIf="radioclick=='bnk'">
                                                         <app-userhomebnkmodal></app-userhomebnkmodal>
                                                     </div> -->
@@ -284,7 +288,7 @@
                                                                 <i class="fa fa-clock-o" aria-hidden="true"></i> {{convertToDate(t.timestamp)}}
                                                         </div>
                                                         <div class="col-md-12 col-sm-12 text-left">
-                                                            <span class="recieve done" *ngIf="t.content == 'signup'">You are logged in with ICO Cryp Platform</span>     
+                                                            <span class="recieve done" *ngIf="t.content == 'signup'">You logged into MASS CRYP ICO Platform</span>     
                                                             <span class="recieve done" *ngIf="t.content == 'kyc_submitted'">You uploaded kyc documents</span>     
                                                         </div>
                         

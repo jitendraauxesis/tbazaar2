@@ -92,7 +92,7 @@ export class ReferralComponent implements OnInit {
     }
     // console.log(this.router.url,this.sendUrl)
 
-    this.openSuccessModal('eth','#txid');
+    // this.openSuccessModal('eth','#txid');
   } 
 
 

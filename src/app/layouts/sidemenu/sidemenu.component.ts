@@ -55,6 +55,15 @@ export class SidemenuComponent implements OnInit {
   ngOnInit() {
   }
 
+  clickonReferral(){
+    let status = this.signup.retrieveFromLocal("AUXUserAddReferralStatus");//,"none" // "done"
+    if(status == "done" || status){
+      this.router.navigate(["/referral"]);
+    }else{
+      this.router.navigate(["/addreferral"]);
+    }
+  }
+
   doLogout(template: TemplateRef<any>){
     //console.log("im clicked");
     this.modalRef = this.modalService.show(template,{class: 'modal-sm'});
@@ -66,7 +75,8 @@ export class SidemenuComponent implements OnInit {
   }
  
   decline(): void {
-    this.toastr.info("You are continuing token bazaar","Continued...",{timeOut:2500});
+    let name = this.signup.retrieveFromLocal("AUXMassUserName");
+    this.toastr.info("Dear "+name+"! , you are continuing token bazaar","Continued...",{timeOut:2500});
     this.modalRef.hide();
   }
 

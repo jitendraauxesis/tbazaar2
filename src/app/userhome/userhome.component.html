@@ -49,7 +49,7 @@
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     
                                 </button>
-                                <span>Please complete your KYC by <button class="btn btn-link" [routerLink]="['/kyc']">clicking here.</button>. You must submit your KYC details by 31st December 2017.</span>
+                                <span>Please complete your KYC by <button class="btn btn-link" [routerLink]="['/kyc']">clicking here.</button> You must submit your KYC details by 31st December 2017.</span>
                             </div>
                         </div>
                         <hr>
@@ -152,11 +152,15 @@
                                                     <div class="panel-heading icon"  *ngIf="t.type == 'eth_transaction'">
                                                             <img class="ethereumico home" src="assets/img/ethereumico.png">
                                                     </div>
-                                                    <div class="panel-heading icon"  *ngIf="t.type != 'btc_transaction' && t.type != 'eth_transaction'">
+                                                    <div class="panel-heading icon"  *ngIf="t.type == 'text'">
                                                             <i class="fa fa-file-text-o" aria-hidden="true"></i>
                                                     </div>
+                                                    <div class="panel-heading icon"  *ngIf="t.type == 'payment_initiation'">
+                                                        <i class="fa fa-btc" aria-hidden="true" *ngIf="t.currency == 'btc'"></i>
+                                                        <img class="ethereumico home" src="assets/img/ethereumico.png"  *ngIf="t.currency == 'eth'">
+                                                    </div>
 
-                                                    <div class="panel-body"> 
+                                                    <div class="panel-body" *ngIf="t.type != 'text'"> 
                                                         <div class="col-md-6 col-sm-6">
                                                                 Transaction
                                                         </div>
@@ -164,18 +168,40 @@
                                                                 <i class="fa fa-clock-o" aria-hidden="true"></i> {{convertToDate(t.timestamp)}}
                                                         </div>
                                                         <div class="col-md-12 col-sm-12 text-left"  *ngIf="t.type == 'btc_transaction'">
-                                                            <span class="recieve done">Purchase of {{t.mass}} MASS Coin successful with <i class="fa fa-btc" aria-hidden="true"></i> {{t.amount}} BTC </span>     
+                                                            <span class="recieve done">Purchase of {{t.mass}} MASS Coin successful with 
+                                                                <!-- <i class="fa fa-btc" aria-hidden="true"></i>  -->
+                                                                {{t.amount}} BTC </span>     
                                                                  <!-- {{t.content}} -->
                                                         </div>
                                                         <div class="col-md-12 col-sm-12 text-left"  *ngIf="t.type == 'eth_transaction'">
-                                                                <span class="recieve done">Purchase of {{t.mass}} MASS Coin successful with <img class="ethereum home" src="assets/img/ethereum.png"> {{t.amount}} ETH </span>   
+                                                                <span class="recieve done">Purchase of {{t.mass}} MASS Coin successful with 
+                                                                    <!-- <img class="ethereum home" src="assets/img/ethereum.png">  -->
+                                                                    {{t.amount}} ETH </span>   
                                                                  <!-- {{t.content}} -->
                                                         </div>
                                                         <div class="col-md-12 col-sm-12 text-left"  *ngIf="t.type == 'payment_initiation'">
                                                                 <span class="recieve" >Payment initiated of </span> 
-                                                                <i class="fa fa-btc" aria-hidden="true" *ngIf="t.currency == 'btc'"></i>
-                                                                <img class="ethereum home" src="assets/img/ethereum.png" *ngIf="t.currency == 'eth'"> {{t.content}}
+                                                                <!-- <i class="fa fa-btc" aria-hidden="true" *ngIf="t.currency == 'btc'"></i>
+                                                                <img class="ethereum home" src="assets/img/ethereum.png" *ngIf="t.currency == 'eth'">  -->
+                                                                {{t.content}}
         
+                                                        </div>
+                        
+                                                    </div>
+
+                                                    <div class="panel-body" *ngIf="t.type == 'text'"> 
+                                                        <div class="col-md-6 col-sm-6" *ngIf="t.content == 'signup'">
+                                                                Sign Up
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6" *ngIf="t.content == 'kyc_submitted'">
+                                                            KYC 
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6 text-right">
+                                                                <i class="fa fa-clock-o" aria-hidden="true"></i> {{convertToDate(t.timestamp)}}
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 text-left">
+                                                            <span class="recieve done" *ngIf="t.content == 'signup'">You recently join with ICO Cryp Platform</span>     
+                                                            <span class="recieve done" *ngIf="t.content == 'kyc_submitted'">You uploaded kyc documents</span>     
                                                         </div>
                         
                                                     </div>

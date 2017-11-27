@@ -62,6 +62,15 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  clickonReferral(){
+    let status = this.signup.retrieveFromLocal("AUXUserAddReferralStatus");//,"none" // "done"
+    if(status == "done" || status){
+      this.router.navigate(["/referral"]);
+    }else{
+      this.router.navigate(["/addreferral"]);
+    }// [routerLink]="['/referral']"
+  }
+
   closeNav(){
     this.mySidenav.nativeElement.style.width = "0";
   }
@@ -78,7 +87,8 @@ export class NavbarComponent implements OnInit {
   }
  
   decline(): void {
-    this.toastr.info("You are continuing token bazaar","Continued...",{timeOut:2500});
+    let name = this.signup.retrieveFromLocal("AUXMassUserName");
+    this.toastr.info("Dear "+name+"! , you are continuing token bazaar","Continued...",{timeOut:2500});
     this.modalRef.hide();
   }
 

@@ -82,9 +82,9 @@ export class AddreferralComponent implements OnInit {
     let etheraddress = this.signup.retrieveRefundAddress("AUXUserRefundEtherAddress");
     let bitcoinaddress = this.signup.retrieveRefundAddress("AUXUserRefundBitcoinAddress");
     if(etheraddress == "" || etheraddress == null || !etheraddress){
-      console.log("do not touch form inputs");
+      // console.log("do not touch form inputs");
     }else if(bitcoinaddress == "" || bitcoinaddress == null || !bitcoinaddress){
-      console.log("do not touch form inputs"); 
+      // console.log("do not touch form inputs"); 
     }else{
       this.referralbtnTxt = "Update";
       this.bitcoinaddress = bitcoinaddress;// console.log("append to btcaddress");
@@ -100,7 +100,7 @@ export class AddreferralComponent implements OnInit {
   }
 
   addreferral(){
-    console.log(this.formReferral)
+    // console.log(this.formReferral)
     if(this.formReferral.valid){
       let btc = this.formReferral.value.bitcoin;
       let eth = this.formReferral.value.ether;

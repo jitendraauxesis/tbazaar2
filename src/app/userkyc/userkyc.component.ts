@@ -317,7 +317,7 @@ export class UserkycComponent implements OnInit {
             // this.sucmsg = "KYC detail submitted successfully wait after administrator verified.\nWe redirecting to your dashboard...";
             // setTimeout(()=>{
               // this.sucmsg;              
-              let msgToPass = "KYC detail submitted successfully wait after administrator verified.\nYour dashboard is ready to use...";
+              let msgToPass = "KYC is waiting for administrator approval. You can continue buying MASS Coins.";
               this.signup.setRouteMsgPass(msgToPass);
               this.storage.store("AUXAuthLogin",true);
               this.signup.saveToLocal("AUXKYCStatus","done");   //for page             
@@ -326,7 +326,7 @@ export class UserkycComponent implements OnInit {
               this.router.navigate(["/home"]);
             // },3500);
           }else if( (r.code == 400 && r.kyc == "pending") || r.status == "already_done"){
-            this.failmsg("KYC detail is already submitted we redirecting to your dashboard...");
+            this.failmsg("KYC is waiting for administrator approval. You can continue buying MASS Coins.");
             // setTimeout(()=>{
               this.storage.store("AUXAuthLogin",true);
               this.signup.saveToLocal("AUXKYCStatus","done");                
@@ -335,7 +335,13 @@ export class UserkycComponent implements OnInit {
               this.router.navigate(["/home"]);
             // },2010);
           }else{
-            this.failmsg("Network interuptted to submit KYC detail try again.");
+            this.failmsg("KYC is waiting for administrator approval. You can continue buying MASS Coins.");
+            // setTimeout(()=>{
+              this.storage.store("AUXAuthLogin",true);
+              this.signup.saveToLocal("AUXKYCStatus","done");                
+              this.signup.saveToLocal("AUXTNCStatus","done");
+              this.signup.saveToLocal("AUXHomeStatus","pending"); //for kyc current
+              this.router.navigate(["/home"]);
           }
           this.loadingimage = false;
         },

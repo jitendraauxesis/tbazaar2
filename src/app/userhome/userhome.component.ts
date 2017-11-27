@@ -142,7 +142,7 @@ export class UserhomeComponent implements OnInit {
       let retrieve = this.signup.retrieveRouteMsgPass();
       if(retrieve != null){
         msg = retrieve;
-        this.toastr.success(msg, 'Welcome!!!',{timeOut:5000});
+        this.toastr.success(msg, null,{timeOut:5000});
         setTimeout(()=>{
           msg = "";
           this.signup.removeRouteMsgPass();
@@ -154,7 +154,7 @@ export class UserhomeComponent implements OnInit {
       setTimeout(()=>{
         if(retrieve != null){
           msg = retrieve;
-          this.toastr.success('Token bazaar with ease!'+msg, 'Welcome!!!',{timeOut:5000});
+          this.toastr.success(msg,null,{timeOut:5000});
           setTimeout(()=>{
             msg = "";
             this.signup.removeRouteMsgPass();
@@ -222,7 +222,8 @@ export class UserhomeComponent implements OnInit {
                   this.tokens = d.tokens;
                 }
               }else if(d.code == 401){
-                this.signup.logoutFromApp();
+                // this.signup.logoutFromApp();
+                this.user_timeline_list = [];
               }else{
                 this.user_timeline_list = [];
               } 
@@ -237,7 +238,7 @@ export class UserhomeComponent implements OnInit {
   loadHomeStatus(){
     let isAuth = this.storage.retrieve("AUXAuthLogin");
     let cookieExists = this.signup.checkUserActivity();
-    //console.log("isAuthorized",isAuth,cookieExists);
+    console.log("isAuthorized",isAuth,cookieExists);
     if(isAuth == null){
       this.signup.UnAuthlogoutFromApp(); 
     }
@@ -329,7 +330,7 @@ export class UserhomeComponent implements OnInit {
         },8000);
       }else{
         this.kycalertpanelview = true;
-        this.kycalertpanel = view;
+        this.kycalertpanel = view; 
       }
     }
   }
@@ -342,7 +343,7 @@ export class UserhomeComponent implements OnInit {
           'token':this.signup.retrieveFromLocal("AUXHomeUserToken")
         };
         setTimeout(()=>{
-          //console.log(data,"called");
+          console.log(data,"called");
         },4000);
         this.serv.resolveApi(this.apiMethod,data) 
         .subscribe(
@@ -350,6 +351,7 @@ export class UserhomeComponent implements OnInit {
             // console.log(res);
             let d = JSON.parse(JSON.stringify(res));
             if(d.status == 200){
+              this.signup.saveToLocal("AUXMassUserName",d.user_name);
               let kyc = d.kyc; 
               if(kyc == false)  this.serv.saveToLocal("AUXHomeStatus","nokyc");
               if(kyc == null)  this.serv.saveToLocal("AUXHomeStatus","nokyc");
@@ -423,7 +425,8 @@ export class UserhomeComponent implements OnInit {
               }
               this.callAgainForStatus();
             }else if(d.code == 401){
-              this.signup.logoutFromApp();
+              this.user_timeline_list = [];
+              // this.signup.logoutFromApp();
             }else{
               this.user_timeline_list = [];
             } 

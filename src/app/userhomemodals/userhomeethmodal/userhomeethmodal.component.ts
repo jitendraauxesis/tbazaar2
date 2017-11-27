@@ -519,7 +519,7 @@ export class UserhomeethmodalComponent implements OnInit {
     this.signup.saveToLocal("AUXPageChange","yes");
     let cas = this.serv.retrieveFromLocal("AUXETHTransaction_token_amount");
     let transaction_id = this.serv.retrieveFromLocal("AUXETHTransaction_id");
-    this.message = cas+" CAS Token from transaction id "+transaction_id+"  is deposited in your account.";
+    this.message = cas+" MASS Token from transaction id "+transaction_id+"  is deposited in your account.";
     setTimeout(()=>{  
       this.hideme();
       this.storage.clear("AUXETHTransactionRA");
@@ -540,7 +540,7 @@ export class UserhomeethmodalComponent implements OnInit {
       this.progressvalue = 0;
       this.progressshow = false;
       this.initialCount = 0;
-      this.toastr.info('Wait for admin mail that verify transaction.', 'Note:',{timeOut:8000});
+      // this.toastr.info('Wait for admin mail that verify transaction.', 'Note:',{timeOut:8000});
       this.toastr.info('You can make new transaction.', 'Make another transaction',{timeOut:3000});
       // setTimeout(()=>{location.reload();},8000);
     },5000);

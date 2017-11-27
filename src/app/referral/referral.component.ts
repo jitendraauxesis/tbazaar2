@@ -168,18 +168,18 @@ export class ReferralComponent implements OnInit {
         let response = JSON.parse(JSON.stringify(res));
         // console.log()
         if(response != null || response != ""){
-          console.log(response);
+          // console.log(response);
           if(response.code == 200){
             let data = response.data;
             if(type == 'btc'){
-              console.log("im btc")
+              // console.log("im btc")
               this.modalbtcpending_amount = data.pending_amount;
               this.modalbtcwithdraw_address = data.withdraw_address;
               this.modalbtcamount_to_be_paid = data.amount_to_be_paid;
               this.modalbtcfee = data.fee;
             }
             if(type == 'eth'){
-              console.log("im eth")
+              // console.log("im eth")
               this.modalethpending_amount = data.pending_amount;
               this.modalethwithdraw_address = data.withdraw_address;
               this.modalethamount_to_be_paid = data.amount_to_be_paid;
@@ -203,7 +203,7 @@ export class ReferralComponent implements OnInit {
         }
       },
       err=>{
-          console.error(err);
+          // console.error(err);
           this.toastr.error('Withdrawn detail not retrieved', 'Not a valid response',{timeOut:2500});
       }
     );
@@ -220,14 +220,16 @@ export class ReferralComponent implements OnInit {
       res=>{
         let response = JSON.parse(JSON.stringify(res));
         if(response != null || response != ""){
-          console.log(response);
+          // console.log(response);
           if(response.code == 200){
             let btcrefund = response.referral_json.btc_refund_address;
             let ethrefund = response.referral_json.eth_refund_address;
             if(btcrefund == null || btcrefund == "" || ethrefund == null || ethrefund == ""){
-              this.signup.setRouteMsgPass("BTH & ETH refund address is not taken try to add first");
+              // this.signup.setRouteMsgPass("BTC & ETH refund address is not taken try to add first");
+              this.signup.saveToLocal("AUXUserAddReferralStatus","none");
               this.router.navigate(["/addreferral"]);
-            }else{
+            }else{ 
+              this.signup.saveToLocal("AUXUserAddReferralStatus","done");
               this.signup.saveRefundAddress("AUXUserRefundEtherAddress",ethrefund);
               this.signup.saveRefundAddress("AUXUserRefundBitcoinAddress",btcrefund);
               this.referridvalue = response.referral_json.ref_id;
@@ -275,12 +277,12 @@ export class ReferralComponent implements OnInit {
             }
 
           }else if(response.code == 400){
-            this.signup.setRouteMsgPass("BTH & ETH refund address is not taken try to add first");
+            // this.signup.setRouteMsgPass("BTH & ETH refund address is not taken try to add first");
             this.router.navigate(["/addreferral"]);
           }else if(response.code == 401){
             this.signup.UnAuthlogoutFromApp();
           }else{
-            this.signup.setRouteMsgPass("BTH & ETH refund address is not taken try to add first");
+            // this.signup.setRouteMsgPass("BTH & ETH refund address is not taken try to add first");
             this.router.navigate(["/addreferral"]);
           }
         }else{
@@ -298,7 +300,7 @@ export class ReferralComponent implements OnInit {
   }
 
   populateReferralList(referral_details_list){
-    console.log(referral_details_list.length,referral_details_list);
+    // console.log(referral_details_list.length,referral_details_list);
     let arr = [];
     referral_details_list.forEach((value,key) => {
       arr.push({
@@ -384,7 +386,7 @@ export class ReferralComponent implements OnInit {
         this.loadingimage = false;
         let response = JSON.parse(JSON.stringify(res));
         if(response != null || response != ""){
-          console.log(response);
+          // console.log(response);
           if(response.code == 200){
             if(type == 'btc'){
               this.btcwithdrawntab = 2;
@@ -400,7 +402,7 @@ export class ReferralComponent implements OnInit {
             this.toastr.error('Unable to request for otp, try again', 'Ubandoned',{timeOut:2500});
           }
         }else{
-          console.log(response);
+          // console.log(response);
           this.toastr.error('Unable to send mail', 'Ubandoned',{timeOut:2500});
         }
       },
@@ -433,7 +435,7 @@ export class ReferralComponent implements OnInit {
           this.loadingimage = false;
           let response = JSON.parse(JSON.stringify(res));
           if(response != null || response != ""){
-            console.log(response);
+            // console.log(response);
             if(response.code == 200){
               this.modalRef.hide();
               let cap;
@@ -452,7 +454,7 @@ export class ReferralComponent implements OnInit {
               this.toastr.error('Unable to verify for otp, try again', 'Ubandoned',{timeOut:2500});
             }
           }else{
-            console.log(response);
+            // console.log(response);
             this.toastr.error('Unable to verify otp', 'Ubandoned',{timeOut:2500});
           }
         },

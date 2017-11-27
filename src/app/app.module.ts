@@ -94,6 +94,7 @@ export const firebaseConfig = {
     ProgressbarModule.forRoot(),
     BrowserAnimationsModule,
     ToastrModule.forRoot({
+      maxOpened:1,
       preventDuplicates:true
     }),
     Ng2Webstorage,

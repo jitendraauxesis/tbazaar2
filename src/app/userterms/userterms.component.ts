@@ -110,14 +110,21 @@ export class UsertermsComponent implements OnInit {
       this.signup.makeTNC(name,email,ref)
       .then(
         (data)=>{
+          this.signup.saveToLocal("AUXMassUserName",name);
           let dat = JSON.parse(JSON.stringify(data));
           //console.log(dat);
           if(dat.code == 200){// && dat.status == "accepted"
+            let t = dat.token;
+            if(t!="" || t!= null || t!=undefined){  
+              this.storage.store("AUXAuthLogin",true);
+              this.signup.saveToLocal("AUXHomeUserToken",dat.token);
+              this.signup.setUserSession(email,dat.token);
+            }
             if(dat.tnc == true && dat.kyc == false){
               // this.sucmsg = "Just one step remain uplaod your KYC detail in next section.";//
               // setTimeout(()=>{
                 // this.sucmsg = "";
-                  let msgToPass = "Just one step remain, uplaod your KYC detail submit below.";
+                  let msgToPass = "Just one step remain, upload your KYC detail submit below.";
                   this.signup.setRouteMsgPass(msgToPass);
                 this.router.navigate(["kyc"]);                
                 this.signup.saveToLocal("AUXTNCStatus","done");  
@@ -130,19 +137,26 @@ export class UsertermsComponent implements OnInit {
                   this.signup.setRouteMsgPass(msgToPass);
                 this.signup.saveToLocal("AUXTNCStatus","done");
                 this.router.navigate(["home"]);
+                let t = dat.token;
+                if(t!="" || t!= null || t!=undefined){  
+                  this.storage.store("AUXAuthLogin",true);
+                  this.signup.saveToLocal("AUXHomeUserToken",dat.token);
+                  this.signup.setUserSession(email,dat.token);
+                }
               // },2500);
             }
-            if(dat.token){  
+          }else if(dat.code == 400){
+            let t = dat.token;
+            if(t!="" || t!= null || t!=undefined){  
               this.storage.store("AUXAuthLogin",true);
               this.signup.saveToLocal("AUXHomeUserToken",dat.token);
               this.signup.setUserSession(email,dat.token);
             }
-          }else if(dat.code == 400){
             if(dat.kyc == true){
               // this.sucmsg = "You have already submitted the KYC Details, now we redirecting to your dashboard.";
               // setTimeout(()=>{
                 // this.sucmsg = "";
-                  let msgToPass = "You have already submitted the KYC Details.";
+                  let msgToPass = "KYC is waiting for administrator approval. You can continue buying MASS Coins.";
                   this.signup.setRouteMsgPass(msgToPass);
                 this.signup.saveToLocal("AUXTNCStatus","done");
                 this.router.navigate(["home"]);
@@ -184,11 +198,11 @@ export class UsertermsComponent implements OnInit {
             }else{
               this.failmsg("Unable to verify terms and condition");    
             }
-            if(dat.token){  
-              this.storage.store("AUXAuthLogin",true);
-              this.signup.saveToLocal("AUXHomeUserToken",dat.token);
-              this.signup.setUserSession(email,dat.token);
-            }
+            // if(dat.token){  
+            //   this.storage.store("AUXAuthLogin",true);
+            //   this.signup.saveToLocal("AUXHomeUserToken",dat.token);
+            //   this.signup.setUserSession(email,dat.token);
+            // }
           }else{
             this.failmsg("Unable to verify terms and condition");  
           }

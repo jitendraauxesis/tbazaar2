@@ -151,3 +151,8 @@ img.ethereumico.home {
     white-space: normal;
   }
 }
+
+/* add referrral */
+a.skip {
+  cursor: pointer;
+}

@@ -113,7 +113,7 @@
         <div class="tab-content">
             <div class="tab-pane fade in active" id="step2RecieveBTH" #step2RecieveBTH *ngIf="stepRecieveETH == 2">
                     <div class="container-fluid text-center">
-                            <h4>{{token_amount}} CAS</h4>
+                            <h4>{{token_amount}} MASS</h4>
                             <h4><img class="ethereum" src="assets/img/ethereum.png">  {{amount_to_pay}} ETH</h4>
                             <h4 class="pull-left text-center">Transfer ETH to following the address:</h4>
                     </div>
@@ -183,7 +183,7 @@
                                         <p *ngIf="i.confirmations == 3" style="color:#43694f">3 confirmation</p>
                                 </div>
                                 <div class="col-sm-12" *ngIf="initialCount != 3">
-                                    Please wait while we receive {{initialCount}}/3 confirmation to confirm your payment.
+                                        Please wait while we receive 3 confirmations of payment to allot the MASS coins.
                                 </div>
                                 <div class="col-sm-12" *ngIf="initialCount == 3">
                                     Confirmations have been completed, please wait <img src="assets/img/loading.gif" class="loadingimgdone">

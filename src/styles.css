@@ -221,3 +221,28 @@ p.manhomename {
   font-size: 16px;
   font-weight: 600;
 }
+
+/* signul statubar title */
+@media (max-width: 767px){
+  p.titlemasscryp {
+    position: absolute;
+    right: 0;
+    margin-top: 15px;
+    width: 100%;
+    font-size: 20px;
+    font-weight: 600;
+    color: #004A7C;
+    text-align: center;
+  }
+}
+@media (min-width:768px){ 
+  p.titlemasscryp {
+    position: absolute;
+    right: 0;
+    margin-top: 15px;
+    margin-right: 6%;
+    font-size: 20px;
+    font-weight: 600;
+    color: #004A7C;
+  }
+}

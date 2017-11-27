@@ -106,7 +106,91 @@
                   
                           <div id="main-content">
                               <div class="container-fluid">
-                                    <div class="col-sm-12 col-md-6" *ngIf="user_timeline_listShow == true">
+
+                                    <div class="col-sm-6 col-md-6 col-sm-push-6">
+                                            <!-- <div class="new"> -->
+                                                <div class="col-sm-12 col-md-10" *ngIf="homeStatusYet">
+                                                        <div class="alert alert-warning" *ngIf="homeStatusYetText == 'pending'">
+                                                            <strong>Note!</strong> KYC detail has been in pending stage.
+                                                        </div>
+                                                        
+                                                        <div class="alert alert-danger" *ngIf="homeStatusYetText == 'rejected'">
+                                                            <strong>Ooops!</strong> KYC detail has been rejected administrator.
+                                                        </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-10 boxshadowdiv" *ngIf="homeStatusDone">
+                            
+                                                    <h3 class="montBold">
+                                                    Payment Methods <span style="font-size: 10px;position: absolute;"><i class="fa fa-registered"  aria-hidden="true"></i></span>
+                                                    </h3>
+                            
+                            
+                                                    <div class="input-group col-sm-10">
+                                                        <input  type="text"  class="form-control" placeholder="0" [(ngModel)]="cas" aria-describedby="basic-addon2" (keypress)="keyevent($event)" (keyup)="keyup($event)">
+                                                        <!--  (keyup)="keyevent($event)"   ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01"-->
+                                                        <span class="input-group-addon" id="basic-addon2">MASS</span>
+                                                    </div>
+                            
+                                                    <div class="col-sm-12 nopad">
+                            
+                                                        <div class="radio">
+                                                            <label><input type="radio" id="Pay_with_BTC" name="optradio" [(ngModel)]="optradio" (click)="callToViewModalBtn('btc')"  class="btc" value="BTC">Pay with BTC</label>
+                                                        </div>
+                            
+                            
+                                                        <div class="radio">
+                                                            <label><input type="radio" id="Pay_with_ETH" name="optradio" [(ngModel)]="optradio" (click)="callToViewModalBtn('eth')"  class="btc" value="ETH">Pay with ETH</label>
+                                                        </div>
+                            
+                            
+                            
+                                                        <!-- <div class="radio">
+                                                            <label><input type="radio" id="Pay_with_Bank" name="optradio" [(ngModel)]="optradio" (click)="callToViewModalBtn('bnk')"  class="btc" value="BNK">Pay with Bank</label>
+                                                        </div> -->
+                            
+                            
+                                                    </div>
+    
+                                                    <div *ngIf="radioclick=='btc'">
+                                                        <app-userhomebtcmodal (click)="callme()"></app-userhomebtcmodal>
+                                                    </div>
+                                                    <div *ngIf="radioclick=='eth'">
+                                                        <app-userhomeethmodal (click)="callme()"></app-userhomeethmodal>
+                                                    </div>
+                                                    <!-- <div *ngIf="radioclick=='bnk'">
+                                                        <app-userhomebnkmodal></app-userhomebnkmodal>
+                                                    </div> -->
+    
+                                                    <!-- {{ok}}  -->
+    
+                                                    <!-- <div class="col-sm-12 nopad">
+                                                        <a class="btn btn-default btn-block" id="openmodal" data-toggle="modal" (click)="open_recieve_modal(btcmodal,ethmodal,bankmodal)">
+                                                            <span class="pull-left"></span> Pay &nbsp;  <img src="assets/img/loading.gif" *ngIf="loadingimage" class="loadingimgdone">
+                                                        </a>
+                                                    </div> -->
+                            
+    
+                                                    <!-- Modal Starts -->
+                                                    <!-- Modal BTH -->
+                                                    <!-- <div id="btcmodal">
+                                                    <ng-template #btcmodal>
+                                                        <app-userhomebtcmodal></app-userhomebtcmodal>
+                                                    </ng-template>
+                                                    </div>
+    
+                                                    <ng-template #ethmodal>
+                                                    <app-userhomeethmodal></app-userhomeethmodal>
+                                                    </ng-template>
+                                                    <ng-template #bankmodal>
+                                                        <app-userhomebnkmodal></app-userhomebnkmodal>
+                                                    </ng-template> -->
+                                                    <!-- Modal Ends -->
+                            
+                                                </div>
+                                            <!-- </div> -->
+                                        </div>
+
+                                    <div class="col-sm-6 col-md-6 col-sm-pull-6" *ngIf="user_timeline_listShow == true">
                                       <h5 class="montBold">
                                           Most Recent Activity
                                       </h5>
@@ -191,7 +275,7 @@
 
                                                     <div class="panel-body" *ngIf="t.type == 'text'"> 
                                                         <div class="col-md-6 col-sm-6" *ngIf="t.content == 'signup'">
-                                                                Sign Up
+                                                                Sign In
                                                         </div>
                                                         <div class="col-md-6 col-sm-6" *ngIf="t.content == 'kyc_submitted'">
                                                             KYC 
@@ -200,7 +284,7 @@
                                                                 <i class="fa fa-clock-o" aria-hidden="true"></i> {{convertToDate(t.timestamp)}}
                                                         </div>
                                                         <div class="col-md-12 col-sm-12 text-left">
-                                                            <span class="recieve done" *ngIf="t.content == 'signup'">You recently join with ICO Cryp Platform</span>     
+                                                            <span class="recieve done" *ngIf="t.content == 'signup'">You are logged in with ICO Cryp Platform</span>     
                                                             <span class="recieve done" *ngIf="t.content == 'kyc_submitted'">You uploaded kyc documents</span>     
                                                         </div>
                         
@@ -211,7 +295,7 @@
                   
                                     </div>
 
-                                    <div class="col-sm-12 col-md-6" *ngIf="user_timeline_listShow == false">
+                                    <div class="col-sm-6 col-md-6 col-sm-pull-6" *ngIf="user_timeline_listShow == false">
                                         <h5 class="montBold">
                                             Most Recent Activity.
                                         </h5>
@@ -274,90 +358,9 @@
                             
                                         </div>
                                         <!-- /Timeline -->
-                                     </div>
+                                    </div>
                   
-                                  <div class="col-sm-12 col-md-6">
-                                      <div class="new">
-                                        <div class="col-sm-12 col-md-10" *ngIf="homeStatusYet">
-                                                <div class="alert alert-warning" *ngIf="homeStatusYetText == 'pending'">
-                                                    <strong>Note!</strong> KYC detail has been in pending stage.
-                                                </div>
-                                                
-                                                <div class="alert alert-danger" *ngIf="homeStatusYetText == 'rejected'">
-                                                    <strong>Ooops!</strong> KYC detail has been rejected administrator.
-                                                </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-10" *ngIf="homeStatusDone">
-                    
-                                          <h3 class="montBold">
-                                          Payment Methods <span style="font-size: 10px;position: absolute;"><i class="fa fa-registered"  aria-hidden="true"></i></span>
-                                          </h3>
-                    
-                    
-                                            <div class="input-group col-sm-10">
-                                                <input  type="text"  class="form-control" placeholder="0" [(ngModel)]="cas" aria-describedby="basic-addon2" (keypress)="keyevent($event)" (keyup)="keyup($event)">
-                                                <!--  (keyup)="keyevent($event)"   ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01"-->
-                                                <span class="input-group-addon" id="basic-addon2">MASS</span>
-                                            </div>
-                    
-                                            <div class="col-sm-12 nopad">
-                    
-                                                <div class="radio">
-                                                    <label><input type="radio" id="Pay_with_BTC" name="optradio" [(ngModel)]="optradio" (click)="callToViewModalBtn('btc')"  class="btc" value="BTC">Pay with BTC</label>
-                                                </div>
-                    
-                    
-                                                <div class="radio">
-                                                    <label><input type="radio" id="Pay_with_ETH" name="optradio" [(ngModel)]="optradio" (click)="callToViewModalBtn('eth')"  class="btc" value="ETH">Pay with ETH</label>
-                                                </div>
-                    
-                    
-                    
-                                                <!-- <div class="radio">
-                                                    <label><input type="radio" id="Pay_with_Bank" name="optradio" [(ngModel)]="optradio" (click)="callToViewModalBtn('bnk')"  class="btc" value="BNK">Pay with Bank</label>
-                                                </div> -->
-                    
-                    
-                                            </div>
-
-                                            <div *ngIf="radioclick=='btc'">
-                                                <app-userhomebtcmodal (click)="callme()"></app-userhomebtcmodal>
-                                            </div>
-                                            <div *ngIf="radioclick=='eth'">
-                                                <app-userhomeethmodal (click)="callme()"></app-userhomeethmodal>
-                                            </div>
-                                            <!-- <div *ngIf="radioclick=='bnk'">
-                                                <app-userhomebnkmodal></app-userhomebnkmodal>
-                                            </div> -->
-
-                                            <!-- {{ok}}  -->
-
-                                            <!-- <div class="col-sm-12 nopad">
-                                                <a class="btn btn-default btn-block" id="openmodal" data-toggle="modal" (click)="open_recieve_modal(btcmodal,ethmodal,bankmodal)">
-                                                    <span class="pull-left"></span> Pay &nbsp;  <img src="assets/img/loading.gif" *ngIf="loadingimage" class="loadingimgdone">
-                                                </a>
-                                            </div> -->
-                    
-
-                                            <!-- Modal Starts -->
-                                            <!-- Modal BTH -->
-                                            <!-- <div id="btcmodal">
-                                            <ng-template #btcmodal>
-                                                <app-userhomebtcmodal></app-userhomebtcmodal>
-                                            </ng-template>
-                                            </div>
-
-                                            <ng-template #ethmodal>
-                                            <app-userhomeethmodal></app-userhomeethmodal>
-                                            </ng-template>
-                                            <ng-template #bankmodal>
-                                                <app-userhomebnkmodal></app-userhomebnkmodal>
-                                            </ng-template> -->
-                                            <!-- Modal Ends -->
-                    
-                                        </div>
-                                      </div>
-                                  </div>
+                                    
                               </div>
                   
                           </div>

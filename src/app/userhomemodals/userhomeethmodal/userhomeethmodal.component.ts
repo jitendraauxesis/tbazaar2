@@ -89,7 +89,7 @@ export class UserhomeethmodalComponent implements OnInit {
 
   ngOnInit() {
     //ETH
-    this.stepRecieveETH = 0;
+    this.stepRecieveETH = 1;
     this.toETH = 0;//if user not submitted wallet address and wallet name
       //screen1
     let ethwn = this.serv.retrieveFromLocal("AUXETHTransactionWN");//wallet name
@@ -529,7 +529,7 @@ export class UserhomeethmodalComponent implements OnInit {
       this.storage.clear("AUXETHTransaction_id");
       this.storage.clear("AUXETHTransaction_to_address");
       this.storage.clear("AUXETHTransaction_token_amount");
-      this.stepRecieveETH = 0;
+      this.stepRecieveETH = 1;
       this.ethmodaltitle = "Pay through ETH";
       this.ethwalletname = "";
       this.ethwalletaddress="";
@@ -543,7 +543,7 @@ export class UserhomeethmodalComponent implements OnInit {
       this.initialCount = 0;
       // this.toastr.info('Wait for admin mail that verify transaction.', 'Note:',{timeOut:8000});
       this.toastr.info('You can make new transaction.', 'Make another transaction',{timeOut:3000});
-      // setTimeout(()=>{location.reload();},8000);
+      setTimeout(()=>{location.reload();},3100);
     },5000);
   }
   /**
@@ -559,7 +559,7 @@ export class UserhomeethmodalComponent implements OnInit {
     this.storage.clear("AUXETHTransaction_id");
     this.storage.clear("AUXETHTransaction_to_address");
     this.storage.clear("AUXETHTransaction_token_amount");
-    this.stepRecieveETH = 0;
+    this.stepRecieveETH = 1;
     this.ethmodaltitle = "Pay through ETH";
     this.ethwalletname = "";
     this.ethwalletaddress="";

@@ -113,7 +113,7 @@ export class ReferralComponent implements OnInit {
     let msg;
     if(retrieve != null && etheraddress != null && bitcoinaddress != null){
       msg = retrieve;
-      setTimeout(()=>{this.toastr.success(msg, 'Done!',{timeOut:1200});},1200);
+      setTimeout(()=>{this.toastr.success(msg, 'Done!',{timeOut:1200});},2500);
       setTimeout(()=>{
         msg = "";
         this.signup.removeRouteMsgPass();
@@ -450,7 +450,14 @@ export class ReferralComponent implements OnInit {
               }
               this.toastr.success('OTP verified and your '+cap+' transaction is completed.', 'Done!',{timeOut:2500});
             }else if(response.code == 400){
-              this.toastr.error('OTP is wrong, try again', 'Failed',{timeOut:2500});
+              //
+              let msg = response.error;//"transaction_failed"
+              if(msg == "otp_mismatch"){
+                this.toastr.error('OTP is wrong, try again', 'Failed',{timeOut:2500});
+              }else{//"transaction_failed"
+                this.modalRef.hide();
+                this.toastr.error('Transaction failed, try again', 'Failed',{timeOut:2500});
+              }
             }else if(response.code == 401){
               this.signup.UnAuthlogoutFromApp();
             }else{

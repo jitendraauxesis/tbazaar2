@@ -105,7 +105,7 @@ export class UserhomebtcmodalComponent implements OnInit {
     // console.log(this.route)
     // console.log(this.router)
     //BTC
-    this.stepRecieveBTH = 0;
+    this.stepRecieveBTH = 1;
     this.toBTC = 0;//if user not submitted wallet address and wallet name
       //screen1
     let btcwn = this.serv.retrieveFromLocal("AUXBTCTransactionWN");//wallet name
@@ -560,7 +560,7 @@ export class UserhomebtcmodalComponent implements OnInit {
       this.storage.clear("AUXBTCTransaction_id");
       this.storage.clear("AUXBTCTransaction_to_address");
       this.storage.clear("AUXBTCTransaction_token_amount");
-      this.stepRecieveBTH = 0;
+      this.stepRecieveBTH = 1;
       this.btcmodaltitle = "Pay through BTC";
       this.btcwalletname = "";
       this.btcwalletaddress="";
@@ -574,7 +574,7 @@ export class UserhomebtcmodalComponent implements OnInit {
       this.initialCount = 0;
       // this.toastr.info('Wait for admin mail that verify transaction.', 'Note:',{timeOut:8000});
       this.toastr.info('You can make new transaction.', 'Make another transaction',{timeOut:3000});
-      // setTimeout(()=>{location.reload();},8000);
+      setTimeout(()=>{location.reload();},3100);
     },5000);
   }
   /**
@@ -590,7 +590,7 @@ export class UserhomebtcmodalComponent implements OnInit {
     this.storage.clear("AUXBTCTransaction_id");
     this.storage.clear("AUXBTCTransaction_to_address");
     this.storage.clear("AUXBTCTransaction_token_amount");
-    this.stepRecieveBTH = 0;
+    this.stepRecieveBTH = 1;
     this.btcmodaltitle = "Pay through BTC (ERC20 Token)";
     this.btcwalletname = "";
     this.btcwalletaddress="";

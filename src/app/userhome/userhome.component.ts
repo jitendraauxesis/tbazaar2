@@ -120,7 +120,10 @@ export class UserhomeComponent implements OnInit {
     // },2000);
     this.signup.saveToLocal("AUXPageChange","no");
 
-    
+    // setTimeout(()=>{
+    //   this.optradio = "";
+    //   this.cas = "";
+    // },10000) 
   }
 
   ngDoCheck(){
@@ -128,6 +131,8 @@ export class UserhomeComponent implements OnInit {
     // console.log(take)
     if(take=="yes"){
       // console.log("2:",take)
+      this.optradio = "";
+      this.cas = "";
       setTimeout(()=>{this.signup.saveToLocal("AUXPageChange","no");},600);
       this.loadHomeData();
     }
@@ -238,7 +243,7 @@ export class UserhomeComponent implements OnInit {
   loadHomeStatus(){
     let isAuth = this.storage.retrieve("AUXAuthLogin");
     let cookieExists = this.signup.checkUserActivity();
-    console.log("isAuthorized",isAuth,cookieExists);
+    // console.log("isAuthorized",isAuth,cookieExists);
     if(isAuth == null){
       this.signup.UnAuthlogoutFromApp(); 
     }
@@ -343,7 +348,7 @@ export class UserhomeComponent implements OnInit {
           'token':this.signup.retrieveFromLocal("AUXHomeUserToken")
         };
         setTimeout(()=>{
-          console.log(data,"called");
+          // console.log(data,"called");
         },4000);
         this.serv.resolveApi(this.apiMethod,data) 
         .subscribe(
@@ -357,7 +362,7 @@ export class UserhomeComponent implements OnInit {
               if(kyc == null)  this.serv.saveToLocal("AUXHomeStatus","nokyc");
               if(kyc == "pending")  this.serv.saveToLocal("AUXHomeStatus","pending");
               if(kyc == "rejected")  this.serv.saveToLocal("AUXHomeStatus","rejected");
-              if(kyc == true)  {this.serv.saveToLocal("AUXHomeStatus","done");}
+              // if(kyc == true)  {this.serv.saveToLocal("AUXHomeStatus","done");}
               if(kyc == "accepted") { this.serv.saveToLocal("AUXHomeStatus","done");}
                
               // this.user_timeline_list = d.user_timeline_list;

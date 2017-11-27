@@ -121,7 +121,7 @@ export class PageotpComponent implements OnInit {
                   this.signup.setRouteMsgPass(msgToPass);
                   this.router.navigate(["/terms",email]); 
                 // },1000);
-                /**FBAuth */this.loggedInFBauth();
+                /**FBAuth */setTimeout(()=>{this.loggedInFBauth();},1500);
               }else{this.printmsg("Wrong OTP, please check the e-mail and try again.");}
             }else if(res.tnc == true && (res.kyc == true || res.kyc == "accepted" || res.kyc == "pending" || res.kyc == "rejected")){
               if(res.kyc == false){
@@ -134,7 +134,7 @@ export class PageotpComponent implements OnInit {
                   this.signup.saveToLocal("AUXTNCStatus","done"); 
                   this.router.navigate(["/kyc"]); 
                 // },4000);
-                /**FBAuth */this.loggedInFBauth();
+                /**FBAuth */setTimeout(()=>{this.loggedInFBauth();},1500);
               }else if(res.kyc == "accepted"){
                 this.signup.saveToLocal("AUXHomeStatus","done");
                 // this.sucmsg = "Otp is verified but your KYC is in pending stage.";
@@ -212,7 +212,7 @@ export class PageotpComponent implements OnInit {
                   this.signup.setRouteMsgPass(msgToPass);
                 this.router.navigate(["/terms",email]); 
               // },4000);
-              /**FBAuth */this.loggedInFBauth();
+              /**FBAuth */setTimeout(()=>{this.loggedInFBauth();},1500);
             }else{
               this.printmsg("Wrong OTP, please check the e-mail and try again.");
             }

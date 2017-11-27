@@ -467,7 +467,7 @@ export class UserhomebtcmodalComponent implements OnInit {
     //console.log(useraddress,useremail)
     let ar = [];
     return this.itemsRef.snapshotChanges().map(arr => {
-      // console.log(arr)
+      console.log(arr)
       if(arr.length>0){
         
         let key;let val;

@@ -59,6 +59,7 @@ export class UserhomeComponent implements OnInit {
   tokens:any;
 
   starterDisableButton:boolean = false;
+  current_rate:any;
 
   constructor(
     public serv:ServiceapiService,
@@ -355,6 +356,8 @@ export class UserhomeComponent implements OnInit {
   }
 
   loadHomeData(){
+    
+
     this.apiMethod = "dashboard";
     
         let data = {
@@ -371,6 +374,19 @@ export class UserhomeComponent implements OnInit {
             // console.log(res);
             let d = JSON.parse(JSON.stringify(res));
             if(d.status == 200){
+
+              //sold tokens
+              this.serv.resolveApi("get_total_tokens_sold",{}) 
+              .subscribe(
+                res=>{
+                  let d = JSON.parse(JSON.stringify(res));
+                  this.current_rate = d.current_rate;
+                },
+                err=>{ 
+                  console.error(err);
+                }
+              );
+
               this.signup.saveUsername("AUXMassUserName",d.user_name);
               let kyc = d.kyc;  
               if(kyc == false)  this.serv.saveToLocal("AUXHomeStatus","nokyc");

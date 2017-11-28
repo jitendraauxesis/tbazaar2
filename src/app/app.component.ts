@@ -13,6 +13,6 @@ export class AppComponent {
     private storage:LocalStorageService
   ){
     //localStorage.setItem("AUXUserUrl","http://139.59.9.73:8000");//"http://192.168.0.116:8000/");
-    this.storage.store("AUXUserUrl","http://104.236.95.166:8000/");
+    this.storage.store("AUXUserUrl","http://104.236.95.166/");
   }
 }

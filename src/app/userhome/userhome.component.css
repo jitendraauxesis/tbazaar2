@@ -10,3 +10,10 @@
     padding-left: 5%;
     padding-right: 5%;
 }
+
+div.currentrate {
+    margin-top: 35%;
+    padding-top: 10px;
+    color: darkslategray;
+    text-align: left;
+}

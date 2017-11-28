@@ -1,7 +1,7 @@
 <div class="col-sm-12 nopad">
-        <a class="btn btn-default btn-block" id="openmodal" data-toggle="modal" (click)="open_recieve_modal(ethmodal)">
+        <button class="btn btn-default btn-block" id="openmodal" [disabled]="starterDisableButton" data-toggle="modal" (click)="open_recieve_modal(ethmodal)">
             <span class="pull-left"></span> Pay &nbsp;  <img src="assets/img/loading.gif" *ngIf="loadingimage" class="loadingimgdone">
-        </a>
+        </button>
     </div>
                                             <ng-template #ethmodal>
     <div class="modal-header">

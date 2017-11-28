@@ -1,7 +1,10 @@
  <div class="col-sm-12 nopad">
-        <a class="btn btn-default btn-block" id="openmodal" data-toggle="modal" (click)="open_recieve_modal(btcmodal)">
+        <!-- <button class="btn btn-default btn-block" id="openmodal" data-toggle="modal" *ngIf="starterDisableButton" (click)="open_recieve_modal(btcmodal)">
             <span class="pull-left"></span> Pay &nbsp;  <img src="assets/img/loading.gif" *ngIf="loadingimage" class="loadingimgdone">
-        </a>
+        </button> -->
+        <button class="btn btn-default btn-block" id="openmodal" data-toggle="modal" [disabled]="starterDisableButton" (click)="open_recieve_modal(btcmodal)">
+            <span class="pull-left"></span> Pay &nbsp;  <img src="assets/img/loading.gif" *ngIf="loadingimage" class="loadingimgdone">
+        </button>
     </div>
                                             <ng-template #btcmodal>
     <div class="modal-header">

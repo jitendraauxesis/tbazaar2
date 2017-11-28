@@ -49,6 +49,7 @@ import { TransactionsComponent } from './transactions/transactions.component';
 import { UserhomeComponent } from './userhome/userhome.component';
 import { ReferralComponent } from './referral/referral.component';
 import { AddreferralComponent } from './addreferral/addreferral.component';
+import { UsertermsdescriptionComponent } from './usertermsdescription/usertermsdescription.component';
 
 export const firebaseConfig = {
   "apiKey": "AIzaSyCdpzVX0tq6uLoEgBpwEXDH7wr4zDnkcHQ",
@@ -77,7 +78,8 @@ export const firebaseConfig = {
     TransactionsComponent,
     UserhomeComponent,
     ReferralComponent,
-    AddreferralComponent
+    AddreferralComponent,
+    UsertermsdescriptionComponent
   ],
   imports: [
     BrowserModule,

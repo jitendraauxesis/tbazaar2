@@ -58,6 +58,8 @@ export class UserhomeComponent implements OnInit {
 
   tokens:any;
 
+  starterDisableButton:boolean = false;
+
   constructor(
     public serv:ServiceapiService,
     private storage:LocalStorageService,
@@ -132,6 +134,10 @@ export class UserhomeComponent implements OnInit {
     //   this.optradio = "";
     //   this.cas = "";
     // },10000) 
+
+    // disabled [disabled]="starterDisableButton"
+    this.starterDisableButton = true;
+    this.storage.store("AUXstarterSecretButton","yes");
   }
 
   ngDoCheck(){
@@ -366,7 +372,7 @@ export class UserhomeComponent implements OnInit {
             let d = JSON.parse(JSON.stringify(res));
             if(d.status == 200){
               this.signup.saveToLocal("AUXMassUserName",d.user_name);
-              let kyc = d.kyc; 
+              let kyc = d.kyc;  
               if(kyc == false)  this.serv.saveToLocal("AUXHomeStatus","nokyc");
               if(kyc == null)  this.serv.saveToLocal("AUXHomeStatus","nokyc");
               if(kyc == "pending")  this.serv.saveToLocal("AUXHomeStatus","pending");

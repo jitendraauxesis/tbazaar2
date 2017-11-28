@@ -70,6 +70,8 @@ export class UserhomeethmodalComponent implements OnInit {
 
   etherurl:any = "https://etherscan.io/tx";//https://etherscan.io/tx/0xb541ca450c1d7079eaca54ffb8a70164cf49e8e818f80a7c41e4400c8f6956a9
   
+  starterDisableButton:boolean = false;
+
   constructor(
     public afAuth: AngularFireAuth, 
     public af: AngularFireDatabase,
@@ -85,6 +87,13 @@ export class UserhomeethmodalComponent implements OnInit {
 
     this.qrvalue = "Its Demo For QR Angular";
     //console.log(this.elRef.nativeElement.parentElement)
+
+    //starterDisableButton disabled
+    // let dis = this.storage.retrieve("AUXstarterSecretButton");
+    // if(dis == "yes")
+      this.starterDisableButton = true;
+    // else 
+    //   this.starterDisableButton = false;
   }
 
   ngOnInit() {

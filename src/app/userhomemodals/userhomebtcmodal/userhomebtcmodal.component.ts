@@ -80,6 +80,8 @@ export class UserhomebtcmodalComponent implements OnInit {
 
   bitcoinurl:any = "https://blockchain.info/tx";//https://blockchain.info/tx/5d832e96383a1e8ff741d27b4878e929647425a8713d2410764fdb2132afead5
  
+  starterDisableButton:boolean = false;
+
   constructor(
     public afAuth: AngularFireAuth, 
     public af: AngularFireDatabase,
@@ -98,10 +100,17 @@ export class UserhomebtcmodalComponent implements OnInit {
       this.qrvalue = "Its Demo For QR Angular";
 
       //console.log(this.element.nativeElement.parentElement);
+
+      //starterDisableButton disabled
+      // let dis = this.storage.retrieve("AUXstarterSecretButton");
+      // if(dis == "yes")
+        this.starterDisableButton = true;
+      // else 
+      //   this.starterDisableButton = false;
   }
 
   ngOnInit() {
-    // console.log(this)
+    // console.log(this.element)
     // console.log(this.route)
     // console.log(this.router)
     //BTC
@@ -145,6 +154,10 @@ export class UserhomebtcmodalComponent implements OnInit {
   open_recieve_modal(modalBTC: TemplateRef<any>){
     //console.log(this.cas)
     //console.log(this.optradio)
+    // let dis = this.storage.retrieve("AUXstarterSecretButton");
+    // if(dis == "no") return true;
+      
+    
     let type =this.signup.retrieveFromLocal("AUXsavelocalpaytype");
     let cash = this.signup.retrieveFromLocal("AUXsavelocalamount");
     //console.log(type,cash)

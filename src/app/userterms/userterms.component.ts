@@ -26,6 +26,8 @@ export class UsertermsComponent implements OnInit {
 
   referral:any;
 
+  tnctext:any;
+
   constructor(
     public signup:SignupService,
     public api:ServiceapiService,
@@ -33,7 +35,7 @@ export class UsertermsComponent implements OnInit {
     private router: Router,
     private storage:LocalStorageService,
   ) { 
-    
+    // this.resolveText();
   }
 
   ngOnInit() {
@@ -124,8 +126,8 @@ export class UsertermsComponent implements OnInit {
               // this.sucmsg = "Just one step remain uplaod your KYC detail in next section.";//
               // setTimeout(()=>{
                 // this.sucmsg = "";
-                  let msgToPass = "Just one step remain, upload your KYC detail submit below.";
-                  this.signup.setRouteMsgPass(msgToPass);
+                  // let msgToPass = "Just one step remain, upload your KYC detail submit below.";
+                  // this.signup.setRouteMsgPass(msgToPass);
                 this.router.navigate(["kyc"]);                
                 this.signup.saveToLocal("AUXTNCStatus","done");  
               // },2500);
@@ -218,5 +220,9 @@ export class UsertermsComponent implements OnInit {
         this.failmsg("Network unavailable");
       });
     }
+  }
+
+  resolveText(){
+    this.tnctext = "<h2>asdfsdf</h2><p>asdklfhdfhlkhkj</p>"
   }
 }

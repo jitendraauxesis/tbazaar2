@@ -43,7 +43,11 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     //this.sidenav.nativeElement.style.display = "none";
 
-    this.username = this.signup.retrieveFromLocal("AUXMassUserName");
+    // this.username = this.signup.retrieveUsername("AUXMassUserName");
+    let name = this.signup.retrieveUsername("AUXMassUserName");
+    let splitname = name.split(" ");
+    // console.log(splitname)
+    this.username = splitname[0];
   }
 
   showcollapse(){
@@ -78,10 +82,10 @@ export class NavbarComponent implements OnInit {
     let b = this.signup.retrieveRefundAddress("AUXUserRefundBitcoinAddress");
     if(e == "" || e == null || !e){
       this.router.navigate(["/addreferral"]);
-      this.toastr.info("Dear "+name+"! , you need to update refund address by clicking on addreferral button",null,{timeOut:2500});    
+      // this.toastr.info("Dear "+name+"! , you need to update refund address by clicking on addreferral button",null,{timeOut:2500});    
     }else if(b == "" || b == null || !b){
       this.router.navigate(["/addreferral"]);
-      this.toastr.info("Dear "+name+"! , you need to update refund address by clicking on addreferral button",null,{timeOut:2500});    
+      // this.toastr.info("Dear "+name+"! , you need to update refund address by clicking on addreferral button",null,{timeOut:2500});    
     }else{
       this.router.navigate(["/referral"]);
     }
@@ -103,8 +107,8 @@ export class NavbarComponent implements OnInit {
   }
  
   decline(): void {
-    let name = this.signup.retrieveFromLocal("AUXMassUserName");
-    this.toastr.info("Dear "+name+"! , you are continuing MASS Cryp ICO","Continued...",{timeOut:2500});
+    let name = this.signup.retrieveUsername("AUXMassUserName");
+    // this.toastr.info("Dear "+name+"! , you are continuing MASS Cryp ICO","Continued...",{timeOut:2500});
     this.modalRef.hide();
   }
 

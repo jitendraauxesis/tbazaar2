@@ -112,7 +112,7 @@ export class UsertermsComponent implements OnInit {
       this.signup.makeTNC(name,email,ref)
       .then(
         (data)=>{
-          this.signup.saveToLocal("AUXMassUserName",name);
+          this.signup.saveUsername("AUXMassUserName",name);
           let dat = JSON.parse(JSON.stringify(data));
           //console.log(dat);
           if(dat.code == 200){// && dat.status == "accepted"

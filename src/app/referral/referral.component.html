@@ -55,6 +55,12 @@
 
           <div class="container-fluid">
             <div class="row">
+              <div class="col-sm-12 col-md-12 col-xs-12">
+                  <div class="alert alert-warning text-center">
+                      <strong>Earned referral withdrawl will start from 9AM UTC +0.00 on Dec 2<sup>nd</sup>, 2017.</strong>
+                  </div>
+                  
+              </div>
               <div class="col-sm-6 col-md-6 col-xs-12">
                   
                   <div class="card">
@@ -67,7 +73,8 @@
                         <li class="list-group-item">Pending :<p class="earned">{{cardbtcpending}}</p></li>
                       </ul>
                       <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                      <button (click)="open_btc_modal(btcmodal)" class="btn btn-primary" [disabled]="btcbtnDisabled">Withdraw</button>
+                      <button (click)="open_btc_modal(btcmodal)" class="btn btn-primary" [disabled]="btcbtnDisabled">
+                        Withdraw</button>
                     </div>
                   </div>
               </div>

@@ -147,6 +147,7 @@
                                 <img src="assets/img/loading.gif" class="loadingimgdone">
                                 Waiting For Payment
                         </button>
+                        <h6 class="waitmsg">We will also send a confirmation mail as we receive the bitcoins.</h6>
                         <!--firebae handler-->
                         <li *ngFor="let i of items | async" style="display:none;" class="hidden">
                         </li>
@@ -189,7 +190,7 @@
                                     <p *ngIf="i.confirmations == 3" style="color:#43694f">3 confirmation</p>
                             </div>
                             <div class="col-sm-12" *ngIf="initialCount != 3">
-                                    Please wait while we receive 3 confirmations of payment to allot the MASS coins.
+                                    Please wait while we receive 3 confirmations of payment to allot the MASS coins. We will also send a confirmation mail as receipt.
                             </div>
                             <div class="col-sm-12" *ngIf="initialCount == 3">
                                 Confirmations have been completed, please wait <img src="assets/img/loading.gif" class="loadingimgdone">
@@ -207,7 +208,8 @@
                 <div class="tab-pane fade in active" id="step4RecieveBTH" #step4RecieveBTH *ngIf="stepRecieveBTH == 4">
                         <div class="container-fluid">
                             <div class="col-sm-12">
-                                {{message?message:'No transaction has been done'}}
+                                    {{message1}} MASS Token from transaction id <a href="{{bitcoinurl}}/{{showtransidin3}}" target="_blank">{{message?message:'No transaction ID'}}</a>  is deposited in your account.
+                                
                             </div>
                         </div>
                         <hr>                

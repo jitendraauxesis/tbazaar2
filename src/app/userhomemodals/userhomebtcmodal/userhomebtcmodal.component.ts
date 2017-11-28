@@ -74,7 +74,7 @@ export class UserhomebtcmodalComponent implements OnInit {
   fbinterval:any;
   //fb params
 
-  message:any;
+  message:any;message1:any;
 
   @ViewChild("btcmodal") btcmodal:Element;
 
@@ -104,7 +104,7 @@ export class UserhomebtcmodalComponent implements OnInit {
       //starterDisableButton disabled
       // let dis = this.storage.retrieve("AUXstarterSecretButton");
       // if(dis == "yes")
-        this.starterDisableButton = true;
+        this.starterDisableButton = false;
       // else 
       //   this.starterDisableButton = false;
   }
@@ -564,7 +564,8 @@ export class UserhomebtcmodalComponent implements OnInit {
     this.signup.saveToLocal("AUXPageChange","yes");
     let cas = this.serv.retrieveFromLocal("AUXBTCTransaction_token_amount");
     let transaction_id = this.serv.retrieveFromLocal("AUXBTCTransaction_id");
-    this.message = cas+" MASS Token from transaction id "+this.showtransidin3+"  is deposited in your account.";
+    this.message1 = cas;
+    this.message = this.showtransidin3;
     setTimeout(()=>{  
       // this.hideme();
       clearInterval(this.fbinterval);
@@ -587,7 +588,7 @@ export class UserhomebtcmodalComponent implements OnInit {
       this.progressshow = false;
       this.initialCount = 0;
       // this.toastr.info('Wait for admin mail that verify transaction.', 'Note:',{timeOut:8000});
-      this.toastr.info('You can make new transaction.', 'Make another transaction',{timeOut:3000});
+      // this.toastr.info('You can make new transaction.', 'Make another transaction',{timeOut:3000});
       
     },5000);
   }
@@ -616,7 +617,7 @@ export class UserhomebtcmodalComponent implements OnInit {
     this.progressvalue = 0;
     this.progressshow = false;
     this.initialCount = 0;
-    this.message = "";
+    this.message = "";this.message1 = "";
     this.showtransidin3 = '';
     if(this.stepRecieveBTH == 1){
       location.reload();

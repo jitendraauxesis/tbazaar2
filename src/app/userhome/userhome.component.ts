@@ -371,7 +371,7 @@ export class UserhomeComponent implements OnInit {
             // console.log(res);
             let d = JSON.parse(JSON.stringify(res));
             if(d.status == 200){
-              this.signup.saveToLocal("AUXMassUserName",d.user_name);
+              this.signup.saveUsername("AUXMassUserName",d.user_name);
               let kyc = d.kyc;  
               if(kyc == false)  this.serv.saveToLocal("AUXHomeStatus","nokyc");
               if(kyc == null)  this.serv.saveToLocal("AUXHomeStatus","nokyc");

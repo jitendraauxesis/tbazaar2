@@ -185,6 +185,31 @@ export class SignupService {
     }
   }
 
+
+  // username
+  saveUsername(name,str){
+    let token = "Mass-Cryp-For-User";
+    let storeStr = (CryptoJS.AES.encrypt(str,token)).toString();
+    this.storage.store(name,storeStr);
+    var today = new Date();
+    var expiresValue = new Date(today);
+    expiresValue.setHours(today.getHours() + 24*30);
+    this.cookieService.set(name,storeStr,expiresValue);
+  }
+
+  retrieveUsername(name){
+    let token = "Mass-Cryp-For-User";
+    let fromStorage = this.cookieService.get(name);    
+    if(fromStorage == "" || fromStorage == null){
+      return null;
+    }else{
+      let getDecrypt = CryptoJS.AES.decrypt(fromStorage,token);
+      let finalStr = "";
+      finalStr = getDecrypt.toString(CryptoJS.enc.Utf8);
+      return finalStr;
+    }
+  }
+
   saveToLocal(name,str){
     let token = this.storage.retrieve("secureLocalTokenAuth");
     //console.log(token)

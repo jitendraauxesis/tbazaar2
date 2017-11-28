@@ -21,7 +21,7 @@ nav.navbar {
     box-shadow: 2px 8px 15px grey;
 } 
 .navbar-default {
-    background-color: #1a80cc;
+    background-color: #323232;
 }
 
 button.menubtn {
@@ -109,7 +109,7 @@ button.menubtn i.fa.fa-cog {
 }
 
 img.img-responsive.tblogo {
-    width: 60%;
+    width: 75%;
     /* margin: 2px; */
     /* position: fixed; */
     left: 0;

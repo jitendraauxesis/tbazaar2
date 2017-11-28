@@ -66,7 +66,7 @@ export class UserhomeethmodalComponent implements OnInit {
   fbinterval:any;
   //fb params
 
-  message:any;
+  message:any;message1:any;
 
   etherurl:any = "https://etherscan.io/tx";//https://etherscan.io/tx/0xb541ca450c1d7079eaca54ffb8a70164cf49e8e818f80a7c41e4400c8f6956a9
   
@@ -91,7 +91,7 @@ export class UserhomeethmodalComponent implements OnInit {
     //starterDisableButton disabled
     // let dis = this.storage.retrieve("AUXstarterSecretButton");
     // if(dis == "yes")
-      this.starterDisableButton = true;
+      this.starterDisableButton = false;
     // else 
     //   this.starterDisableButton = false;
   }
@@ -529,7 +529,8 @@ export class UserhomeethmodalComponent implements OnInit {
     this.signup.saveToLocal("AUXPageChange","yes");
     let cas = this.serv.retrieveFromLocal("AUXETHTransaction_token_amount");
     let transaction_id = this.serv.retrieveFromLocal("AUXETHTransaction_id");
-    this.message = cas+" MASS Token from transaction id "+this.showtransidin3+"  is deposited in your account.";
+    this.message1 = cas;
+    this.message = this.showtransidin3;//cas+" MASS Token from transaction id "+this.showtransidin3+"  is deposited in your account.";
     setTimeout(()=>{  
       // this.hideme();
       clearInterval(this.fbinterval);
@@ -552,7 +553,7 @@ export class UserhomeethmodalComponent implements OnInit {
       this.progressshow = false;
       this.initialCount = 0;
       // this.toastr.info('Wait for admin mail that verify transaction.', 'Note:',{timeOut:8000});
-      this.toastr.info('You can make new transaction.', 'Make another transaction',{timeOut:3000});
+      // this.toastr.info('You can make new transaction.', 'Make another transaction',{timeOut:3000});
       // setTimeout(()=>{location.reload();},3100);
     },5000);
   }
@@ -581,7 +582,7 @@ export class UserhomeethmodalComponent implements OnInit {
     this.progressvalue = 0;
     this.progressshow = false;
     this.initialCount = 0;
-    this.message = "";
+    this.message = "";this.message1 = "";
     this.showtransidin3 = '';
     if(this.stepRecieveETH == 1){
       location.reload();

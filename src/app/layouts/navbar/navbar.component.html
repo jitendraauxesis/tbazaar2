@@ -16,7 +16,7 @@
                 <button class="menubtn" (click)="openNav()"><i class="fa fa-cog  fa-3x fa-fw" aria-hidden="true"></i></button>
                 <div class="profileDescDiv">
                         <img src="assets/img/man.png" class="img-responsive manhomelogo">
-                        <p class="manhomename">{{username}}</p>
+                        <p class="manhomename">{{username?username:' there! '}}</p>
                 </div>
                 <!-- fa-spin -->
             </div>
@@ -73,7 +73,7 @@
   </div>
   <ng-template #template>
     <div class="modal-body text-center">
-        <p>Do you want to logout from token bazaar?</p>
+        <p>Are you sure to logout?</p>
         <button type="button" class="btn btn-default" (click)="confirm()" >Yes</button>
         <button type="button" class="btn btn-primary" (click)="decline()" >No</button>
     </div>

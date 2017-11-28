@@ -57,11 +57,22 @@ export class SidemenuComponent implements OnInit {
 
   clickonReferral(){
     // console.log("sdf")
-    let status = this.signup.retrieveFromLocal("AUXUserAddReferralStatus");//,"none" // "done"
-    if(status == "done" || status){
-      this.router.navigate(["/referral"]);
-    }else{
+    // let status = this.signup.retrieveFromLocal("AUXUserAddReferralStatus");//,"none" // "done"
+    // if(status == "done" || status){
+    //   this.router.navigate(["/referral"]);
+    // }else{
+    //   this.router.navigate(["/addreferral"]);
+    // }
+    let e = this.signup.retrieveRefundAddress("AUXUserRefundEtherAddress");
+    let b = this.signup.retrieveRefundAddress("AUXUserRefundBitcoinAddress");
+    if(e == "" || e == null || !e){
       this.router.navigate(["/addreferral"]);
+      this.toastr.info("Dear "+name+"! , you need to update refund address by clicking on addreferral button",null,{timeOut:2500});    
+    }else if(b == "" || b == null || !b){
+      this.router.navigate(["/addreferral"]);
+      this.toastr.info("Dear "+name+"! , you need to update refund address by clicking on addreferral button",null,{timeOut:2500});    
+    }else{
+      this.router.navigate(["/referral"]);
     }
   }
 
@@ -77,7 +88,7 @@ export class SidemenuComponent implements OnInit {
  
   decline(): void {
     let name = this.signup.retrieveFromLocal("AUXMassUserName");
-    this.toastr.info("Dear "+name+"! , you are continuing token bazaar","Continued...",{timeOut:2500});
+    this.toastr.info("Dear "+name+"! , you are continuing MASS Cryp ICO","Continued...",{timeOut:2500});
     this.modalRef.hide();
   }
 

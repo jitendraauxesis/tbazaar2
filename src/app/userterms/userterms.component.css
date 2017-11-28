@@ -13,6 +13,7 @@ input.pass.refid {
 }
 
 p.tncinfo {
-    font-size: 12px;
+    font-size: 14px;
     color: brown;
+    font-weight: 600;
 }

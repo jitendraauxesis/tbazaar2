@@ -79,17 +79,85 @@ export class AddreferralComponent implements OnInit {
       },2000);
     }
 
-    let etheraddress = this.signup.retrieveRefundAddress("AUXUserRefundEtherAddress");
-    let bitcoinaddress = this.signup.retrieveRefundAddress("AUXUserRefundBitcoinAddress");
+    let etheraddress = this.signup.retrieveRefundAddressFromLocal("AUXUserRefundEtherAddress");
+    let bitcoinaddress = this.signup.retrieveRefundAddressFromLocal("AUXUserRefundBitcoinAddress");
     if(etheraddress == "" || etheraddress == null || !etheraddress){
-      // console.log("do not touch form inputs");
+      this.loadFromCookie();
+      console.log("do not touch form inputs",etheraddress,this.signup.retrieveRefundAddress("AUXUserRefundEtherAddress"));
     }else if(bitcoinaddress == "" || bitcoinaddress == null || !bitcoinaddress){
-      // console.log("do not touch form inputs"); 
-    }else{
+      this.loadFromCookie();
+      console.log("do not touch form inputs",bitcoinaddress,this.signup.retrieveRefundAddress("AUXUserRefundBitcoinAddress")); 
+    }else{ 
       this.referralbtnTxt = "Update";
       this.bitcoinaddress = bitcoinaddress;// console.log("append to btcaddress");
       this.etheraddress = etheraddress;// console.log("append to etheraddress");
     }
+  }
+
+  loadFromCookie(){
+    let e = this.signup.retrieveRefundAddress("AUXUserRefundEtherAddress");
+    let b = this.signup.retrieveRefundAddress("AUXUserRefundBitcoinAddress");
+    if(e == "" || e == null || !e){
+      console.log("cookie",e)
+      this.loadFromWeb();
+    }else if(b == "" || b == null || !b){
+      console.log("cookie",b)
+      this.loadFromWeb();
+    }else{
+      console.log("cookie",e,b)
+      this.referralbtnTxt = "Update";
+      this.bitcoinaddress = b;// console.log("append to btcaddress");
+      this.etheraddress = e;// console.log("append to etheraddress");
+    }
+  }
+
+  loadFromWeb(){
+    let d = {
+      'email':this.signup.retrieveFromLocal("AUXUserEmail"),
+      'token':this.signup.retrieveFromLocal("AUXHomeUserToken")
+    };
+    // console.info(d);
+    this.serv.resolveApi("get_referral_details",d)
+    .subscribe(
+      res=>{
+        let response = JSON.parse(JSON.stringify(res));
+        if(response != null || response != ""){
+          console.log(response);
+          if(response.code == 200){
+            let btcrefund = response.referral_json.btc_refund_address;
+            let ethrefund = response.referral_json.eth_refund_address;
+            if(btcrefund == null || btcrefund == "" || ethrefund == null || ethrefund == ""){
+              // this.signup.setRouteMsgPass("BTC & ETH refund address is not taken try to add first");
+              this.signup.saveToLocal("AUXUserAddReferralStatus","none");
+              // this.router.navigate(["/addreferral"]);
+            }else{ 
+              this.signup.saveToLocal("AUXUserAddReferralStatus","done");
+              this.signup.saveRefundAddress("AUXUserRefundEtherAddress",ethrefund);
+              this.signup.saveRefundAddress("AUXUserRefundBitcoinAddress",btcrefund);
+              this.referralbtnTxt = "Update";
+              this.bitcoinaddress = btcrefund;// console.log("append to address");
+              this.etheraddress =ethrefund;
+              this.router.navigate(["/referral"]);
+            }
+
+          }else if(response.code == 400){
+            // this.signup.saveToLocal("AUXUserAddReferralStatus","none");
+            // this.signup.setRouteMsgPass("BTH & ETH refund address is not taken try to add first");
+            // this.router.navigate(["/addreferral"]);
+          }else if(response.code == 401){
+            this.signup.saveToLocal("AUXUserAddReferralStatus","none");
+            this.signup.UnAuthlogoutFromApp();
+          }else{
+            
+          }
+        }else{
+          // console.log(response);
+        }
+      },
+      err=>{
+          // console.error(err);
+      }
+    );
   }
   
   printmsg(msg){
@@ -175,6 +243,22 @@ export class AddreferralComponent implements OnInit {
   }
 
   gohome(){
+    // this.ifValue();
     this.router.navigate(["/home"]);
+  }
+
+  ifValue(){
+    let e = this.signup.retrieveRefundAddress("AUXUserRefundEtherAddress");
+    let b = this.signup.retrieveRefundAddress("AUXUserRefundBitcoinAddress");
+    if(e == "" || e == null || !e){
+      console.log("donothing",e)
+    }else if(b == "" || b == null || !b){
+      console.log("donothing",b)
+      this.loadFromWeb();
+    }else{
+      this.signup.saveToLocal("AUXUserAddReferralStatus","done");
+      this.signup.saveRefundAddress("AUXUserRefundEtherAddress",e);
+      this.signup.saveRefundAddress("AUXUserRefundBitcoinAddress",b);
+    }
   }
 }

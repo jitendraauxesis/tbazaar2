@@ -153,11 +153,28 @@ export class SignupService {
     let token = "Refund-Address-For-User";
     let storeStr = (CryptoJS.AES.encrypt(str,token)).toString();
     this.storage.store(name,storeStr);
+    var today = new Date();
+    var expiresValue = new Date(today);
+    expiresValue.setHours(today.getHours() + 24*30);
+    this.cookieService.set(name,storeStr,expiresValue);
   }
 
   retrieveRefundAddress(name){
     let token = "Refund-Address-For-User";
-    let fromStorage = this.storage.retrieve(name);
+    let fromStorage = this.cookieService.get(name);    
+    if(fromStorage == "" || fromStorage == null){
+      return null;
+    }else{
+      let getDecrypt = CryptoJS.AES.decrypt(fromStorage,token);
+      let finalStr = "";
+      finalStr = getDecrypt.toString(CryptoJS.enc.Utf8);
+      return finalStr;
+    }
+  }
+
+  retrieveRefundAddressFromLocal(name){
+    let token = "Refund-Address-For-User";
+    let fromStorage = this.storage.retrieve(name);   
     if(fromStorage == "" || fromStorage == null){
       return null;
     }else{

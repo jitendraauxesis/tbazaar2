@@ -564,17 +564,18 @@ export class UserhomebtcmodalComponent implements OnInit {
     this.signup.saveToLocal("AUXPageChange","yes");
     let cas = this.serv.retrieveFromLocal("AUXBTCTransaction_token_amount");
     let transaction_id = this.serv.retrieveFromLocal("AUXBTCTransaction_id");
-    this.message = cas+" MASS Token from transaction id "+transaction_id+"  is deposited in your account.";
+    this.message = cas+" MASS Token from transaction id "+this.showtransidin3+"  is deposited in your account.";
     setTimeout(()=>{  
-      this.hideme();
+      // this.hideme();
+      clearInterval(this.fbinterval);
       this.storage.clear("AUXBTCTransactionRA");
       this.storage.clear("AUXBTCTransactionWA");
       this.storage.clear("AUXBTCTransactionWN");
       this.storage.clear("AUXBTCTransaction_id");
       this.storage.clear("AUXBTCTransaction_to_address");
       this.storage.clear("AUXBTCTransaction_token_amount");
-      this.stepRecieveBTH = 1;
-      this.btcmodaltitle = "Pay through BTC";
+      // this.stepRecieveBTH = 1;
+      // this.btcmodaltitle = "Pay through BTC";
       this.btcwalletname = "";
       this.btcwalletaddress="";
       this.btcrefundaddress="";
@@ -587,7 +588,7 @@ export class UserhomebtcmodalComponent implements OnInit {
       this.initialCount = 0;
       // this.toastr.info('Wait for admin mail that verify transaction.', 'Note:',{timeOut:8000});
       this.toastr.info('You can make new transaction.', 'Make another transaction',{timeOut:3000});
-      setTimeout(()=>{location.reload();},3100);
+      
     },5000);
   }
   /**
@@ -615,6 +616,11 @@ export class UserhomebtcmodalComponent implements OnInit {
     this.progressvalue = 0;
     this.progressshow = false;
     this.initialCount = 0;
+    this.message = "";
+    this.showtransidin3 = '';
+    if(this.stepRecieveBTH == 1){
+      location.reload();
+    }
   }
 
   copytext(btcaddress){

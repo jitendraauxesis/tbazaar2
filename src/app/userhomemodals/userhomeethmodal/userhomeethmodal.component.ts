@@ -529,17 +529,18 @@ export class UserhomeethmodalComponent implements OnInit {
     this.signup.saveToLocal("AUXPageChange","yes");
     let cas = this.serv.retrieveFromLocal("AUXETHTransaction_token_amount");
     let transaction_id = this.serv.retrieveFromLocal("AUXETHTransaction_id");
-    this.message = cas+" MASS Token from transaction id "+transaction_id+"  is deposited in your account.";
+    this.message = cas+" MASS Token from transaction id "+this.showtransidin3+"  is deposited in your account.";
     setTimeout(()=>{  
-      this.hideme();
+      // this.hideme();
+      clearInterval(this.fbinterval);
       this.storage.clear("AUXETHTransactionRA");
       this.storage.clear("AUXETHTransactionWA");
       this.storage.clear("AUXETHTransactionWN");
       this.storage.clear("AUXETHTransaction_id");
       this.storage.clear("AUXETHTransaction_to_address");
       this.storage.clear("AUXETHTransaction_token_amount");
-      this.stepRecieveETH = 1;
-      this.ethmodaltitle = "Pay through ETH";
+      // this.stepRecieveETH = 1;
+      // this.ethmodaltitle = "Pay through ETH";
       this.ethwalletname = "";
       this.ethwalletaddress="";
       this.ethrefundaddress="";
@@ -552,7 +553,7 @@ export class UserhomeethmodalComponent implements OnInit {
       this.initialCount = 0;
       // this.toastr.info('Wait for admin mail that verify transaction.', 'Note:',{timeOut:8000});
       this.toastr.info('You can make new transaction.', 'Make another transaction',{timeOut:3000});
-      setTimeout(()=>{location.reload();},3100);
+      // setTimeout(()=>{location.reload();},3100);
     },5000);
   }
   /**
@@ -580,6 +581,11 @@ export class UserhomeethmodalComponent implements OnInit {
     this.progressvalue = 0;
     this.progressshow = false;
     this.initialCount = 0;
+    this.message = "";
+    this.showtransidin3 = '';
+    if(this.stepRecieveETH == 1){
+      location.reload();
+    }
   }
 
   copytext(ethaddress){

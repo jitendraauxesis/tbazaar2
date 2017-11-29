@@ -139,7 +139,12 @@ export class AddreferralComponent implements OnInit {
               this.etheraddress =ethrefund;
               this.router.navigate(["/referral"]);
             }
-
+            if(btcrefund != null || btcrefund != ""){
+              this.bitcoinaddress = btcrefund;// console.log("append to address");
+            }
+            if(ethrefund != null || ethrefund != ""){
+              this.etheraddress = ethrefund;// console.log("append to address");
+            }
           }else if(response.code == 400){
             // this.signup.saveToLocal("AUXUserAddReferralStatus","none");
             // this.signup.setRouteMsgPass("BTH & ETH refund address is not taken try to add first");

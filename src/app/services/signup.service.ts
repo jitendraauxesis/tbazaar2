@@ -47,6 +47,14 @@ export class SignupService {
     // this.proto.prototype.address = "Mumbai";
     // let a  = new this.proto;
     // console.log(a.address);
+    
+    // let cookieExists = this.checkUserActivity();
+    // // console.log("isAuthorized",isAuth,cookieExists);
+    // if(cookieExists == false || !cookieExists){
+    //   console.log("false")
+    //   this.storage.store("AUXAuthLogin",false);
+    //   this.UnAuthlogoutFromApp();
+    // }
   }
 
   ////////////////////////////////////////////////Demo////////////////////////
@@ -339,6 +347,7 @@ export class SignupService {
     this.storage.clear();
     localStorage.clear();
     this.fbapi.logout();
+    this.clearUserSession();
     this.storage.store("AUXUserUrl",url);
     this.router.navigate(["/login","you_are_unauthorized"]);
     location.reload();
@@ -365,7 +374,7 @@ export class SignupService {
 
     var today = new Date();
     var expiresValue = new Date(today);
-    //expiresValue.setSeconds(today.getSeconds() + 30); 
+    // expiresValue.setSeconds(today.getSeconds() + 30); 
     expiresValue.setHours(today.getHours() + 1*1); 
     //expiresValue.setMinutes(today.getMinutes() + 1); 
     //console.log(today,'\n',expiresValue)
@@ -437,5 +446,37 @@ export class SignupService {
       //console.log("false2")
       return false;
     }
+  }
+
+  checkActivity(){
+    //const cookieExists: boolean = this.cookieService.check('AUXUserCookieServe');
+    setInterval(()=>{
+      let cookieExists = this.cookieService.check('AUXUserCookieServe');
+      if(cookieExists){
+        let token = this.sessionStorage.retrieve("AUXUserSessionToken");
+        let cookie = this.cookieService.get('AUXUserCookieServe');
+        // if(token == cookie){
+        //   //console.log("true1")
+        //   return true;
+        // }
+        // else {
+        //  // console.log("false1")
+        //   return false;
+        // }
+        // console.log("true1",cookieExists,cookie)
+      }else{
+        //console.log("false2")
+        let url = this.storage.retrieve("AUXUserUrl");
+        this.storage.clear();
+        localStorage.clear();
+        this.fbapi.logout();
+        this.clearUserSession();
+        this.storage.store("AUXUserUrl",url);
+        this.router.navigate(["/login","session_timedout"]);
+        location.reload();
+        // console.log("false2",cookieExists) 
+      }  
+    },1000);
+    
   }
 }

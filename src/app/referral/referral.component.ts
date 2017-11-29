@@ -100,6 +100,7 @@ export class ReferralComponent implements OnInit {
     //     }
     //     document.body.scrollTop = 0;
     // });
+    this.signup.checkActivity();
   } 
 
 

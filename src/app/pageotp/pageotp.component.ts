@@ -145,6 +145,7 @@ export class PageotpComponent implements OnInit {
                   this.storage.store("AUXAuthLogin",true);
                   this.signup.saveToLocal("AUXKYCStatus","done");                
                   this.signup.saveToLocal("AUXTNCStatus","done"); 
+                  this.signup.setUserSession(email,res.token); 
                   // this.router.navigate(["/home"]);
                   this.router.navigateByUrl("/home"); 
                 // },4000);
@@ -158,7 +159,8 @@ export class PageotpComponent implements OnInit {
                   this.signup.setRouteMsgPass(msgToPass);
                   this.storage.store("AUXAuthLogin",true);
                   this.signup.saveToLocal("AUXKYCStatus","done");                
-                  this.signup.saveToLocal("AUXTNCStatus","done"); 
+                  this.signup.saveToLocal("AUXTNCStatus","done");
+                  this.signup.setUserSession(email,res.token);  
                   // this.router.navigate(["/home"]); 
                   this.router.navigateByUrl("/home");
                 // },4000);
@@ -173,6 +175,7 @@ export class PageotpComponent implements OnInit {
                 this.storage.store("AUXAuthLogin",true);
                 this.signup.saveToLocal("AUXKYCStatus","done");                
                 this.signup.saveToLocal("AUXTNCStatus","done"); 
+                this.signup.setUserSession(email,res.token); 
                 // this.router.navigate(["/home"]);  
                 this.router.navigateByUrl("/home");
               // },4000);

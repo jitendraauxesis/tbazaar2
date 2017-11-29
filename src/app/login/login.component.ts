@@ -13,6 +13,7 @@ import CryptoJS from 'crypto-js';
 
 import { FbapiService } from '../services/fbapi.service';
 
+import { Compiler } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';//
 @Component({
   selector: 'app-login',
@@ -40,7 +41,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private storage:LocalStorageService, 
     private fbapi:FbapiService,
-    private cookieService:CookieService
+    private cookieService:CookieService,
+    private _compiler: Compiler
   ) { 
 
     this.headers = new Headers({ 'Content-Type': 'application/json', 
@@ -97,11 +99,24 @@ export class LoginComponent implements OnInit {
     let raw = this.route.snapshot.paramMap.get("why"); 
     //console.log(this.route,raw)
     if(raw == "you_are_unauthorized"){
+      this._compiler.clearCache();
       this.errmsg = "Your are unathorized to access or your last session has been timed out try to login again.";
       setTimeout(()=>{
         this.errmsg = "";
         this.route.snapshot.queryParams = [];
-      },5000);
+      },4000);
+      // setTimeout(()=>{
+      //   this._compiler.clearCache();
+      //   this.router.navigateByUrl("/login");
+      // },1500);
+    }
+    if(raw == "session_timedout"){
+      this._compiler.clearCache();
+      this.errmsg = "Your last session has been timed out try to login again.";
+      setTimeout(()=>{
+        this.errmsg = "";
+        this.route.snapshot.queryParams = [];
+      },4000);
     }
   }
 
@@ -112,10 +127,17 @@ export class LoginComponent implements OnInit {
     },2500);
   }
 
+  validateEmail(email) {
+      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+  }
+
   signup_v2(){
     if(this.emailid == "" || this.emailid == null){
-      this.printmsg("You email is invalid");
-    }else{
+      this.printmsg("You Email ID Is Invalid");
+    }else if(!this.validateEmail(this.emailid)){
+      this.printmsg("Wrong Email ID");
+    }else{ 
       this.loadingimage = true;
       let email = this.emailid;
       email = email.toLowerCase();

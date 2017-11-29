@@ -117,7 +117,7 @@ export class UsertermsComponent implements OnInit {
           //console.log(dat);
           if(dat.code == 200){// && dat.status == "accepted"
             let t = dat.token;
-            if(t!="" || t!= null || t!=undefined){  
+            if(t!="" || t!= null || t!=undefined || t){  
               this.storage.store("AUXAuthLogin",true);
               this.signup.saveToLocal("AUXHomeUserToken",dat.token);
               this.signup.setUserSession(email,dat.token);
@@ -149,7 +149,7 @@ export class UsertermsComponent implements OnInit {
             }
           }else if(dat.code == 400){
             let t = dat.token;
-            if(t!="" || t!= null || t!=undefined){  
+            if(t!="" || t!= null || t!=undefined || t){  
               this.storage.store("AUXAuthLogin",true);
               this.signup.saveToLocal("AUXHomeUserToken",dat.token);
               this.signup.setUserSession(email,dat.token);

@@ -145,13 +145,16 @@ export class UserhomeComponent implements OnInit {
     this.starterDisableButton = true;
     this.storage.store("AUXstarterSecretButton","yes");
 
-    // let f = 0.021234566675122334;
+    // let f = 0.021239966675122334;
     // console.log(f);
     // // let f1 = f.toPrecision(6);
     // // console.log(f1,Math.floor(parseFloat(f1)))
     // // let f2 = f.toFixed(6);
     // // console.log(f2,Math.floor(parseFloat(f2)))
     // console.log(this.roundUp(f, 1000000));
+
+   this.signup.checkActivity();
+   // console.log(aa)
   }
   roundUp(num, precision) {
     return Math.ceil(num * precision) / precision

@@ -118,6 +118,8 @@ export class LoginComponent implements OnInit {
     }else{
       this.loadingimage = true;
       let email = this.emailid;
+      email = email.toLowerCase();
+      // console.log(email)
       localStorage.setItem("AUXUserEmailLocal",email);
       
       this.signup.saveToLocal("AUXUserEmail",email);

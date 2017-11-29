@@ -259,14 +259,14 @@ export class ReferralComponent implements OnInit {
               this.cardethpending = response.referral_json.pending_eth;
 
               // check pending amount to open modal 
-              if(this.cardbtcpending >= 0.001){
+              if(this.cardbtcpending >= 1000){
                 // console.log("btc greater")
                 this.btcbtnDisabled = false;
               }else{
                 // console.log("btc lesser")
                 this.btcbtnDisabled = true;
               }
-              if(this.cardethpending >= 0.01){
+              if(this.cardethpending >= 10000){
                 // console.log("eth greater")
                 this.ethbtnDisabled = false;
               }else{

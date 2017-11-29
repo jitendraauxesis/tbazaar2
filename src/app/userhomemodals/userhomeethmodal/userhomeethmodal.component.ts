@@ -20,6 +20,7 @@ import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireAuth } from 'angularfire2/auth';
 
+import { FbapiService } from '../../services/fbapi.service';
 @Component({
   selector: 'app-userhomeethmodal',
   templateUrl: './userhomeethmodal.component.html',
@@ -81,6 +82,7 @@ export class UserhomeethmodalComponent implements OnInit {
     public signup:SignupService,
     public elRef:ElementRef,
     private modalService: BsModalService,
+    private fbapi:FbapiService
   ) { 
     this.user = afAuth.authState;
     this.itemsRef = af.list('/transaction_details');
@@ -94,6 +96,17 @@ export class UserhomeethmodalComponent implements OnInit {
       this.starterDisableButton = false;
     // else 
     //   this.starterDisableButton = false;
+  }
+
+  loggedInFBauth(){
+    let email = this.signup.retrieveFromLocal("AUXUserEmail");
+    let password = "tokenbazaar";
+    // console.log("fb,",email,password);
+    this.fbapi.login(email,password);
+  }
+
+  loggedOutFBauth(){
+    this.fbapi.logout();
   }
 
   ngOnInit() {
@@ -223,7 +236,11 @@ export class UserhomeethmodalComponent implements OnInit {
               modalETH,
               Object.assign({}, this.config, { class: 'gray modal-md' })
             );
+            this.loggedInFBauth();
             if(response.refund_address != null){
+              this.ethrefundaddress = response.refund_address;
+              this.amount_to_pay = response.amount_to_pay;
+            }else{
               this.ethrefundaddress = response.refund_address;
               this.amount_to_pay = response.amount_to_pay;
             }
@@ -249,7 +266,7 @@ export class UserhomeethmodalComponent implements OnInit {
   /****
    * ETH Payment
    */
-  //Screen1
+  //Screen1 Not required for Masscryp
   doTheseIfChangeDetectInETH(val){
     //console.log(this.ethwalletaddress,this.ethwalletname);//console.log(val.target.value);
     if(this.toETH == 1 || this.toETH == 2){
@@ -341,7 +358,7 @@ export class UserhomeethmodalComponent implements OnInit {
     );
   }
 
-  //Screen2
+  //Screen2 started here for Masscryp
   ethrefundaddresschange(val){
     if(this.toETHRefund == 1 || this.toETHRefund == 2){
       let ethra = this.serv.retrieveFromLocal("AUXETHTransactionRA");//refund address
@@ -564,6 +581,7 @@ export class UserhomeethmodalComponent implements OnInit {
 
   clearERC(){
     clearInterval(this.fbinterval);
+    this.loggedOutFBauth();
     this.storage.clear("AUXETHTransactionRA");
     this.storage.clear("AUXETHTransactionWA");
     this.storage.clear("AUXETHTransactionWN");

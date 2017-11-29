@@ -26,6 +26,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 
 import { UserhomeComponent } from '../../userhome/userhome.component';
 
+import { FbapiService } from '../../services/fbapi.service';
 @Component({
   selector: 'app-userhomebtcmodal',
   templateUrl: './userhomebtcmodal.component.html',
@@ -92,7 +93,8 @@ export class UserhomebtcmodalComponent implements OnInit {
     private modalService: BsModalService,
     private route: ActivatedRoute,
     private router: Router,
-    private element:ElementRef
+    private element:ElementRef,
+    private fbapi:FbapiService
   ) { 
       this.user = afAuth.authState;
       this.itemsRef = af.list('/transaction_details');
@@ -142,6 +144,17 @@ export class UserhomebtcmodalComponent implements OnInit {
     // }else if(btcdone == true || btcdone == "done"){
     //   this.toBTCConfirm = 1;//show waiting btn
     // }
+  }
+
+  loggedInFBauth(){
+    let email = this.signup.retrieveFromLocal("AUXUserEmail");
+    let password = "tokenbazaar";
+    // console.log("fb,",email,password);
+    this.fbapi.login(email,password);
+  }
+
+  loggedOutFBauth(){
+    this.fbapi.logout();
   }
 
   //modal functionality
@@ -222,7 +235,7 @@ export class UserhomebtcmodalComponent implements OnInit {
     this.serv.resolveApi("pay_with_currency/",d)
     .subscribe(
       (res)=>{
-        //console.log(res);
+        console.log(res);
         let response = JSON.parse(JSON.stringify(res));
         if(response.code == 200){
           let to_address = response.to_address;
@@ -241,7 +254,11 @@ export class UserhomebtcmodalComponent implements OnInit {
                 modalBTC,
                 Object.assign({}, this.config, { class: 'gray modal-md' })
             );
+            this.loggedInFBauth();
             if(response.refund_address != null){
+              this.btcrefundaddress = response.refund_address;
+              this.amount_to_pay = response.amount_to_pay;
+            }else{
               this.btcrefundaddress = response.refund_address;
               this.amount_to_pay = response.amount_to_pay;
             }
@@ -270,7 +287,7 @@ export class UserhomebtcmodalComponent implements OnInit {
   /****
    * BTC Payment
    */
-  //Screen1
+  //Screen1 Not required for Masscryp
   doTheseIfChangeDetectInBTC(val){
     //console.log(this.btcwalletaddress,this.btcwalletname);//console.log(val.target.value);
     if(this.toBTC == 1 || this.toBTC == 2){
@@ -375,7 +392,7 @@ export class UserhomebtcmodalComponent implements OnInit {
 
 
 
-  //Screen2
+  //Screen2 started here forMasscryp
   btcrefundaddresschange(val){
     if(this.toBTCRefund == 1 || this.toBTCRefund == 2){
       let btcra = this.serv.retrieveFromLocal("AUXBTCTransactionRA");//refund address
@@ -599,6 +616,7 @@ export class UserhomebtcmodalComponent implements OnInit {
 
   clearERC(){
     clearInterval(this.fbinterval);
+    this.loggedOutFBauth();
     this.storage.clear("AUXBTCTransactionRA");
     this.storage.clear("AUXBTCTransactionWA");
     this.storage.clear("AUXBTCTransactionWN");

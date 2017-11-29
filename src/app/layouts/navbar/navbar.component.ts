@@ -45,7 +45,7 @@ export class NavbarComponent implements OnInit {
 
     // this.username = this.signup.retrieveUsername("AUXMassUserName");
     let name = this.signup.retrieveUsername("AUXMassUserName");
-    let splitname = name.split(" ");
+    let splitname = name.toString().split(" ");
     // console.log(splitname)
     this.username = splitname[0];
   }

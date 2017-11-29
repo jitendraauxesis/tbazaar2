@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap,NavigationEnd } from '@angular/router';
 import 'rxjs/add/operator/switchMap'; //to fetch url params
 
 import { ServiceapiService } from '../services/serviceapi.service';
@@ -78,6 +78,7 @@ export class ReferralComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    
     let loadurl = this.router.url;
     if(loadurl == "/referral"){
       this.loadReferralAuth();
@@ -93,6 +94,12 @@ export class ReferralComponent implements OnInit {
     // console.log(this.router.url,this.sendUrl)
 
     // this.openSuccessModal('eth','#txid');
+    this.router.events.subscribe((evt) => {
+        if (!(evt instanceof NavigationEnd)) {
+            return;
+        }
+        document.body.scrollTop = 0;
+    });
   } 
 
 

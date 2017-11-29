@@ -366,7 +366,7 @@ export class SignupService {
     var today = new Date();
     var expiresValue = new Date(today);
     //expiresValue.setSeconds(today.getSeconds() + 30); 
-    expiresValue.setHours(today.getHours() + 24*1); 
+    expiresValue.setHours(today.getHours() + 1*1); 
     //expiresValue.setMinutes(today.getMinutes() + 1); 
     //console.log(today,'\n',expiresValue)
     this.cookieService.set( 'AUXUserCookieServe', token,expiresValue);

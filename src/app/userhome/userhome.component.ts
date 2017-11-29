@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 
 // declare const jQuery:any; 
 
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap,NavigationEnd } from '@angular/router';
 import 'rxjs/add/operator/switchMap'; //to fetch url params
 
 
@@ -84,7 +84,7 @@ export class UserhomeComponent implements OnInit {
            //let cs = (this.cas).toString();
            //cs = cs.substr(0,cs.length-1);
           //this.cas = cs;
-          return false;
+          return false; 
         }
         if(charCode === 46 || charCode === 190 ){
           return false;
@@ -123,7 +123,12 @@ export class UserhomeComponent implements OnInit {
   } 
 
   ngOnInit() {
-
+    this.router.events.subscribe((evt) => {
+        if (!(evt instanceof NavigationEnd)) {
+            return;
+        }
+        document.body.scrollTop = 0;
+    }); 
     this.loadHomeStatus();
     //console.log(this.serv.retrieveFromLocal("AUXHomeStatus"),this.serv.retrieveFromLocal("AUXHomeStatus"))
     // setInterval(()=>{
@@ -366,7 +371,7 @@ export class UserhomeComponent implements OnInit {
         };
         setTimeout(()=>{
           // console.log(data,"called");
-          this.loggedInFBauth();
+          // this.loggedInFBauth();
         },1000);
         this.serv.resolveApi(this.apiMethod,data) 
         .subscribe(
@@ -462,7 +467,7 @@ export class UserhomeComponent implements OnInit {
               this.callAgainForStatus();
             }else if(d.code == 401){
               this.user_timeline_list = [];
-              // this.signup.logoutFromApp();
+              this.signup.logoutFromApp();
             }else{
               this.user_timeline_list = [];
             } 

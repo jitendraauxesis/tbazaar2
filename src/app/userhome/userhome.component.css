@@ -10,10 +10,34 @@
     padding-left: 5%;
     padding-right: 5%;
 }
+@media(min-width:768px){
+    div.currentrate {
+        margin-top: 35%;
+        padding-top: 40px;
+        color: darkslategray;
+        text-align: left;
+    }
+}
+@media(max-width:767px){
+    div.currentrate {
+        margin-top: 10%;
+        padding-top: 5px;
+        color: darkslategray;
+        text-align: left;
+    }
+}
 
-div.currentrate {
-    margin-top: 35%;
-    padding-top: 10px;
-    color: darkslategray;
-    text-align: left;
+.popmodaldiv .montBold {
+    margin-top: 20px;
+    margin-bottom: 25px;
+}
+
+.col-sm-12.nopad.popmodalradio {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.divsolddescription {
+    margin-top: 5%;
+    color: slategray;
 }

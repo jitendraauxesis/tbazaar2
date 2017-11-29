@@ -83,10 +83,10 @@ export class AddreferralComponent implements OnInit {
     let bitcoinaddress = this.signup.retrieveRefundAddressFromLocal("AUXUserRefundBitcoinAddress");
     if(etheraddress == "" || etheraddress == null || !etheraddress){
       this.loadFromCookie();
-      console.log("do not touch form inputs",etheraddress,this.signup.retrieveRefundAddress("AUXUserRefundEtherAddress"));
+      // console.log("do not touch form inputs",etheraddress,this.signup.retrieveRefundAddress("AUXUserRefundEtherAddress"));
     }else if(bitcoinaddress == "" || bitcoinaddress == null || !bitcoinaddress){
       this.loadFromCookie();
-      console.log("do not touch form inputs",bitcoinaddress,this.signup.retrieveRefundAddress("AUXUserRefundBitcoinAddress")); 
+      // console.log("do not touch form inputs",bitcoinaddress,this.signup.retrieveRefundAddress("AUXUserRefundBitcoinAddress")); 
     }else{ 
       this.referralbtnTxt = "Update";
       this.bitcoinaddress = bitcoinaddress;// console.log("append to btcaddress");
@@ -98,13 +98,13 @@ export class AddreferralComponent implements OnInit {
     let e = this.signup.retrieveRefundAddress("AUXUserRefundEtherAddress");
     let b = this.signup.retrieveRefundAddress("AUXUserRefundBitcoinAddress");
     if(e == "" || e == null || !e){
-      console.log("cookie",e)
+      // console.log("cookie",e)
       this.loadFromWeb();
     }else if(b == "" || b == null || !b){
-      console.log("cookie",b)
+      // console.log("cookie",b)
       this.loadFromWeb();
     }else{
-      console.log("cookie",e,b)
+      // console.log("cookie",e,b)
       this.referralbtnTxt = "Update";
       this.bitcoinaddress = b;// console.log("append to btcaddress");
       this.etheraddress = e;// console.log("append to etheraddress");
@@ -122,7 +122,7 @@ export class AddreferralComponent implements OnInit {
       res=>{
         let response = JSON.parse(JSON.stringify(res));
         if(response != null || response != ""){
-          console.log(response);
+          // console.log(response);
           if(response.code == 200){
             let btcrefund = response.referral_json.btc_refund_address;
             let ethrefund = response.referral_json.eth_refund_address;
@@ -251,9 +251,9 @@ export class AddreferralComponent implements OnInit {
     let e = this.signup.retrieveRefundAddress("AUXUserRefundEtherAddress");
     let b = this.signup.retrieveRefundAddress("AUXUserRefundBitcoinAddress");
     if(e == "" || e == null || !e){
-      console.log("donothing",e)
+      // console.log("donothing",e)
     }else if(b == "" || b == null || !b){
-      console.log("donothing",b)
+      // console.log("donothing",b)
       this.loadFromWeb();
     }else{
       this.signup.saveToLocal("AUXUserAddReferralStatus","done");

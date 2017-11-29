@@ -89,17 +89,17 @@ export class ReferralComponent implements OnInit {
       let referenceid = this.route.snapshot.paramMap.get("refid");
       // console.log("its ref url",referenceid,"\nredirect and save");
       this.signup.saveReferralId("AUXUserReferralID",referenceid);
-      this.router.navigate(["/login"]);
+      this.router.navigateByUrl("/login");
     }
     // console.log(this.router.url,this.sendUrl)
 
     // this.openSuccessModal('eth','#txid');
-    this.router.events.subscribe((evt) => {
-        if (!(evt instanceof NavigationEnd)) {
-            return;
-        }
-        document.body.scrollTop = 0;
-    });
+    // this.router.events.subscribe((evt) => {
+    //     if (!(evt instanceof NavigationEnd)) {
+    //         return;
+    //     }
+    //     document.body.scrollTop = 0;
+    // });
   } 
 
 

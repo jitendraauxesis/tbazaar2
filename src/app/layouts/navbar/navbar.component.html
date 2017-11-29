@@ -67,7 +67,7 @@
 
         <a (click)="doLogout(template)" class="logoutlink" data-scroll=""><span class="sidebar-icon"><i class="fa fa-sign-out" aria-hidden="true"></i></span>Logout</a>
     </div>
-    <div class="sidemenufooter">
+    <div class="sidemenufooter"  (click)="closeNav()">
         <p>&copy; {{year}}</p>
     </div>
   </div>

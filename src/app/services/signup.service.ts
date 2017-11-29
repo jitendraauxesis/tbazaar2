@@ -201,7 +201,7 @@ export class SignupService {
     let token = "Mass-Cryp-For-User";
     let fromStorage = this.cookieService.get(name);    
     if(fromStorage == "" || fromStorage == null){
-      return null;
+      return "there!";
     }else{
       let getDecrypt = CryptoJS.AES.decrypt(fromStorage,token);
       let finalStr = "";

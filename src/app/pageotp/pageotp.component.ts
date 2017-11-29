@@ -145,7 +145,8 @@ export class PageotpComponent implements OnInit {
                   this.storage.store("AUXAuthLogin",true);
                   this.signup.saveToLocal("AUXKYCStatus","done");                
                   this.signup.saveToLocal("AUXTNCStatus","done"); 
-                  this.router.navigate(["/home"]); 
+                  // this.router.navigate(["/home"]);
+                  this.router.navigateByUrl("/home"); 
                 // },4000);
                 // /**FBAuth */this.loggedInFBauth();
               }else if(res.kyc == "pending"){
@@ -158,7 +159,8 @@ export class PageotpComponent implements OnInit {
                   this.storage.store("AUXAuthLogin",true);
                   this.signup.saveToLocal("AUXKYCStatus","done");                
                   this.signup.saveToLocal("AUXTNCStatus","done"); 
-                  this.router.navigate(["/home"]); 
+                  // this.router.navigate(["/home"]); 
+                  this.router.navigateByUrl("/home");
                 // },4000);
                 // /**FBAuth */this.loggedInFBauth();
               }else if(res.kyc == "rejected"){
@@ -171,7 +173,8 @@ export class PageotpComponent implements OnInit {
                 this.storage.store("AUXAuthLogin",true);
                 this.signup.saveToLocal("AUXKYCStatus","done");                
                 this.signup.saveToLocal("AUXTNCStatus","done"); 
-                this.router.navigate(["/home"]);  
+                // this.router.navigate(["/home"]);  
+                this.router.navigateByUrl("/home");
               // },4000);
                 // /**FBAuth */this.loggedInFBauth();
               }else{
@@ -198,7 +201,8 @@ export class PageotpComponent implements OnInit {
                 this.signup.saveToLocal("AUXTNCStatus","done");   
                 this.storage.store("AUXAuthLogin",true);
                 this.signup.setUserSession(email,res.token);             
-                this.router.navigate(["/home"]); 
+                // this.router.navigate(["/home"]); 
+                this.router.navigateByUrl("/home");
                 // /**FBAuth */this.loggedInFBauth();
               // },4000);
             }else if(res.tnc == false){

@@ -98,11 +98,12 @@ button.menubtn i.fa.fa-cog {
 }
 .sidemenufooter {
     bottom: 0;
-    position: absolute;
+    position: relative;
     padding: 5%;
     text-align: center;
     width: 100%;
     font-size: 15px;
+    margin-top: 25%;
     font-weight: 600;
     color: wheat;
     text-shadow: 1px 2.5px darkslategrey;

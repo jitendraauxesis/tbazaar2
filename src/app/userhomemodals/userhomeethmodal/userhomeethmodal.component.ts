@@ -239,10 +239,12 @@ export class UserhomeethmodalComponent implements OnInit {
             this.loggedInFBauth();
             if(response.refund_address != null){
               this.ethrefundaddress = response.refund_address;
-              this.amount_to_pay = response.amount_to_pay;
+              let f =  response.amount_to_pay;
+              this.amount_to_pay = this.roundUp(f, 1000000);// response.amount_to_pay;
             }else{
               this.ethrefundaddress = response.refund_address;
-              this.amount_to_pay = response.amount_to_pay;
+              let f =  response.amount_to_pay;
+              this.amount_to_pay = this.roundUp(f, 1000000);// response.amount_to_pay;
             }
              this.stepRecieveETH = 1;this.ethmodaltitle = "Pay through ETH";
           }else{
@@ -605,6 +607,10 @@ export class UserhomeethmodalComponent implements OnInit {
     if(this.stepRecieveETH == 1){
       location.reload();
     }
+  }
+
+  roundUp(num, precision) {
+    return Math.ceil(num * precision) / precision
   }
 
   copytext(ethaddress){

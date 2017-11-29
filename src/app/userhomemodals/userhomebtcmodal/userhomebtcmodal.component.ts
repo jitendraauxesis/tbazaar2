@@ -257,10 +257,12 @@ export class UserhomebtcmodalComponent implements OnInit {
             this.loggedInFBauth();
             if(response.refund_address != null){
               this.btcrefundaddress = response.refund_address;
-              this.amount_to_pay = response.amount_to_pay;
+              let f =  response.amount_to_pay;
+              this.amount_to_pay = this.roundUp(f, 1000000);// response.amount_to_pay;
             }else{
               this.btcrefundaddress = response.refund_address;
-              this.amount_to_pay = response.amount_to_pay;
+              let f =  response.amount_to_pay;
+              this.amount_to_pay = this.roundUp(f, 1000000);// response.amount_to_pay;
             }
             this.stepRecieveBTH = 1;this.btcmodaltitle = "Pay through BTC";
  
@@ -640,6 +642,10 @@ export class UserhomebtcmodalComponent implements OnInit {
     if(this.stepRecieveBTH == 1){
       location.reload();
     }
+  }
+
+  roundUp(num, precision) {
+    return Math.ceil(num * precision) / precision
   }
 
   copytext(btcaddress){

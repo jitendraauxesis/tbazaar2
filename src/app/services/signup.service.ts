@@ -25,6 +25,8 @@ export class SignupService {
   private name;
   private age;
   private address;
+
+  interval:any;
   
   constructor(
     public http:Http,
@@ -347,21 +349,22 @@ export class SignupService {
     this.storage.clear();
     localStorage.clear();
     this.fbapi.logout();
-    this.clearUserSession();
     this.storage.store("AUXUserUrl",url);
     this.router.navigate(["/login","you_are_unauthorized"]);
     location.reload();
+    this.clearUserSession(); 
     //this.router.navigateByUrl("/login?why=you_are_unauthorized");
   }
-
+ 
   logoutFromApp(){
+    clearInterval(this.interval);
     let url = this.storage.retrieve("AUXUserUrl");
     this.storage.clear();
     localStorage.clear();
     this.fbapi.logout();
     this.storage.store("AUXUserUrl",url);
     this.router.navigate(["/login"]);
-    location.reload();
+    // location.reload();
     this.clearUserSession();
   }
 
@@ -371,10 +374,10 @@ export class SignupService {
     this.sessionStorage.store("AUXUserSessionID",id);
     this.sessionStorage.store("AUXUserSessionValue",email);
     this.sessionStorage.store("AUXUserSessionToken",token);
-
+ 
     var today = new Date();
     var expiresValue = new Date(today);
-    // expiresValue.setSeconds(today.getSeconds() + 30); 
+    // expiresValue.setSeconds(today.getSeconds() + 15); 
     expiresValue.setHours(today.getHours() + 1*1); 
     //expiresValue.setMinutes(today.getMinutes() + 1); 
     //console.log(today,'\n',expiresValue)
@@ -410,8 +413,15 @@ export class SignupService {
   }
 
   clearUserSession(){
-    this.cookieService.delete('AUXUserCookieServe');
-    this.sessionStorage.clear();
+    // clearInterval(this.interval);
+    //setTimeout(()=>{
+      this.cookieService.delete('AUXUserCookieServe');
+      this.sessionStorage.clear();
+    //},1000);
+  }
+
+  clearIntervalInLogin(){
+    clearInterval(this.interval);
   }
 
   checkInfinityUserActivity(){
@@ -450,7 +460,7 @@ export class SignupService {
 
   checkActivity(){
     //const cookieExists: boolean = this.cookieService.check('AUXUserCookieServe');
-    setInterval(()=>{
+    this.interval = setInterval(()=>{
       let cookieExists = this.cookieService.check('AUXUserCookieServe');
       if(cookieExists){
         let token = this.sessionStorage.retrieve("AUXUserSessionToken");
@@ -463,18 +473,20 @@ export class SignupService {
         //  // console.log("false1")
         //   return false;
         // }
-        // console.log("true1",cookieExists,cookie)
+        console.log("true1",cookieExists,cookie)
       }else{
-        //console.log("false2")
+        clearInterval(this.interval);
+        console.log("false2")
         let url = this.storage.retrieve("AUXUserUrl");
         this.storage.clear();
         localStorage.clear();
         this.fbapi.logout();
-        this.clearUserSession();
         this.storage.store("AUXUserUrl",url);
-        this.router.navigate(["/login","session_timedout"]);
+        this.router.navigate(["/login"]);
+        // this.router.navigate(["/login","session_timedout"]);
         location.reload();
-        // console.log("false2",cookieExists) 
+        this.clearUserSession();
+        console.log("false2",cookieExists) 
       }  
     },1000);
     

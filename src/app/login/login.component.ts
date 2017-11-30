@@ -76,6 +76,7 @@ export class LoginComponent implements OnInit {
         }
       },1000);
       //console.log("User logged out");
+      this.signup.clearIntervalInLogin();
     }
 
     // let cookieExists = this.signup.checkUserActivity();

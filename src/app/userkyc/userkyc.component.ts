@@ -55,6 +55,8 @@ export class UserkycComponent implements OnInit {
     }
 
     this.loadAlert();
+
+    this.signup.checkActivity();
   }
 
   loadAlert(){

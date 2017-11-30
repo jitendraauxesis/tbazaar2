@@ -359,10 +359,10 @@ export class SignupService {
     this.storage.clear();
     localStorage.clear();
     this.fbapi.logout();
-    this.clearUserSession();
     this.storage.store("AUXUserUrl",url);
     this.router.navigate(["/login"]);
     location.reload();
+    this.clearUserSession();
   }
 
   setUserSession(email,token){

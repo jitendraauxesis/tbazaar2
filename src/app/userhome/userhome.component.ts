@@ -61,6 +61,8 @@ export class UserhomeComponent implements OnInit {
   starterDisableButton:boolean = false;
   current_rate:any;
 
+  public ngxloading = false;
+
   constructor(
     public serv:ServiceapiService,
     private storage:LocalStorageService,
@@ -129,19 +131,14 @@ export class UserhomeComponent implements OnInit {
     //     }
     //     document.body.scrollTop = 0;
     // }); 
+    this.ngxloading = true; //initialize loader
+
     this.loadHomeStatus();
-    //console.log(this.serv.retrieveFromLocal("AUXHomeStatus"),this.serv.retrieveFromLocal("AUXHomeStatus"))
-    // setInterval(()=>{
-    //   console.log(this.homeprop++);
-    // },2000);
+    
     this.signup.saveToLocal("AUXPageChange","no");
 
-    // setTimeout(()=>{
-    //   this.optradio = "";
-    //   this.cas = "";
-    // },10000) 
-
-    // disabled [disabled]="starterDisableButton"
+    
+    
     this.starterDisableButton = true;
     this.storage.store("AUXstarterSecretButton","yes");
 
@@ -155,8 +152,9 @@ export class UserhomeComponent implements OnInit {
 
     // let a = this.calcsubstr(25.451478012875654);
     // console.log(a)
+
    this.signup.checkActivity();
-   // console.log(aa)
+   
   }
   roundUp(num, precision) {
     return Math.ceil(num * precision) / precision
@@ -283,9 +281,11 @@ export class UserhomeComponent implements OnInit {
     let cookieExists = this.signup.checkUserActivity();
     // console.log("isAuthorized",isAuth,cookieExists);
     if(isAuth == null){
+      this.ngxloading = false; 
       this.signup.UnAuthlogoutFromApp(); 
     }
     else if(cookieExists == false){
+      this.ngxloading = false; 
       this.storage.store("AUXAuthLogin",false);
       this.signup.UnAuthlogoutFromApp();
     }
@@ -394,6 +394,7 @@ export class UserhomeComponent implements OnInit {
         this.serv.resolveApi(this.apiMethod,data) 
         .subscribe(
           res=>{
+            this.ngxloading = false; 
             // console.log(res);
             let d = JSON.parse(JSON.stringify(res));
             if(d.status == 200){
@@ -491,6 +492,7 @@ export class UserhomeComponent implements OnInit {
             } 
           },
           err=>{ 
+            this.ngxloading = false; 
             this.user_timeline_listShow = false;
             //console.error(err);
           }

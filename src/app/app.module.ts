@@ -20,6 +20,7 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { CookieService } from 'ngx-cookie-service';
 import { OrderModule } from 'ngx-order-pipe';
+import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -106,7 +107,16 @@ export const firebaseConfig = {
     AngularFirestoreModule,
     NgxQRCodeModule.forRoot(),
     ClipboardModule,
-    OrderModule
+    OrderModule,
+    LoadingModule.forRoot({
+      animationType: ANIMATION_TYPES.threeBounce,
+      backdropBackgroundColour: 'rgba(0,0,0,0.4)', 
+      backdropBorderRadius: '0px',
+      primaryColour: '#c2e9f9', 
+      secondaryColour: '#c2e9f9', 
+      tertiaryColour: '#c2e9f9',
+      fullScreenBackdrop:true
+    })
   ],
   providers: [
     SignupService, 

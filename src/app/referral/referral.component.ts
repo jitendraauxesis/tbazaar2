@@ -66,6 +66,7 @@ export class ReferralComponent implements OnInit {
 
   bitcoinurl:any = "https://blockchain.info/tx";
   etherurl:any = "https://etherscan.io/tx";
+  public ngxloading  = false; 
 
   constructor(
     public serv:ServiceapiService,
@@ -79,13 +80,17 @@ export class ReferralComponent implements OnInit {
 
   ngOnInit() {
     
+    this.ngxloading = true; 
+
     let loadurl = this.router.url;
     if(loadurl == "/referral"){
       this.loadReferralAuth();
       // console.log("its current url");
     }else if(loadurl == "/referral/address"){
+      this.ngxloading = false; 
       this.router.navigate(["/referral"]);
     }else{//if url in /referral/address/refid
+      this.ngxloading = false; 
       let referenceid = this.route.snapshot.paramMap.get("refid");
       // console.log("its ref url",referenceid,"\nredirect and save");
       this.signup.saveReferralId("AUXUserReferralID",referenceid);
@@ -108,9 +113,11 @@ export class ReferralComponent implements OnInit {
     let isAuth = this.storage.retrieve("AUXAuthLogin");
     let cookieExists = this.signup.checkUserActivity();
     if(isAuth == null){
+      this.ngxloading = false; 
       this.signup.UnAuthlogoutFromApp(); 
     }
     else if(cookieExists == false){
+      this.ngxloading = false; 
       this.storage.store("AUXAuthLogin",false);
       this.signup.UnAuthlogoutFromApp();
     }
@@ -234,6 +241,7 @@ export class ReferralComponent implements OnInit {
     this.serv.resolveApi("get_referral_details",d)
     .subscribe(
       res=>{
+        this.ngxloading = false; 
         let response = JSON.parse(JSON.stringify(res));
         if(response != null || response != ""){
           // console.log(response);
@@ -311,6 +319,7 @@ export class ReferralComponent implements OnInit {
         }
       },
       err=>{
+          this.ngxloading = false; 
           // console.error(err);
           this.toastr.error('Referral detail not retrieved', 'Not a valid response',{timeOut:2500});
           history.back();

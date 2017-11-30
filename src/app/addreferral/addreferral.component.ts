@@ -31,7 +31,7 @@ export class AddreferralComponent implements OnInit {
   etheraddress:any;
 
   referralbtnTxt:string = "Next";
-
+  public ngxloading  = false;
   constructor(
     public serv:ServiceapiService,
     public signup:SignupService,
@@ -112,6 +112,7 @@ export class AddreferralComponent implements OnInit {
   }
 
   loadFromWeb(){
+    this.ngxloading = true; 
     let d = {
       'email':this.signup.retrieveFromLocal("AUXUserEmail"),
       'token':this.signup.retrieveFromLocal("AUXHomeUserToken")
@@ -120,6 +121,7 @@ export class AddreferralComponent implements OnInit {
     this.serv.resolveApi("get_referral_details",d)
     .subscribe(
       res=>{
+        this.ngxloading = false; 
         let response = JSON.parse(JSON.stringify(res));
         if(response != null || response != ""){
           // console.log(response);
@@ -160,6 +162,7 @@ export class AddreferralComponent implements OnInit {
         }
       },
       err=>{
+          this.ngxloading = true; 
           // console.error(err);
       }
     );

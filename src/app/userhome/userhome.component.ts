@@ -234,7 +234,8 @@ export class UserhomeComponent implements OnInit {
                       let s1_1 = (s1[0].trim()).replace('btc','');
                       let s1_2 = (s1[1].trim()).replace('tokens','');
                       // console.log(s1_1,s1_2)
-                      x = s1_1;y=s1_2;
+                      // x = s1_1;y=s1_2;
+                      x = this.signup.calcsubstr(s1_1);y=s1_2;
                     }
                     if(value.currency == 'eth' && value.type != 'payment_initiation'){
                       let s = value.content;
@@ -243,11 +244,28 @@ export class UserhomeComponent implements OnInit {
                       let s1_1 = (s1[0].trim()).replace('eth','');
                       let s1_2 = (s1[1].trim()).replace('tokens','');
                       // console.log(s1_1,s1_2)
-                      x = s1_1;y=s1_2;
+                      // x = s1_1;y=s1_2;
+                      x = this.signup.calcsubstr(s1_1);y=s1_2;
+                    }
+                    let content2 = value.content;
+                    if(value.type == 'payment_initiation'){
+                      if(value.currency == 'btc'){
+                        let s = value.content;
+                        let s1 = s.split(",");
+                        let s1_1 = (s1[0].trim()).replace('btc','');
+                        content2 = this.signup.calcsubstr(s1_1)+' BTC';
+                      }
+                      if(value.currency == 'eth'){
+                        let s = value.content;
+                        let s1 = s.split(",");
+                        let s1_2 = (s1[0].trim()).replace('eth','');
+                        content2 = this.signup.calcsubstr(s1_2)+' ETH';
+                      }
                     }
                     b.push({
                       amount_to_pay:value.amount_to_pay,
                       content:value.content,
+                      content2:content2,
                       currency:value.currency,
                       email:value.email,
                       erc_address:value.erc_address,
@@ -450,7 +468,8 @@ export class UserhomeComponent implements OnInit {
                     let s1_1 = (s1[0].trim()).replace('btc','');
                     let s1_2 = (s1[1].trim()).replace('tokens','');
                     // console.log(s1_1,s1_2)
-                    x = s1_1;y=s1_2;
+                    // x = s1_1;y=s1_2;
+                    x = this.signup.calcsubstr(s1_1);y=s1_2;
                   }
                   if(value.currency == 'eth' && value.type != 'payment_initiation'){
                     let s = value.content;
@@ -459,11 +478,28 @@ export class UserhomeComponent implements OnInit {
                     let s1_1 = (s1[0].trim()).replace('eth','');
                     let s1_2 = (s1[1].trim()).replace('tokens','');
                     // console.log(s1_1,s1_2)
-                    x = s1_1;y=s1_2;
+                    // x = s1_1;y=s1_2;
+                    x = this.signup.calcsubstr(s1_1);y=s1_2;
+                  }
+                  let content2 = value.content;
+                  if(value.type == 'payment_initiation'){
+                    if(value.currency == 'btc'){
+                      let s = value.content;
+                      let s1 = s.split(",");
+                      let s1_1 = (s1[0].trim()).replace('btc','');
+                      content2 = this.signup.calcsubstr(s1_1)+' BTC';
+                    }
+                    if(value.currency == 'eth'){
+                      let s = value.content;
+                      let s1 = s.split(",");
+                      let s1_2 = (s1[0].trim()).replace('eth','');
+                      content2 = this.signup.calcsubstr(s1_2)+' ETH';
+                    }
                   }
                   b.push({
                     amount_to_pay:value.amount_to_pay,
                     content:value.content,
+                    content2:content2,
                     currency:value.currency,
                     email:value.email,
                     erc_address:value.erc_address,

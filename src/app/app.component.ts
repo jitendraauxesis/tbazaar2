@@ -16,4 +16,4 @@ export class AppComponent {
     this.storage.store("AUXUserUrl","http://104.236.95.166:8000/");//"http://139.59.156.145:8000/");
   }
 }
-  
+ 

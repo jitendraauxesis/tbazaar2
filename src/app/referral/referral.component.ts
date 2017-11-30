@@ -26,7 +26,7 @@ import * as _ from 'lodash';
 export class ReferralComponent implements OnInit {
 
   referraladdressvalue:string;
-  referridvalue:string = "tx234235235";
+  referridvalue:string = "XXXXXXX";
 
   modalRef: BsModalRef;
   config = {

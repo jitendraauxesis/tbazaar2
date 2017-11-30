@@ -371,7 +371,7 @@ export class UserhomeComponent implements OnInit {
             this.kycalertpanelview = false;
         },8000);
       }else{
-        this.kycalertpanelview = true;
+        this.kycalertpanelview = true; 
         this.kycalertpanel = view; 
       }
     }

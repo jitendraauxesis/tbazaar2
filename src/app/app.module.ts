@@ -21,6 +21,7 @@ import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { CookieService } from 'ngx-cookie-service';
 import { OrderModule } from 'ngx-order-pipe';
 import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading';
+import { ChartsModule } from 'ng2-charts';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -116,8 +117,9 @@ export const firebaseConfig = {
       secondaryColour: '#c2e9f9', 
       tertiaryColour: '#c2e9f9',
       fullScreenBackdrop:true
-    })
-  ],
+    }),
+    ChartsModule
+  ], 
   providers: [
     SignupService, 
     ServiceapiService,

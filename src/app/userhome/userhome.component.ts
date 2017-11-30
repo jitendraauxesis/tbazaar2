@@ -153,13 +153,14 @@ export class UserhomeComponent implements OnInit {
     // // console.log(f2,Math.floor(parseFloat(f2)))
     // console.log(this.roundUp(f, 1000000));
 
+    // let a = this.calcsubstr(25.451478012875654);
+    // console.log(a)
    this.signup.checkActivity();
    // console.log(aa)
   }
   roundUp(num, precision) {
     return Math.ceil(num * precision) / precision
   }
-  
   
   
 

@@ -251,13 +251,13 @@ export class ReferralComponent implements OnInit {
               this.referridvalue = response.referral_json.ref_id;
               this.referraladdressvalue = this.sendUrl+"/address/"+this.referridvalue;
 
-              this.cardbtcearned = response.referral_json.earned_btc;
-              this.cardbtcwithdrawn = response.referral_json.withdrawn_btc;
-              this.cardbtcpending = response.referral_json.pending_btc;
+              this.cardbtcearned = this.signup.calcsubstr(response.referral_json.earned_btc);
+              this.cardbtcwithdrawn = this.signup.calcsubstr(response.referral_json.withdrawn_btc);
+              this.cardbtcpending = this.signup.calcsubstr(response.referral_json.pending_btc);
 
-              this.cardethearned = response.referral_json.earned_eth;
-              this.cardethwithdrawn = response.referral_json.withdrawn_eth;
-              this.cardethpending = response.referral_json.pending_eth;
+              this.cardethearned = this.signup.calcsubstr(response.referral_json.earned_eth);
+              this.cardethwithdrawn = this.signup.calcsubstr(response.referral_json.withdrawn_eth);
+              this.cardethpending = this.signup.calcsubstr(response.referral_json.pending_eth);
 
               // check pending amount to open modal 
               if(this.cardbtcpending >= 1000){
@@ -322,13 +322,15 @@ export class ReferralComponent implements OnInit {
     // console.log(referral_details_list.length,referral_details_list);
     let arr = [];
     referral_details_list.forEach((value,key) => {
+      let b1 = this.signup.calcsubstr(value.amount_in_btc);
+      let b2 = this.signup.calcsubstr(value.amount_in_eth);
       arr.push({
         srno:(key+1),
         name:value.name,
         degree:value.degree,
-        amount_in_btc:value.amount_in_btc,
-        amount_in_eth:value.amount_in_eth
-      });
+        amount_in_btc:b1,
+        amount_in_eth:b2
+      }); 
     });
     this.referral_details_list = arr;
   }

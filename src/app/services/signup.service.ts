@@ -473,10 +473,10 @@ export class SignupService {
         //  // console.log("false1")
         //   return false;
         // }
-        console.log("true1",cookieExists,cookie)
+        // console.log("true1",cookieExists,cookie)
       }else{
         clearInterval(this.interval);
-        console.log("false2")
+        // console.log("false2")
         let url = this.storage.retrieve("AUXUserUrl");
         this.storage.clear();
         localStorage.clear();
@@ -486,9 +486,35 @@ export class SignupService {
         // this.router.navigate(["/login","session_timedout"]);
         location.reload();
         this.clearUserSession();
-        console.log("false2",cookieExists) 
+        // console.log("false2",cookieExists) 
       }  
     },1000);
     
+  }
+
+  calcsubstr(amnt){
+    let retrieve = 0;
+    // console.log("**********************************\n","base",amnt);
+    if(amnt == 0){
+        retrieve = 0;
+    }else{
+        var l2 = amnt - Math.floor(amnt);
+        // console.log("florr",l2)
+        
+        var l = Math.floor(amnt);
+        // console.log("flrr<-",l);
+        
+        var l1 = l2.toString().substr(0,8);
+        // console.log("substr->",l1)
+        
+        var l4 = parseFloat(l1);
+
+        //let l33:number = l4;
+        var l3 = l + l4 ;
+        // console.log("retr",l3)
+        
+        retrieve = l3;
+    }
+    return retrieve;
   }
 }

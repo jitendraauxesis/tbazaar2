@@ -72,6 +72,7 @@ export class UserhomeComponent implements OnInit {
 
 
   csvFiles:File;
+  csvData:any;
 
   constructor(
     public serv:ServiceapiService,
@@ -88,21 +89,10 @@ export class UserhomeComponent implements OnInit {
     this.qrvalue = "Its Demo For QR Angular";
     //this.signup.setUserSession(this.storage.retrieve("AUXUserEmail"),"7764611b-fdee-4804-8f2f-fab678e63526a704b8ef-5cb5-45b1-b367-98c89b91f1aeba1abd08-0b64-4f05-8d60-a049344a1a28");
 
-    this.callCSV();
+    // this.serv.callCSV();
   }
 
-  callCSV(){
-    //new fileReader
-    // var fileReader = new FileReader();
-    // fileReader.readAsDataURL(new File('./assets/data/main.csv'));
-    // //try to read file, this part does not work at all, need a solution
-    // fileReader.onload = function(e) {
-    //   console.log("fileReader.onload");
-      
-    //   console.log(e)
-
-    // }
-  }
+  
 
   keyevent(evt){
        var charCode = (evt.which) ? evt.which : evt.keyCode;
@@ -592,7 +582,7 @@ export class UserhomeComponent implements OnInit {
         let initialiAmnt = (parseFloat(lastEl[0].PriceinUSD)-0.005);
 
         let initialiAmnt2 = initialiAmnt;
-        let a = [initialiAmnt2];let dum = [];let b = [""];
+        let a = [];let dum = [];let b = [];
         _.forEach(lastEl,(value,key)=>{
           //for price
           let ab = _.pick(value,['PriceinUSD'])
@@ -610,8 +600,8 @@ export class UserhomeComponent implements OnInit {
         let evExtra = ev;
         a.push(evExtra);
         b.push("");
-        console.log(a)
-        console.log(b)
+        // console.log(a)
+        // console.log(b)
 
         let a1 = [];
         _.forEach(a,(v,k)=>{
@@ -664,7 +654,7 @@ export class UserhomeComponent implements OnInit {
         this.showChart = true;
       },
       (e)=>{
-        console.error(e)
+        // console.error(e)
         this.showChart = false;
       }
     );
@@ -677,7 +667,7 @@ export class UserhomeComponent implements OnInit {
     responsive: true,
     title: {
         display: true,
-        text: 'Rates vs Token'
+        text: 'Rates vs Sold Tokens'
     },
     // ticks: {
     //   labelOffset: 1
@@ -686,8 +676,8 @@ export class UserhomeComponent implements OnInit {
         xAxes: [{
           scaleLabel: {
             display: true,
-            labelString: "Tokens Sold",
-            fontColor: "red",
+            labelString: "Sold Tokens",
+            fontColor: "green",
             zeroLineWidth:1
           },
           gridLines: {
@@ -705,7 +695,7 @@ export class UserhomeComponent implements OnInit {
         yAxes: [{
           scaleLabel: {
             display: true,
-            labelString: "Tokens Rates In US Dollar ($)",
+            labelString: "Token Rate In USD",
             fontColor: "green",
             zeroLineWidth:1
           },

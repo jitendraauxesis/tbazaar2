@@ -84,4 +84,49 @@ export class ServiceapiService {
   public retrieveRateListFromJSON(){
     return this.http.get("assets/data/Masscrypratelist.json").map(this.extractData);
   }
+
+
+  callCSV(){
+    //new fileReader
+    var fileReader = new FileReader();
+    console.log(fileReader)
+    // fileReader.readAsDataURL(new File('./assets/data/main.csv'));
+    // //try to read file, this part does not work at all, need a solution
+    // fileReader.onload = function(e) {
+    //   console.log("fileReader.onload");
+      
+    //   console.log(e)
+
+    // }
+    
+    // this.http.get("assets/data/main.csv")
+    // .subscribe(
+    //   d=>{
+    //     console.log(d)
+    //   },
+    //   e=>{
+    //     console.error(e)
+    //   }
+    // );
+  }
+
+  extractCSVFile(res: Response){
+    let csvData = res['_body'] || '';
+    let allTextLines = csvData.split(/\r\n|\n/);
+    let headers = allTextLines[0].split(',');
+    let lines = [];
+
+    for ( let i = 0; i < allTextLines.length; i++) {
+        // split content based on comma
+        let data = allTextLines[i].split(',');
+        if (data.length == headers.length) {
+            let tarr = [];
+            for ( let j = 0; j < headers.length; j++) {
+                tarr.push(data[j]);
+            }
+            lines.push(tarr);
+        }
+    }
+    // this.csvData = lines;
+  }
 }

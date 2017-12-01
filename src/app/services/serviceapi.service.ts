@@ -80,4 +80,8 @@ export class ServiceapiService {
   /**
    * END transaction storing
    */
+
+  public retrieveRateListFromJSON(){
+    return this.http.get("assets/data/Masscrypratelist.json").map(this.extractData);
+  }
 }

@@ -20,6 +20,8 @@ import 'rxjs/add/operator/switchMap'; //to fetch url params
 import * as moment from 'moment';
 import _ from 'lodash';
 
+import * as Chart from 'chart.js';
+
 import { FbapiService } from '../services/fbapi.service';
 
 import { CookieService } from 'ngx-cookie-service';//
@@ -63,6 +65,14 @@ export class UserhomeComponent implements OnInit {
 
   public ngxloading = false;
 
+  public showChart:boolean = false;
+  public lineChartData:Array<any>;
+  public lineChartLabels:Array<any>;
+  public jsonData:any;
+
+
+  csvFiles:File;
+
   constructor(
     public serv:ServiceapiService,
     private storage:LocalStorageService,
@@ -77,6 +87,21 @@ export class UserhomeComponent implements OnInit {
   ) {
     this.qrvalue = "Its Demo For QR Angular";
     //this.signup.setUserSession(this.storage.retrieve("AUXUserEmail"),"7764611b-fdee-4804-8f2f-fab678e63526a704b8ef-5cb5-45b1-b367-98c89b91f1aeba1abd08-0b64-4f05-8d60-a049344a1a28");
+
+    this.callCSV();
+  }
+
+  callCSV(){
+    //new fileReader
+    // var fileReader = new FileReader();
+    // fileReader.readAsDataURL(new File('./assets/data/main.csv'));
+    // //try to read file, this part does not work at all, need a solution
+    // fileReader.onload = function(e) {
+    //   console.log("fileReader.onload");
+      
+    //   console.log(e)
+
+    // }
   }
 
   keyevent(evt){
@@ -423,6 +448,7 @@ export class UserhomeComponent implements OnInit {
                 res=>{
                   let d = JSON.parse(JSON.stringify(res));
                   this.current_rate = d.current_rate;
+                  this.makeChart(this.current_rate);
                 },
                 err=>{ 
                   console.error(err);
@@ -543,36 +569,153 @@ export class UserhomeComponent implements OnInit {
 
   //Charts
   // lineChart
-  public lineChartData:Array<any> = [
-    // {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
-    {data: [0.1, 0.102, 0.11, 0.115, 0.12, 0.121, 0.13], label: 'Rates'},
-    // {data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C'}
-  ];
-  public lineChartLabels:Array<any> = [
-    //'0', 'February', 'March', 'April', 'May', 'June', 'July'
-    0,8,16,24,32,40,48
-  ];
+  public makeChart(Currentrate){
+    this.serv.retrieveRateListFromJSON()
+    .subscribe(
+      (d)=>{
+        // console.log(d)
+        let data = JSON.parse(JSON.stringify(d));
+        // console.log(data[2].data);
+        this.jsonData = data[2].data;
+
+        // console.info(Currentrate,this.jsonData)
+
+        let takeRight = _.takeWhile(this.jsonData, function(o) { if(o.PriceinUSD <= parseFloat(Currentrate)) return o; });
+        let lastEl = takeRight.slice(Math.max(takeRight.length - 20, 0));
+        
+        // console.log(takeRight)
+
+        // console.log(lastEl)
+
+        // console.log(lastEl[0].PriceinUSD,(parseFloat(lastEl[0].PriceinUSD)-0.005))
+
+        let initialiAmnt = (parseFloat(lastEl[0].PriceinUSD)-0.005);
+
+        let initialiAmnt2 = initialiAmnt;
+        let a = [initialiAmnt2];let dum = [];let b = [""];
+        _.forEach(lastEl,(value,key)=>{
+          //for price
+          let ab = _.pick(value,['PriceinUSD'])
+          dum.push((_.get(ab,'PriceinUSD')));
+          a.push((_.get(ab,'PriceinUSD')))
+
+          //for token
+          let bb = _.pick(value,['Torange'])
+          let s = (_.get(bb,'Torange')).trim()+"";
+          b.push(s);
+        });
+        let maxa = _.max(dum);
+        let ev = (parseFloat(maxa)+0.005);
+        // console.log(ev)
+        let evExtra = ev;
+        a.push(evExtra);
+        b.push("");
+        console.log(a)
+        console.log(b)
+
+        let a1 = [];
+        _.forEach(a,(v,k)=>{
+          a1.push("$"+v);
+        })
+
+        // console.log(a1)
+        
+
+        Chart.pluginService.register({
+          afterUpdate: function(chart) {
+              // We get the dataset and set the offset here
+              var dataset = chart.config.data.datasets[0];
+              var offset = 20;
+      
+              // For every data in the dataset ...
+              for (var i = 0; i < dataset._meta[0].data.length; i++) {
+                  // We get the model linked to this data
+                  var model = dataset._meta[0].data[i]._model;
+      
+                  // And add the offset to the `x` property
+                  model.x += offset;
+                  // model.y += offset;
+      
+                  // .. and also to these two properties
+                  // to make the bezier curve fits the new graph
+                  model.controlPointNextX += offset;
+                  model.controlPointPreviousX += offset;
+
+                  // model.controlPointNextY += offset;
+                  // model.controlPointPreviousY += offset;
+              }
+          }
+        });
+
+        this.lineChartData = [
+          {   data: a, label: 'Rate ',
+              // borderWidth: 2,
+              fill: false,
+              lineTension: .3,pointHoverBorderWidth: 2,
+              pointRadius: 4,
+              pointHitRadius: 10,
+              spanGaps: false,
+          }
+        ];
+        this.lineChartLabels = b;
+
+        
+
+        this.showChart = true;
+      },
+      (e)=>{
+        console.error(e)
+        this.showChart = false;
+      }
+    );
+    
+
+    // this.randomize();
+  }
+  
   public lineChartOptions:any = {
     responsive: true,
     title: {
         display: true,
         text: 'Rates vs Token'
     },
+    // ticks: {
+    //   labelOffset: 1
+    // },
     scales: {
         xAxes: [{
-          title:  'Tokens'
+          scaleLabel: {
+            display: true,
+            labelString: "Tokens Sold",
+            fontColor: "red",
+            zeroLineWidth:1
+          },
+          gridLines: {
+            offsetGridLines: true,
+            display: false,
+            borderDash: [6, 2],
+            tickMarkLength:5
+          },
+          ticks: {
+            // fontSize: 8,
+            labelOffset: 15,
+            maxRotation: 0,
+          }
+        }],
+        yAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: "Tokens Rates In US Dollar ($)",
+            fontColor: "green",
+            zeroLineWidth:1
+          },
+          ticks:{
+            beginAtZero: false,
+          }
         }]
     }
   };
   public lineChartColors:Array<any> = [
-    // { // grey
-    //   backgroundColor: 'rgba(148,159,177,0.2)',
-    //   borderColor: 'rgba(148,159,177,1)',
-    //   pointBackgroundColor: 'rgba(148,159,177,1)',
-    //   pointBorderColor: '#fff',
-    //   pointHoverBackgroundColor: '#fff',
-    //   pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    // },
     { // dark grey
       backgroundColor: 'rgba(77,83,96,0.2)',
       borderColor: 'rgba(77,83,96,1)',
@@ -580,36 +723,28 @@ export class UserhomeComponent implements OnInit {
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(77,83,96,1)'
-    },
-    // { // grey
-    //   backgroundColor: 'rgba(148,159,177,0.2)',
-    //   borderColor: 'rgba(148,159,177,1)',
-    //   pointBackgroundColor: 'rgba(148,159,177,1)',
-    //   pointBorderColor: '#fff',
-    //   pointHoverBackgroundColor: '#fff',
-    //   pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    // }
+    }
   ];
   public lineChartLegend:boolean = true;
   public lineChartType:string = 'line';
  
-  public randomize():void {
-    let _lineChartData:Array<any> = new Array(this.lineChartData.length);
-    for (let i = 0; i < this.lineChartData.length; i++) {
-      _lineChartData[i] = {data: new Array(this.lineChartData[i].data.length), label: this.lineChartData[i].label};
-      for (let j = 0; j < this.lineChartData[i].data.length; j++) {
-        _lineChartData[i].data[j] = Math.floor((Math.random() * 100) + 1);
-      }
-    }
-    this.lineChartData = _lineChartData;
-  }
+  // public randomize():void {
+  //   let _lineChartData:Array<any> = new Array(this.lineChartData.length);
+  //   for (let i = 0; i < this.lineChartData.length; i++) {
+  //     _lineChartData[i] = {data: new Array(this.lineChartData[i].data.length), label: this.lineChartData[i].label};
+  //     for (let j = 0; j < this.lineChartData[i].data.length; j++) {
+  //       _lineChartData[i].data[j] = Math.floor((Math.random() * 100) + 1);
+  //     }
+  //   }
+  //   this.lineChartData = _lineChartData;
+  // }
  
   // events
   public chartClicked(e:any):void {
-    console.log(e);
+    // console.log(e);
   }
  
   public chartHovered(e:any):void {
-    console.log(e);
+    // console.log(e);
   }
 }

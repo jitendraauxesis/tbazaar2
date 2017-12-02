@@ -85,6 +85,10 @@ export class SidemenuComponent implements OnInit {
     this.signup.logoutFromApp();
     this.modalRef.hide();
   }
+
+  homeReload(){
+    this.router.navigateByUrl("home");
+  }
  
   decline(): void {
     let name = this.signup.retrieveUsername("AUXMassUserName");

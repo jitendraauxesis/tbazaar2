@@ -26,3 +26,9 @@ img.loadingimgdone {
 .row.rowreferralotp {
     margin-top: 10%;
 }
+
+img.yesreferral {
+    width: 25%;
+    padding: 0.5%;
+    margin-top: 5%;
+}

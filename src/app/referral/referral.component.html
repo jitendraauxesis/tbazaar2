@@ -57,8 +57,10 @@
           <div class="container-fluid">
             <div class="row">
               <div class="col-sm-12 col-md-12 col-xs-12">
-                  <div class="alert alert-warning text-center">
-                      <strong>Earned referral withdrawl will start from 9AM UTC +0.00 on Dec 2<sup>nd</sup>, 2017.</strong>
+                  <div class="alert alert-success text-center">
+                      <strong>Earned referral withdrawn is enabled now!</strong><br>
+                      Minimum BTC amount for withdrawal: 0.002 BTC <br>
+                      Minimum ETH amount for withdrawal: 0.01 ETH
                   </div>
                   
               </div>
@@ -475,7 +477,7 @@
 
           <!-- Success Modal -->
           <ng-template #successmodal>
-              <div class="modal-header">
+              <!-- <div class="modal-header">
                   <button type="button" class="close pull-right" aria-label="Close" (click)="hideme()">
                       <span aria-hidden="true">&times;</span>
                   </button>
@@ -483,17 +485,20 @@
                           <span class="pull-left padRightOnly" style="font-size:28px;"><i class="fa fa-chevron-down" aria-hidden="true"></i></span>
                       <span id="modal-header-content">Withdraw Completed</span>
                   </h6>
-                </div>
+                </div> -->
                 <div class="modal-body customModalHeight" id="normalModalBody">
-                  <div class="tab-content">
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="hideme()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                  <div class="tab-content text-center">
     
-    
+                    <img src="assets/img/yes.png" class="yesreferral">
                     <div class="tab-pane fade in active">
                       <div class="container-fluid">
                         <div class="col-sm-12">
                           <div class="card">
                               <!-- <img class="card-img-top" src="assets/img/tb-logo.png" alt="Card image cap"> -->
-                              <div class="card-body" *ngIf="successcap == 'btc'">
+                              <!-- <div class="card-body" *ngIf="successcap == 'btc'">
                                 <h5 class="card-title">
                                     
                                     We have successfully deposited earned bitcoins at provided address.<br>
@@ -506,7 +511,15 @@
                                     We have successfully deposited earned bitcoins at provided address.<br>
                                     Your <img class="ethereum" src="assets/img/ethereum.png">  transaction id is <a href="{{etherurl}}/{{successMessage}}">{{successMessage}}</a>.
                                   </h5>
-                                </div>
+                              </div> -->
+                              <div class="card-body">
+                                <h3>
+                                    Your referral earned funds withdrawal request is accepted successfully.
+                                </h3>
+                                <p class="card-title" style="margin-top:5%">
+                                    Please wait while we confirm your transaction in 24 - 48 hours. We have also sent you a mail at registered ID regarding this request and will confirm over mail with transaction ID as withdrawal is completed.
+                                </p>
+                              </div>
                           </div>
                         </div>
                       </div>

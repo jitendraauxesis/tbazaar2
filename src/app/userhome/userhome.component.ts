@@ -413,6 +413,9 @@ export class UserhomeComponent implements OnInit {
 
   loadHomeData(){
     
+    // if(this.current_rate !="" || this.current_rate != undefined || this.current_rate != null){
+    //   this.makeChart(this.current_rate);
+    // }
 
     this.apiMethod = "dashboard";
     
@@ -598,7 +601,7 @@ export class UserhomeComponent implements OnInit {
         let ev = (parseFloat(maxa)+0.005);
         // console.log(ev)
         let evExtra = ev;
-        a.push(evExtra);
+        // a.push(evExtra);
         b.push("");
         // console.log(a)
         // console.log(b)
@@ -611,40 +614,40 @@ export class UserhomeComponent implements OnInit {
         // console.log(a1)
         
 
-        Chart.pluginService.register({
-          afterUpdate: function(chart) {
-              // We get the dataset and set the offset here
-              var dataset = chart.config.data.datasets[0];
-              var offset = 20;
+        // Chart.pluginService.register({
+        //   afterUpdate: (chart)=> {
+        //       // We get the dataset and set the offset here
+        //       var dataset = chart.config.data.datasets[0];
+        //       var offset = 20;
       
-              // For every data in the dataset ...
-              for (var i = 0; i < dataset._meta[0].data.length; i++) {
-                  // We get the model linked to this data
-                  var model = dataset._meta[0].data[i]._model;
+        //       // For every data in the dataset ...
+        //       for (var i = 0; i < dataset._meta[0].data.length; i++) {
+        //           // We get the model linked to this data
+        //           var model = dataset._meta[0].data[i]._model;
       
-                  // And add the offset to the `x` property
-                  model.x += offset;
-                  // model.y += offset;
+        //           // And add the offset to the `x` property
+        //           model.x += offset;
+        //           // model.y += offset;
       
-                  // .. and also to these two properties
-                  // to make the bezier curve fits the new graph
-                  model.controlPointNextX += offset;
-                  model.controlPointPreviousX += offset;
+        //           // .. and also to these two properties
+        //           // to make the bezier curve fits the new graph
+        //           model.controlPointNextX += offset;
+        //           model.controlPointPreviousX += offset;
 
-                  // model.controlPointNextY += offset;
-                  // model.controlPointPreviousY += offset;
-              }
-          }
-        });
+        //           // model.controlPointNextY += offset;
+        //           // model.controlPointPreviousY += offset;
+        //       }
+        //   }
+        // });
 
         this.lineChartData = [
           {   data: a, label: 'Rate ',
               // borderWidth: 2,
               fill: false,
-              lineTension: .3,pointHoverBorderWidth: 2,
-              pointRadius: 4,
-              pointHitRadius: 10,
-              spanGaps: false,
+              // lineTension: .3,pointHoverBorderWidth: 2,
+              // pointRadius: 4,
+              // pointHitRadius: 10,
+              // spanGaps: false,
           }
         ];
         this.lineChartLabels = b;
@@ -678,7 +681,7 @@ export class UserhomeComponent implements OnInit {
             display: true,
             labelString: "Sold Tokens",
             fontColor: "green",
-            zeroLineWidth:1
+            // zeroLineWidth:1
           },
           gridLines: {
             offsetGridLines: true,
@@ -688,8 +691,8 @@ export class UserhomeComponent implements OnInit {
           },
           ticks: {
             // fontSize: 8,
-            labelOffset: 15,
-            maxRotation: 0,
+            // labelOffset: 15,
+            // maxRotation: 0,
           }
         }],
         yAxes: [{
@@ -697,10 +700,10 @@ export class UserhomeComponent implements OnInit {
             display: true,
             labelString: "Token Rate In USD",
             fontColor: "green",
-            zeroLineWidth:1
+            // zeroLineWidth:1
           },
           ticks:{
-            beginAtZero: false,
+            // beginAtZero: false,
           }
         }]
     }

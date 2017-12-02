@@ -119,6 +119,10 @@ export class NavbarComponent implements OnInit {
     this.modalRef.hide();
   }
 
+  homeReload(){
+    this.router.navigateByUrl("home");
+  }
+
   checkKYC(){
     this.mySidenav.nativeElement.style.width = "0";
     let status = this.signup.retrieveFromLocal("AUXKYCStatus"); 

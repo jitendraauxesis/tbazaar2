@@ -78,7 +78,7 @@ export class ReferralComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit() {
+  ngOnInit() { 
     
     this.ngxloading = true; 
 
@@ -94,7 +94,8 @@ export class ReferralComponent implements OnInit {
       let referenceid = this.route.snapshot.paramMap.get("refid");
       // console.log("its ref url",referenceid,"\nredirect and save");
       this.signup.saveReferralId("AUXUserReferralID",referenceid);
-      this.router.navigateByUrl("/login");
+      // this.router.navigateByUrl("/login");
+      location.href = "http://masscryptoken.io";
     }
     // console.log(this.router.url,this.sendUrl)
 
@@ -106,6 +107,12 @@ export class ReferralComponent implements OnInit {
     //     document.body.scrollTop = 0;
     // });
     this.signup.checkActivity();
+
+    // this.successMessage = "Please wait while we confirm your transaction in 24 - 48 hours. We have also sent you a mail at registered ID regarding this request and will confirm over mail with transaction ID as withdrawal is completed.";
+    // this.modalRef = this.modalService.show(
+    //   this.successmodal,
+    //     Object.assign({}, this.config, { class: 'gray modal-md' })
+    // );
   } 
 
 
@@ -196,16 +203,20 @@ export class ReferralComponent implements OnInit {
             let data = response.data;
             if(type == 'btc'){
               // console.log("im btc")
-              this.modalbtcpending_amount = data.pending_amount;
+              let pa = data.pending_amount;
+              let atb = data.amount_to_be_paid;
+              this.modalbtcpending_amount = this.signup.calcsubstr(pa);
               this.modalbtcwithdraw_address = data.withdraw_address;
-              this.modalbtcamount_to_be_paid = data.amount_to_be_paid;
+              this.modalbtcamount_to_be_paid = this.signup.calcsubstr(atb);
               this.modalbtcfee = data.fee;
             }
             if(type == 'eth'){
               // console.log("im eth")
-              this.modalethpending_amount = data.pending_amount;
+              let pa = data.pending_amount;
+              let atb = data.amount_to_be_paid;
+              this.modalethpending_amount = this.signup.calcsubstr(pa);
               this.modalethwithdraw_address = data.withdraw_address;
-              this.modalethamount_to_be_paid = data.amount_to_be_paid;
+              this.modalethamount_to_be_paid = this.signup.calcsubstr(atb);
               this.modalethfee = data.fee;
             }
             this.modalRef = this.modalService.show(
@@ -268,14 +279,14 @@ export class ReferralComponent implements OnInit {
               this.cardethpending = this.signup.calcsubstr(response.referral_json.pending_eth);
 
               // check pending amount to open modal 
-              if(this.cardbtcpending >= 1000){
+              if(this.cardbtcpending >= 0.002){ // 1000
                 // console.log("btc greater")
                 this.btcbtnDisabled = false;
               }else{
                 // console.log("btc lesser")
                 this.btcbtnDisabled = true;
               }
-              if(this.cardethpending >= 10000){
+              if(this.cardethpending >= 0.01){ // 10000
                 // console.log("eth greater")
                 this.ethbtnDisabled = false;
               }else{
@@ -423,23 +434,23 @@ export class ReferralComponent implements OnInit {
             }else if(type == 'eth'){
               this.ethwithdrawntab = 2;
             }
-            this.toastr.success('OTP sended to your mailbox.', 'Done!',{timeOut:2500});
+            this.toastr.success('OTP sent at your mail ID', null,{timeOut:2500});
           }else if(response.code == 400){
-            this.toastr.error('Mail not send for otp, try again', 'Ubandoned',{timeOut:2500});
+            this.toastr.error('Unable to send mail', 'Abandoned!',{timeOut:2500});
           }else if(response.code == 401){
             this.signup.UnAuthlogoutFromApp();
           }else{
-            this.toastr.error('Unable to request for otp, try again', 'Ubandoned',{timeOut:2500});
+            this.toastr.error('Unable to send mail', 'Abandoned!',{timeOut:2500});
           }
         }else{
           // console.log(response);
-          this.toastr.error('Unable to send mail', 'Ubandoned',{timeOut:2500});
+          this.toastr.error('Unable to send mail', 'Abandoned!',{timeOut:2500});
         }
       },
       err=>{
           this.loadingimage = false;
           // console.error(err);
-          this.toastr.error('Unable to send mail try again', 'Ubandoned',{timeOut:2500});
+          this.toastr.error('Unable to send mail', 'Abandoned!',{timeOut:2500});
       }
     );
   }
@@ -464,10 +475,7 @@ export class ReferralComponent implements OnInit {
         res=>{
           this.loadingimage = false;
           let response = JSON.parse(JSON.stringify(res));
-          if(response != null || response != ""){
-            // console.log(response);
-            if(response.code == 200){
-              this.modalRef.hide();
+          this.modalRef.hide();
               let cap;
               if(type == 'btc') {
                 this.otpBTC = "";cap = "BTC";this.btcwithdrawntab = 1;
@@ -475,32 +483,56 @@ export class ReferralComponent implements OnInit {
               if(type == 'eth') {
                 this.otpETH = "";cap = "ETH";this.ethwithdrawntab = 1;
               }
-              let txid = response.txid;
-              this.openSuccessModal(cap,txid);
+              // let txid = response.txid?response.txid:'none';
+              this.openSuccessModal(cap);
+
+          // if(response != null || response != ""){
+          //   // console.log(response);
+          //   if(response.code == 200){
+          //     this.modalRef.hide();
+          //     let cap;
+          //     if(type == 'btc') {
+          //       this.otpBTC = "";cap = "BTC";this.btcwithdrawntab = 1;
+          //     }
+          //     if(type == 'eth') {
+          //       this.otpETH = "";cap = "ETH";this.ethwithdrawntab = 1;
+          //     }
+          //     // let txid = response.txid?response.txid:'none';
+          //     this.openSuccessModal(cap);
               
-            }else if(response.code == 400){
-              //
-              let msg = response.error;//"transaction_failed"
-              if(msg == "otp_mismatch"){
-                this.toastr.error('OTP is wrong, try again', 'Failed',{timeOut:2500});
-              }else{//"transaction_failed"
-                this.modalRef.hide();
-                this.toastr.error('Transaction failed, try again', 'Failed',{timeOut:2500});
-              }
-            }else if(response.code == 401){
-              this.signup.UnAuthlogoutFromApp();
-            }else{
-              this.toastr.error('Unable to verify for otp, try again', 'Ubandoned',{timeOut:2500});
-            }
-          }else{
-            // console.log(response);
-            this.toastr.error('Unable to verify otp', 'Ubandoned',{timeOut:2500});
-          }
+          //   }else if(response.code == 400){
+          //     //
+          //     let msg = response.error;//"transaction_failed"
+          //     if(msg == "otp_mismatch"){
+          //       this.toastr.error('OTP is wrong, try again', 'Abandoned!',{timeOut:2500});
+          //     }else{//"transaction_failed"
+          //       this.modalRef.hide();
+          //       this.toastr.error('Transaction failed, try again', 'Abandoned!',{timeOut:2500});
+          //     }
+          //   }else if(response.code == 401){
+          //     this.signup.UnAuthlogoutFromApp();
+          //   }else{
+          //     this.toastr.error('Unable to verify OTP.', 'Abandoned!',{timeOut:2500});
+          //   }
+          // }else{
+          //   // console.log(response);
+          //   this.toastr.error('Unable to verify OTP.', 'Abandoned!',{timeOut:2500});
+          // }
         },
         err=>{
           this.loadingimage = false;
             // console.error(err);
-            this.toastr.error('Unable to verify otp try again', 'Ubandoned',{timeOut:2500});
+            // this.modalRef.hide();
+            // let cap;
+            // if(type == 'btc') {
+            //   this.otpBTC = "";cap = "BTC";this.btcwithdrawntab = 1;
+            // }
+            // if(type == 'eth') {
+            //   this.otpETH = "";cap = "ETH";this.ethwithdrawntab = 1;
+            // }
+            // // let txid = response.txid?response.txid:'none';
+            // this.openSuccessModal(cap);
+            this.toastr.error('Unable to verify OTP.', 'Abandoned!',{timeOut:2500});
         }
       );
     }
@@ -518,18 +550,22 @@ export class ReferralComponent implements OnInit {
     this.confirmWithdrawOTP('eth');
   }
 
-  openSuccessModal(cap,txid){
+  openSuccessModal(cap){
     this.successcap = cap;
     this.successCurrency = cap;
-    this.successMessage = txid;
+    this.successMessage = "Please wait while we confirm your transaction in 24 - 48 hours. We have also sent you a mail at registered ID regarding this request and will confirm over mail with transaction ID as withdrawal is completed.";
     this.modalRef = this.modalService.show(
       this.successmodal,
         Object.assign({}, this.config, { class: 'gray modal-md' })
     );
-    this.toastr.success('OTP verified and your '+cap+' transaction is completed.', 'Done!',{timeOut:2500});
+    // this.toastr.success('OTP verified and your '+cap+' transaction is completed.', 'Done!',{timeOut:2500});
   }
   donefinally(){
+    this.successcap = '';
+    this.successCurrency = '';
+    this.successMessage = '';
     this.modalRef.hide();
+    location.reload();
   }
 
   scrollToBottom(): void {

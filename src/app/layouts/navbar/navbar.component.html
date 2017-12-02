@@ -46,7 +46,7 @@
         &nbsp;&times;
     </a> -->
     <div class="menulistsidenav">
-        <a [routerLink]="['/home']" class="nopad"><span class="sidebar-icon"><i class="fa fa-home" aria-hidden="true"></i></span>Dashboard</a>
+        <a  (click)="homeReload()" class="nopad"><span class="sidebar-icon"><i class="fa fa-home" aria-hidden="true"></i></span>Dashboard</a>
         
         <!-- <a [routerLink]="['/transactions']"  data-scroll=""><span class="sidebar-icon"><i class="fa fa-file-o" aria-hidden="true"></i></span>Transactions</a> -->
         <a (click)="clickonReferral()" class="nopad referral"><span class="sidebar-icon"><i class="fa fa-arrows" aria-hidden="true"></i></span>Referral</a>

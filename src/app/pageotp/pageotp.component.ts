@@ -104,6 +104,9 @@ export class PageotpComponent implements OnInit {
       this.loadingimage = true;
       let email = this.storage.retrieve("AUXUserEmail");//localStorage.getItem("AUXUserEmail");
       //let pval = this.signup.findUserEmail(email);
+      otp = otp.toString().trim();
+      // console.log(email,"a-"+otp+"-b")
+
       this.signup.makeOtp(email,otp)
       .then(
         data =>{

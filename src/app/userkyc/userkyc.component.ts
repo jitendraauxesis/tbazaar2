@@ -90,13 +90,14 @@ export class UserkycComponent implements OnInit {
     let reader = new FileReader();
     if(event.target.files && event.target.files.length > 0) {
       let file = event.target.files[0];
+      // console.log(file,event)
       if(file.size > 1000000){
         this.failmsg("File size can not be greater than 1 Mb");
         this.form.get('idproof').setValue(null);
         this.fileInput1.nativeElement.value = "";
         return false;
       }else{
-        //console.log(reader)
+        // console.log(reader)
         reader.readAsDataURL(file);
         reader.onload = () => {
           this.form.get('pan').setValue({

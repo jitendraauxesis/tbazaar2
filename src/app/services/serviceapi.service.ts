@@ -5,6 +5,9 @@ import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angul
 import {LocalStorageService, SessionStorageService} from 'ng2-webstorage';
 import sha512 from 'js-sha512';
 import CryptoJS from 'crypto-js';
+
+declare var window : any;
+
 @Injectable()
 export class ServiceapiService {
 
@@ -87,10 +90,10 @@ export class ServiceapiService {
 
 
   callCSV(){
-    //new fileReader
+    //new fileReader 
     var fileReader = new FileReader();
-    console.log(fileReader)
-    // fileReader.readAsDataURL(new File('./assets/data/main.csv'));
+    // console.log(fileReader)
+    // fileReader.readAsDataURL(File({name:'assets/data/main.csv'}));
     // //try to read file, this part does not work at all, need a solution
     // fileReader.onload = function(e) {
     //   console.log("fileReader.onload");
@@ -98,7 +101,15 @@ export class ServiceapiService {
     //   console.log(e)
 
     // }
-    
+
+    //window.requestFileSystem(window.TEMPORARY, 1024*1024, this.readFile, this.errorHandler);
+    // console.log(window,window.webkitRequestFileSystem,window.webkitResolveLocalFileSystemURL)
+
+    // let f = window.webkitRequestFileSystem;
+    // console.log(f)
+
+     
+
     // this.http.get("assets/data/main.csv")
     // .subscribe(
     //   d=>{
@@ -108,6 +119,57 @@ export class ServiceapiService {
     //     console.error(e)
     //   }
     // );
+  }
+  readFile(fs) {
+    
+      fs.root.getFile('assets/data/main.csv', {}, function(fileEntry) {
+    
+        // Get a File object representing the file,
+        // then use FileReader to read its contents.
+        fileEntry.file(function(file) {
+           var reader = new FileReader();
+    
+           reader.onloadend = function(e) {
+             console.log(e.target)
+           };
+    
+           reader.readAsText(file);
+        }, this.errorHandler);
+    
+      }, this.errorHandler);
+    
+  }
+  writeFile(fs) {
+    
+      fs.root.getFile('assets/data/main.csv', {create: true}, function(fileEntry) {
+    
+        // Create a FileWriter object for our FileEntry (assets/data/main.csv).
+        fileEntry.createWriter(function(fileWriter) {
+    
+          fileWriter.onwriteend = function(e) {
+            console.log('Write completed.');
+            // call `readFile` here
+            // window.requestFileSystem(window.TEMPORARY, 1024*1024, readFile, errorHandler);
+    
+          };
+    
+          fileWriter.onerror = function(e) {
+            console.log('Write failed: ' + e.toString());
+          };
+    
+          // Create a new Blob and write it to log.txt.
+          var blob = new Blob(['Lorem Ipsum'], {type: 'text/plain'});
+    
+          fileWriter.write(blob);
+    
+        }, this.errorHandler);
+    
+      }, this.errorHandler);
+    
+  }
+  errorHandler(e) {
+    var msg = '';  
+    console.log('Error: ' + msg);
   }
 
   extractCSVFile(res: Response){

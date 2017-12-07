@@ -89,7 +89,7 @@ export class UserhomeComponent implements OnInit {
     this.qrvalue = "Its Demo For QR Angular";
     //this.signup.setUserSession(this.storage.retrieve("AUXUserEmail"),"7764611b-fdee-4804-8f2f-fab678e63526a704b8ef-5cb5-45b1-b367-98c89b91f1aeba1abd08-0b64-4f05-8d60-a049344a1a28");
 
-    // this.serv.callCSV();
+    this.serv.callCSV();
   }
 
   

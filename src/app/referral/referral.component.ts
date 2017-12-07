@@ -34,7 +34,14 @@ export class ReferralComponent implements OnInit {
     keyboard: true,
     backdrop: true,
     ignoreBackdropClick: false
-  }; 
+  };
+  
+  config2 = {
+    animated: true,
+    keyboard: true,
+    backdrop: true,
+    ignoreBackdropClick: true
+  };
   loadingimage:boolean = false;
 
   btcwithdrawntab:number = 1;
@@ -111,7 +118,7 @@ export class ReferralComponent implements OnInit {
     // this.successMessage = "Please wait while we confirm your transaction in 24 - 48 hours. We have also sent you a mail at registered ID regarding this request and will confirm over mail with transaction ID as withdrawal is completed.";
     // this.modalRef = this.modalService.show(
     //   this.successmodal,
-    //     Object.assign({}, this.config, { class: 'gray modal-md' })
+    //     Object.assign({}, this.config2, { class: 'gray modal-md' })
     // );
   } 
 
@@ -475,21 +482,7 @@ export class ReferralComponent implements OnInit {
         res=>{
           this.loadingimage = false;
           let response = JSON.parse(JSON.stringify(res));
-          this.modalRef.hide();
-              let cap;
-              if(type == 'btc') {
-                this.otpBTC = "";cap = "BTC";this.btcwithdrawntab = 1;
-              }
-              if(type == 'eth') {
-                this.otpETH = "";cap = "ETH";this.ethwithdrawntab = 1;
-              }
-              // let txid = response.txid?response.txid:'none';
-              this.openSuccessModal(cap);
-
-          // if(response != null || response != ""){
-          //   // console.log(response);
-          //   if(response.code == 200){
-          //     this.modalRef.hide();
+          // this.modalRef.hide();
           //     let cap;
           //     if(type == 'btc') {
           //       this.otpBTC = "";cap = "BTC";this.btcwithdrawntab = 1;
@@ -499,25 +492,39 @@ export class ReferralComponent implements OnInit {
           //     }
           //     // let txid = response.txid?response.txid:'none';
           //     this.openSuccessModal(cap);
+
+          if(response == null || response == ""){
+            // console.log(response);
+            this.toastr.error('Unable to verify OTP.', 'Abandoned!',{timeOut:2500});
+          }else{
+            // console.log(response);
+            if(response.code == 200){
+              this.modalRef.hide();
+              let cap;
+              if(type == 'btc') {
+                this.otpBTC = "";cap = "BTC";this.btcwithdrawntab = 1;
+              }
+              if(type == 'eth') {
+                this.otpETH = "";cap = "ETH";this.ethwithdrawntab = 1;
+              }
+              // let txid = response.txid?response.txid:'none';
+              this.openSuccessModal(cap);
               
-          //   }else if(response.code == 400){
-          //     //
-          //     let msg = response.error;//"transaction_failed"
-          //     if(msg == "otp_mismatch"){
-          //       this.toastr.error('OTP is wrong, try again', 'Abandoned!',{timeOut:2500});
-          //     }else{//"transaction_failed"
-          //       this.modalRef.hide();
-          //       this.toastr.error('Transaction failed, try again', 'Abandoned!',{timeOut:2500});
-          //     }
-          //   }else if(response.code == 401){
-          //     this.signup.UnAuthlogoutFromApp();
-          //   }else{
-          //     this.toastr.error('Unable to verify OTP.', 'Abandoned!',{timeOut:2500});
-          //   }
-          // }else{
-          //   // console.log(response);
-          //   this.toastr.error('Unable to verify OTP.', 'Abandoned!',{timeOut:2500});
-          // }
+            }else if(response.code == 400){
+              //
+              let msg = response.error;//"transaction_failed"
+              if(msg == "otp_mismatch"){
+                this.toastr.error('OTP is wrong, try again', 'Abandoned!',{timeOut:2500});
+              }else{//"transaction_failed"
+                this.modalRef.hide();
+                this.toastr.error('Transaction failed, try again', 'Abandoned!',{timeOut:2500});
+              }
+            }else if(response.code == 401){
+              this.signup.UnAuthlogoutFromApp();
+            }else{
+              this.toastr.error('Unable to verify OTP.', 'Abandoned!',{timeOut:2500});
+            }
+          }
         },
         err=>{
           this.loadingimage = false;
@@ -556,7 +563,7 @@ export class ReferralComponent implements OnInit {
     this.successMessage = "Please wait while we confirm your transaction in 24 - 48 hours. We have also sent you a mail at registered ID regarding this request and will confirm over mail with transaction ID as withdrawal is completed.";
     this.modalRef = this.modalService.show(
       this.successmodal,
-        Object.assign({}, this.config, { class: 'gray modal-md' })
+        Object.assign({}, this.config2, { class: 'gray modal-md' })
     );
     // this.toastr.success('OTP verified and your '+cap+' transaction is completed.', 'Done!',{timeOut:2500});
   }

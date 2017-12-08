@@ -366,6 +366,39 @@ export class ReferralComponent implements OnInit {
     // child_details = [
     //   {
     //     "1": [
+    //       "Akash Spot",
+    //       "Pijush Sarkar",
+    //       "Akash Ecell",
+    //       "Harsh Spot",
+    //       "Akash Gmail",
+    //       "Akash Gaurav",
+    //       "Anjali"
+    //     ]
+    //   },
+    //   {
+    //     "2": [
+    //       "Kamendra singh ",
+    //       "Aman",
+    //       "Sunny Kumar",
+    //       "Hitesh Sapre",
+    //       "Ashishkumar",
+    //       "neelam",
+    //       "Chandrajeet kumar",
+    //       "Sanjeev tripathi",
+    //       "Ravi Bhardwaj",
+    //       "Ruchi Sarkar",
+    //       "abu baker ",
+    //       "Anurag Khandelwal",
+    //       "Akash Gaurav",
+    //       "Dharmendra kumar ",
+    //       "Neelam",
+    //       "Shivcharan Rohilla"
+    //     ]
+    //   }
+    // ];
+    // child_details = [
+    //   {
+    //     "1": [
     //       [
     //         "abcd tester","Hola tester","khskfhls","asdfsdfd","asdfsdf","asdfsdf"
     //       ]
@@ -392,11 +425,12 @@ export class ReferralComponent implements OnInit {
         // console.log(nameobj2)
         nameobj2.forEach((v2,k2)=>{
           // console.log(v2,k2)
-          let nameobj3 = Object.values(v);       
-          nameobj3.forEach((v3,k3)=>{
-            // console.log(v3,k3)
-            names += ""+v3 + " , ";
-          });
+          names += ""+v2 + " , ";
+          // let nameobj3 = Object.values(v);       
+          // nameobj3.forEach((v3,k3)=>{
+          //   // console.log(v3,k3)
+          //   names += ""+v3 + " , ";
+          // });
         });
       })
       names = names.replace(/,\s*$/, "");

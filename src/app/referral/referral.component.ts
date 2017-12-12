@@ -17,11 +17,16 @@ import CryptoJS from 'crypto-js';
 
 import * as _ from 'lodash';
 
+import { PouchService } from '../services/pouch.service';
+
+import * as urlencode from 'urlencode';
+// import { CeiboShare } from 'ng2-social-share';
+window;
 @Component({
   selector: 'app-referral',
   templateUrl: './referral.component.html',
   styleUrls: ['./referral.component.css'],
-  providers:[ServiceapiService,SignupService]
+  providers:[ServiceapiService,SignupService,PouchService]
 })
 export class ReferralComponent implements OnInit {
 
@@ -82,7 +87,8 @@ export class ReferralComponent implements OnInit {
     private toastr: ToastrService,
     private modalService: BsModalService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public pouchserv:PouchService
   ) { }
 
   ngOnInit() { 
@@ -339,6 +345,8 @@ export class ReferralComponent implements OnInit {
       err=>{
           this.ngxloading = false; 
           // console.error(err);
+          this.putErrorInPouch("callApi()","Response error in component "+this.constructor.name,"'Issuer' app the exception caught is "+JSON.stringify(err),1);
+          
           this.toastr.error('Referral detail not retrieved', 'Not a valid response',{timeOut:2500});
           history.back();
       }
@@ -492,9 +500,11 @@ export class ReferralComponent implements OnInit {
           this.loadingimage = false;
           // console.error(err);
           this.toastr.error('Unable to send mail', 'Abandoned!',{timeOut:2500});
+          this.putErrorInPouch("sendingToWithdrawOTP()","Response error in component "+this.constructor.name,"'Issuer' app the exception caught is "+JSON.stringify(err),1);
+          
       }
     );
-  }
+  } 
 
   confirmWithdrawOTP(type){
     let otp;
@@ -574,6 +584,8 @@ export class ReferralComponent implements OnInit {
             // // let txid = response.txid?response.txid:'none';
             // this.openSuccessModal(cap);
             this.toastr.error('Unable to verify OTP.', 'Abandoned!',{timeOut:2500});
+            this.putErrorInPouch("confirmWithdrawOTP()","Response error in component "+this.constructor.name,"'Issuer' app the exception caught is "+JSON.stringify(err),1);
+            
         }
       );
     }
@@ -615,4 +627,32 @@ export class ReferralComponent implements OnInit {
       } catch(err) { }                 
   }
 
+  putErrorInPouch(fun,desc,notes,priority){
+    let id = this.serv.retrieveFromLocal("AUXUserEmail");
+    let page = this.router.url;
+    let func = fun;
+    let description = desc;
+    // console.log(id,page,func,description)
+    this.pouchserv.letsIssuing(id,page,func,description,notes,priority);
+  }
+
+  socialshare(type){
+    let url = urlencode(this.referraladdressvalue);
+    // console.log(type,url)
+    if(type=="fb"){
+      var myWindow = window.open("https://www.facebook.com/sharer.php?u="+url, "Facebook Share", "width=600,height=500,fullscreen=no,top=100,left=400,resizable=no");
+      // var myWindow = window.open("https://web.skype.com/share?url=?u="+url, "Skype Share", "width=600,height=500,fullscreen=no,top=100,left=400,resizable=no");
+      // var myWindow = window.open("whatsapp://send?text="+url, "Whatsapp Share", "width=600,height=500,fullscreen=no,top=100,left=400,resizable=no");
+    }else if(type=="tw"){
+      var myWindow = window.open("https://twitter.com/intent/tweet?url="+url+"&text=Referral Share&via=Masscryp&hashtags='Masscryp,ICO'", "Twitter Share", "width=600,height=500,fullscreen=no,top=100,left=400,resizable=no");
+    }else if(type=="ln"){
+      var myWindow = window.open("https://www.linkedin.com/shareArticle?url="+url+"&title=Referral Share", "Linkedin Share", "width=600,height=500,fullscreen=no,top=100,left=400,resizable=no");
+    }else if(type=="tl"){
+      var myWindow = window.open("https://telegram.me/share/url?url="+url+"&text=Referral Share", "Telegram Share", "width=600,height=500,fullscreen=no,top=100,left=400,resizable=no");
+    }else if(type=="gl"){
+      var myWindow = window.open("https://plus.google.com/share?url="+url, "Google Share", "width=600,height=500,fullscreen=no,top=100,left=400,resizable=no");
+    }
+  }
 }
+
+ 

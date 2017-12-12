@@ -1,0 +1,92 @@
+<app-navbar></app-navbar>
+<ngx-loading [show]="ngxloading"></ngx-loading>
+<section id="main-sec">  
+  <div class="container-fluid" id="main-container">
+      <div class="hidden-xs">
+          <div id="sidebar-wrapper">
+              <nav id="sidenav" #sidenav>
+                  <app-sidemenu></app-sidemenu>
+              </nav>
+          </div>
+      </div> 
+      <div class="col-sm-9 col-md-10 pull-right nopad">
+        <div id="topbar">
+          
+          <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-12">&nbsp;</div>
+                
+                <div class="col-sm-12 form_head">
+                    <h5 style="margin-bottom: 0px;">
+                            Update your KYC information. You can also skip this step for now and continue buying MASS Coins. Please ensure this is completed before 31st December 2017.
+                    </h5>
+                    <hr>
+                </div>
+                <div class="col-sm-6 col-md-6 col-sm-push-6">
+                    <div class="col-sm-12 form_head">
+                        <h5 style="margin-bottom: 0px;">
+                              Upload here...  
+                        </h5>
+                        <hr>
+                    </div>
+                    <div class="col-sm-12 kycform">
+                        <div class="col-sm-12">&nbsp;</div>
+                        <div class="col-sm-12 text-center" id="password_not_entered" role="alert"
+                        style="display: block">
+                            <span class="text-center text-danger">{{errmsg?errmsg:""}}</span>
+                        </div>
+                        <div class="col-sm-12 text-center" id="password_not_entered" role="alert"
+                        style="display: block">
+                        <div class="col-sm-12">&nbsp;</div>
+                            <span class="text-center text-success">{{sucmsg?sucmsg:""}}</span>
+                        </div>
+                        <form [formGroup]="form" (ngSubmit)="signup_v2()">
+                          <div class="kycform">
+                            <div class="form-group">
+                                <label for="panUpload">Upload Proof Of Identity</label>
+                                <input type="file" name="pan_card" class="form-control-file" id="pan"
+                                       aria-describedby="fileHelp" accept=".png, .jpg, .jpeg, application/pdf" required=""  (change)="onFileChange1($event)" #fileInput1><br>
+                                <small id="fileHelp" class="form-text text-muted">
+                                    Supported File Format: JPG, PNG, PDF.
+                                </small>
+                            </div>
+                            <div class="form-group">
+                                <strong>Upload Proof Of Address</strong>
+                                <small class="text-muted">&nbsp;&nbsp; (Passport, Driving License, Aadhar Card)</small>
+                                <input type="file" name="id_proof" class="form-control-file" id="idproof"  (change)="onFileChange2($event)" #fileInput2
+                                       aria-describedby="fileHelp" accept=".png, .jpg, .jpeg, application/pdf" required="" multiple><br>
+                                <small id="fileHelp" class="form-text text-muted">
+                                    Supported File Format: JPG, PNG, PDF.
+                                </small>
+                            </div>
+    
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary col-sm-offset-4 custBtnAnchor2">
+                                    <strong style="letter-spacing: 1px;">Update</strong>
+                                    &nbsp;  <img src="assets/img/loading.gif" *ngIf="loadingimage" class="loadingimglogin">
+                                </button><br>
+                            </div>
+                            <!-- <div class="skipdiv text-center"><a (click)="skipfornow()"  class="skip">Skip for now</a> </div> -->
+                          </div>
+                        </form>
+                    </div>
+                </div>
+
+
+
+                <div class="col-sm-6 col-md-6 col-sm-pull-6">
+                  <div class="nokycdiv">
+                    <img src="assets/img/kyc3.jpg" class="kycimage"><br>
+                    <p>
+                        No kyc detail has been yet uploaded
+                    </p><br>
+                  </div>
+                </div>
+
+
+              </div>
+          </div>
+        </div><!--topbar-->
+      </div>
+  </div>
+</section> 

@@ -18,61 +18,82 @@ import { SidemenuComponent } from './layouts/sidemenu/sidemenu.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { ReferralComponent } from './referral/referral.component';
 import { AddreferralComponent } from './addreferral/addreferral.component';
+import { AddreferralwithsidebarComponent } from './addreferralwithsidebar/addreferralwithsidebar.component';
+import { KycwithsidebarComponent } from './kycwithsidebar/kycwithsidebar.component';
 
 const routes: Routes = [
     { 
         path: '', 
         //redirectTo: '/login', 
         component:LoginComponent,
-        pathMatch: 'full' 
+        pathMatch: 'full' ,
+        data: { title: 'Login | Masscryp ICO' }
     },
     {
         path: 'login',
-        component: LoginComponent
+        component: LoginComponent,
+        data: { title: 'Login | Masscryp ICO' }
     },
     {
         path: 'otp/:token',
-        component: PageotpComponent
+        component: PageotpComponent,
+        data: { title: 'OTP | Masscryp ICO' }
     },
     {
         path: 'terms/:token',
-        component: UsertermsComponent
+        component: UsertermsComponent,
+        data: { title: 'Terms | Masscryp ICO' }
     },
     {
         path: 'kyc',
-        component: UserkycComponent
+        component: UserkycComponent,
+        data: { title: 'KYC | Masscryp ICO' }
     },
     {
         path: 'login',
-        component: LoginComponent
+        component: LoginComponent,
+        data: { title: 'Login | Masscryp ICO' }
     },
     {
         path: 'login/:why', 
-        component: LoginComponent
+        component: LoginComponent,
+        data: { title: 'Login | Masscryp ICO' }
     }, 
     {
         path: 'home',
-        component: UserhomeComponent
+        component: UserhomeComponent,
+        data: { title: 'Home | Masscryp ICO' }
     },
     {
         path: 'transactions',
-        component: TransactionsComponent
+        component: TransactionsComponent,
+        data: { title: 'Transactions | Masscryp ICO' }
     },
     {
         path: 'referral',
-        component: ReferralComponent
+        component: ReferralComponent,
+        data: { title: 'Referral | Masscryp ICO' }
     },
     {
         path: 'referral/address',
-        component: ReferralComponent
+        component: ReferralComponent,
+        data: { title: 'Referral | Masscryp ICO' }
     },
     {
         path: 'referral/address/:refid',
-        component: ReferralComponent
+        component: ReferralComponent,
+        data: { title: 'Referral | Masscryp ICO' }
     },
     {
         path: 'addreferral',
-        component: AddreferralComponent
+        // component: AddreferralComponent
+        component: AddreferralwithsidebarComponent,
+        data: { title: 'Referral Address | Masscryp ICO' }
+    },
+    {
+        path: 'updatekyc',
+        component: KycwithsidebarComponent,
+        data: { title: 'KYC | Masscryp ICO' }
     },
     // {
     //     path: 'test',
@@ -80,11 +101,13 @@ const routes: Routes = [
     // },
     {
         path: 'homedum',
-        component: HomeComponent
+        component: HomeComponent,
+        data: { title: 'DUMHOME | Masscryp ICO' }
     },
     { 
         path: '**', 
-        component: PagenotfoundComponent 
+        component: PagenotfoundComponent ,
+        data: { title: 'Not Found | Masscryp ICO' }
     }
 ];
 

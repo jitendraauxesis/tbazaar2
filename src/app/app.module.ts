@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
+
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -22,6 +24,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { OrderModule } from 'ngx-order-pipe';
 import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading';
 import { ChartsModule } from 'ng2-charts';
+import { ShareButtonsModule } from 'ngx-sharebuttons';
+// import { CeiboShare } from 'ng2-social-share';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -52,6 +56,8 @@ import { UserhomeComponent } from './userhome/userhome.component';
 import { ReferralComponent } from './referral/referral.component';
 import { AddreferralComponent } from './addreferral/addreferral.component';
 import { UsertermsdescriptionComponent } from './usertermsdescription/usertermsdescription.component';
+import { AddreferralwithsidebarComponent } from './addreferralwithsidebar/addreferralwithsidebar.component';
+import { KycwithsidebarComponent } from './kycwithsidebar/kycwithsidebar.component';
 
 export const firebaseConfig = {
   "apiKey": "AIzaSyCdpzVX0tq6uLoEgBpwEXDH7wr4zDnkcHQ",
@@ -81,7 +87,10 @@ export const firebaseConfig = {
     UserhomeComponent,
     ReferralComponent,
     AddreferralComponent,
-    UsertermsdescriptionComponent
+    UsertermsdescriptionComponent,
+    AddreferralwithsidebarComponent,
+    KycwithsidebarComponent,
+    // CeiboShare
   ],
   imports: [
     BrowserModule,
@@ -118,14 +127,19 @@ export const firebaseConfig = {
       tertiaryColour: '#c2e9f9',
       fullScreenBackdrop:true
     }),
-    ChartsModule
+    ChartsModule,
+    HttpClientModule,
+    HttpClientJsonpModule,
+    ShareButtonsModule.forRoot(),
   ], 
   providers: [
     SignupService, 
     ServiceapiService,
     FbapiService,
     CookieService,
-    {provide: LocationStrategy, useClass: HashLocationStrategy}
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
+    // {provide: CeiboShare, useFactory: CeiboShare, deps: [CeiboShare], multi: true }
+    // CeiboShare
   ],
   bootstrap: [AppComponent]
 })

@@ -23,6 +23,7 @@
         "styles.css"
       ],
       "scripts": [
+        "../node_modules/ngx-sharebuttons/bundles/ngx-sharebuttons.umd.js",
         "../node_modules/chart.js/src/chart.js"
       ],
       "environmentSource": "environments/environment.ts",

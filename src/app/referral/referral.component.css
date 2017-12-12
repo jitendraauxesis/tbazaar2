@@ -32,3 +32,8 @@ img.yesreferral {
     padding: 0.5%;
     margin-top: 5%;
 }
+
+
+img.social {
+    cursor: pointer;
+}

@@ -246,3 +246,6 @@ p.manhomename {
     color: #004A7C;
   }
 }
+
+/* @import '~/node_modules/ngx-sharebuttons/styles/share-buttons.scss';
+@import '~/node_modules/ngx-sharebuttons/styles/themes/default/default-theme.scss'; */

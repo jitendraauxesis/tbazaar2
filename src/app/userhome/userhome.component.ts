@@ -24,12 +24,14 @@ import * as Chart from 'chart.js';
 
 import { FbapiService } from '../services/fbapi.service';
 
+import { PouchService } from '../services/pouch.service';
+
 import { CookieService } from 'ngx-cookie-service';//
 @Component({
   selector: 'app-userhome',
   templateUrl: './userhome.component.html',
   styleUrls: ['./userhome.component.css'],
-  providers:[ServiceapiService,SignupService]
+  providers:[ServiceapiService,SignupService,PouchService]
 })
 export class UserhomeComponent implements OnInit {
 
@@ -84,7 +86,8 @@ export class UserhomeComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private cookieService: CookieService,//
-    private fbapi:FbapiService
+    private fbapi:FbapiService,
+    public pouchserv:PouchService
   ) {
     this.qrvalue = "Its Demo For QR Angular";
     //this.signup.setUserSession(this.storage.retrieve("AUXUserEmail"),"7764611b-fdee-4804-8f2f-fab678e63526a704b8ef-5cb5-45b1-b367-98c89b91f1aeba1abd08-0b64-4f05-8d60-a049344a1a28");
@@ -434,7 +437,7 @@ export class UserhomeComponent implements OnInit {
             // console.log(res);
             let d = JSON.parse(JSON.stringify(res));
             if(d.status == 200){
-
+              
               //sold tokens
               this.serv.resolveApi("get_total_tokens_sold",{}) 
               .subscribe(
@@ -550,6 +553,8 @@ export class UserhomeComponent implements OnInit {
             this.ngxloading = false; 
             this.user_timeline_listShow = false;
             //console.error(err);
+            this.putErrorInPouch("loadHomeData()","Response error in component "+this.constructor.name,"'Issuer' app the exception caught is "+JSON.stringify(err),1);
+            
           }
         );
   }
@@ -659,6 +664,8 @@ export class UserhomeComponent implements OnInit {
       (e)=>{
         // console.error(e)
         this.showChart = false;
+        this.putErrorInPouch("makeChart()","Response error in component "+this.constructor.name,"'Issuer' app the exception caught is "+JSON.stringify(e),1);
+        
       }
     );
     
@@ -739,5 +746,14 @@ export class UserhomeComponent implements OnInit {
  
   public chartHovered(e:any):void {
     // console.log(e);
+  }
+
+  putErrorInPouch(fun,desc,notes,priority){
+    let id = this.serv.retrieveFromLocal("AUXUserEmail");
+    let page = this.router.url;
+    let func = fun;
+    let description = desc;
+    // console.log(id,page,func,description)
+    this.pouchserv.letsIssuing(id,page,func,description,notes,priority);
   }
 }

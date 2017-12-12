@@ -45,6 +45,32 @@
                       </button>
                 </div>
               </div>
+
+              <div class="row">
+                  <div class="col-sm-4 col-sm-offset-4 col-md-4 col-lg-4 col-xs-12 text-center">
+                      <!-- <img src="assets/img/social/facebook.png" ceiboShare [facebook]="{u: referraladdressvalue}" class="social fb">&nbsp;&nbsp;
+                      <img src="assets/img/social/twitter.png" ceiboShare [twitter]="{url:referraladdressvalue, text:'Sharing referral address', hashtags:'Masscryp, ICO, Masscryptoken, ICO Token'}" class="social tw">&nbsp;&nbsp;
+                      <img src="assets/img/social/linkedin.png" ceiboShare  [linkedIn]="{url:referraladdressvalue}" class="social ln">&nbsp;&nbsp;
+                      <img src="assets/img/social/telegram.png" ceiboShare  [telegram]="{url:referraladdressvalue,text:'Sharing referral address'}" class="social tl">&nbsp;&nbsp;
+                      <img src="assets/img/social/telegram.png" class="social tl">&nbsp;&nbsp;                      
+                      <img src="assets/img/social/google-plus.png" ceiboShare [googlePlus]="{url: referraladdressvalue}" class="social gl">&nbsp;&nbsp; -->
+
+                      <img src="assets/img/social/facebook.png" (click)="socialshare('fb')" class="social fb">&nbsp;&nbsp;
+                      <img src="assets/img/social/twitter.png" (click)="socialshare('tw')" class="social tw">&nbsp;&nbsp;
+                      <img src="assets/img/social/linkedin.png" (click)="socialshare('ln')" class="social ln">&nbsp;&nbsp;
+                      <img src="assets/img/social/telegram.png"  (click)="socialshare('tl')" class="social tl">&nbsp;&nbsp;                   
+                      <img src="assets/img/social/google-plus.png" (click)="socialshare('gl')" class="social gl">&nbsp;&nbsp;
+                      
+                      <!-- <share-button [theme]="'modern-dark'"
+                      [button]="'facebook'"
+                      [showName]="true"
+                      [showCount]="true"
+                      [size]="-1"
+                      [url]="'http://twitter.com'"
+                     ></share-button> -->
+                  </div>
+              </div>
+
           </div>
           <hr>
           

@@ -93,7 +93,7 @@
                       <div class="col-md-12 text-center">Identity proof document</div>
                       <br>
 
-                        <div *ngFor="let i of kycdatapoi">
+                        <div *ngFor="let i of kycdatapoa">
                             <div class="col-sm-12">&nbsp;</div>
                             <div class="col-md-12 text-center">
                                 <img [src]="i.value" *ngIf="i.filetype == 'png' || i.filetype == 'jpeg'" class="kycimagemd" (click)="showme(i)" title="{{i.filename}}"><br>
@@ -106,7 +106,7 @@
                         <div class="col-md-12 text-center">Address proof documents</div>
                         <br>
 
-                        <div *ngFor="let a of kycdatapoa">
+                        <div *ngFor="let a of kycdatapoi">
                         <div class="col-sm-12">&nbsp;</div>
                         <div class="col-md-12 text-center">
                             <img [src]="a.value" *ngIf="a.filetype == 'png' || a.filetype == 'jpeg'"  class="kycimagemd" (click)="showme(a)" title="{{a.filename}}"><br>

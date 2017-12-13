@@ -20,6 +20,8 @@ import { ReferralComponent } from './referral/referral.component';
 import { AddreferralComponent } from './addreferral/addreferral.component';
 import { AddreferralwithsidebarComponent } from './addreferralwithsidebar/addreferralwithsidebar.component';
 import { KycwithsidebarComponent } from './kycwithsidebar/kycwithsidebar.component';
+import { KycwithsidebarviewpdfComponent } from './kycwithsidebarviewpdf/kycwithsidebarviewpdf.component';
+
 
 const routes: Routes = [
     { 
@@ -93,6 +95,11 @@ const routes: Routes = [
     {
         path: 'updatekyc',
         component: KycwithsidebarComponent,
+        data: { title: 'KYC | Masscryp ICO' }
+    },
+    {
+        path: 'updatekyc/view/:id',
+        component: KycwithsidebarviewpdfComponent,
         data: { title: 'KYC | Masscryp ICO' }
     },
     // {

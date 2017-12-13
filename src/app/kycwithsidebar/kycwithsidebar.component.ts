@@ -11,13 +11,14 @@ import 'rxjs/add/operator/switchMap'; //to fetch url params
 import {LocalStorageService, SessionStorageService} from 'ng2-webstorage';
 
 import 'hammerjs';
+import * as urlencode from 'urlencode';
 import * as _ from 'lodash';
 
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { IMAGEVIEWER_CONFIG, ImageViewerConfig, ButtonConfig } from '@hallysonh/ngx-imageviewer';
-
+window;
 const IMAGEVIEWER_CONFIG_DEFAULT: ImageViewerConfig = {
   width: 800, // component default width
   height: 600, // component default height
@@ -572,11 +573,19 @@ export class KycwithsidebarComponent implements OnInit {
     }
 
     showme(val){
-      this.modalRef = this.modalService.show(
-        this.imagemodal,
-          Object.assign({}, this.config2, { class: 'gray modal-lg' })
-      );
-      this.kycimg = val.value;
+      if(val.filetype == "pdf"){
+        // location.href = val.value;
+        // console.log(val.value)
+        // var myWindow = window.open(val.value);//, "KYC Documents", "width=800,height=600,fullscreen=no,top=50,left=300,resizable=no");
+        // this.api.saveToLocal("AUXDOCImageAddressProof",val.value);
+        this.router.navigate(["/updatekyc/view/",val.value]);
+      }else{
+        this.modalRef = this.modalService.show(
+          this.imagemodal,
+            Object.assign({}, this.config2, { class: 'gray modal-lg' })
+        );
+        this.kycimg = val.value;
+      }
     }
   }
   

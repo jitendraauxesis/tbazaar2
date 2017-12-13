@@ -43,6 +43,7 @@
     "ngx-qrcode2": "0.0.5",
     "ngx-sharebuttons": "^4.0.4",
     "ngx-toastr": "^6.5.0",
+    "pdfjs": "^2.0.0-alpha.3",
     "pouchdb": "^6.3.4",
     "pouchdb-find": "^6.3.4",
     "rxjs": "^5.4.2",

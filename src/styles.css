@@ -249,3 +249,12 @@ p.manhomename {
 
 /* @import '~/node_modules/ngx-sharebuttons/styles/share-buttons.scss';
 @import '~/node_modules/ngx-sharebuttons/styles/themes/default/default-theme.scss'; */
+
+/* modal imageviewer */
+ngx-imageviewer.imageviewer canvas {
+  width: 100%;
+}
+
+ngx-imageviewer canvas {
+  width: 100%;
+}

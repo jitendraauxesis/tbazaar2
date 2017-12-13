@@ -87,7 +87,8 @@ export class PageotpComponent implements OnInit {
   loggedInFBauth(){
     let email = this.signup.retrieveFromLocal("AUXUserEmail");
     let password = "tokenbazaar";
-    this.fbapi.login(email,password);
+    // this.fbapi.login(email,password);
+    this.fbapi.check(email,password);
   }
 
   signup_new_user(){
@@ -124,7 +125,8 @@ export class PageotpComponent implements OnInit {
                   this.signup.setRouteMsgPass(msgToPass);
                   this.router.navigate(["/terms",email]); 
                 // },1000);
-                // /**FBAuth */setTimeout(()=>{this.loggedInFBauth();},1500);
+                // /**FBAuth */
+                setTimeout(()=>{this.loggedInFBauth();},1000);
               }else{this.printmsg("Wrong OTP, please check the e-mail and try again.");}
             }else if(res.tnc == true && (res.kyc == true || res.kyc == "accepted" || res.kyc == "pending" || res.kyc == "rejected")){
               if(res.kyc == false){
@@ -137,7 +139,8 @@ export class PageotpComponent implements OnInit {
                   this.signup.saveToLocal("AUXTNCStatus","done"); 
                   this.router.navigate(["/kyc"]); 
                 // },4000);
-                // /**FBAuth */setTimeout(()=>{this.loggedInFBauth();},1500);
+                // /**FBAuth */
+                setTimeout(()=>{this.loggedInFBauth();},1000);
               }else if(res.kyc == "accepted"){
                 this.signup.saveToLocal("AUXHomeStatus","done");
                 // this.sucmsg = "Otp is verified but your KYC is in pending stage.";
@@ -152,7 +155,8 @@ export class PageotpComponent implements OnInit {
                   // this.router.navigate(["/home"]);
                   this.router.navigateByUrl("/home"); 
                 // },4000);
-                // /**FBAuth */this.loggedInFBauth();
+                // /**FBAuth */
+                this.loggedInFBauth();
               }else if(res.kyc == "pending"){
                 this.signup.saveToLocal("AUXHomeStatus","pending");
                 // this.sucmsg = "Otp is verified but your KYC is in pending stage.";
@@ -167,7 +171,8 @@ export class PageotpComponent implements OnInit {
                   // this.router.navigate(["/home"]); 
                   this.router.navigateByUrl("/home");
                 // },4000);
-                // /**FBAuth */this.loggedInFBauth();
+                // /**FBAuth */
+                this.loggedInFBauth();
               }else if(res.kyc == "rejected"){
                 this.signup.saveToLocal("AUXHomeStatus","rejected");                
                 // this.sucmsg = "Otp is verified and your KYC detail has been rejected.";
@@ -182,7 +187,8 @@ export class PageotpComponent implements OnInit {
                 // this.router.navigate(["/home"]);  
                 this.router.navigateByUrl("/home");
               // },4000);
-                // /**FBAuth */this.loggedInFBauth();
+                // /**FBAuth */
+                this.loggedInFBauth();
               }else{
                 this.printmsg("Wrong OTP, please check the e-mail and try again.");
               }
@@ -209,7 +215,8 @@ export class PageotpComponent implements OnInit {
                 this.signup.setUserSession(email,res.token);             
                 // this.router.navigate(["/home"]); 
                 this.router.navigateByUrl("/home");
-                // /**FBAuth */this.loggedInFBauth();
+                // /**FBAuth */
+                this.loggedInFBauth();
               // },4000);
             }else if(res.tnc == false){
               // console.log("im going in false verifyotp")
@@ -222,7 +229,8 @@ export class PageotpComponent implements OnInit {
                   this.signup.setRouteMsgPass(msgToPass);
                 this.router.navigate(["/terms",email]); 
               // },4000);
-              // /**FBAuth */setTimeout(()=>{this.loggedInFBauth();},1500);
+              // /**FBAuth */
+              setTimeout(()=>{this.loggedInFBauth();},1000);
             }else{
               this.printmsg("Wrong OTP, please check the e-mail and try again.");
             }

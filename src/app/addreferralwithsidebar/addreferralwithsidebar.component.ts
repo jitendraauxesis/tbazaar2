@@ -13,6 +13,7 @@ import 'rxjs/add/operator/map';
 import {LocalStorageService, SessionStorageService} from 'ng2-webstorage';
 import sha512 from 'js-sha512';
 import CryptoJS from 'crypto-js';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-addreferralwithsidebar',
   templateUrl: './addreferralwithsidebar.component.html',
@@ -37,6 +38,7 @@ export class AddreferralwithsidebarComponent implements OnInit {
       public signup:SignupService,
       private route: ActivatedRoute,
       private router: Router,
+      private toastr: ToastrService,
       private storage:LocalStorageService,
       private formBuilder:FormBuilder
   

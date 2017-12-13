@@ -26,6 +26,7 @@ import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading';
 import { ChartsModule } from 'ng2-charts';
 import { ShareButtonsModule } from 'ngx-sharebuttons';
 // import { CeiboShare } from 'ng2-social-share';
+import { ImageViewerModule } from '@hallysonh/ngx-imageviewer';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -59,13 +60,22 @@ import { UsertermsdescriptionComponent } from './usertermsdescription/usertermsd
 import { AddreferralwithsidebarComponent } from './addreferralwithsidebar/addreferralwithsidebar.component';
 import { KycwithsidebarComponent } from './kycwithsidebar/kycwithsidebar.component';
 
+// export const firebaseConfig = {
+//   "apiKey": "AIzaSyCdpzVX0tq6uLoEgBpwEXDH7wr4zDnkcHQ",
+//   "authDomain": "token-baazar.firebaseapp.com",
+//   "databaseURL": "https://token-baazar.firebaseio.com",
+//   "projectId": "token-baazar",
+//   "storageBucket": "token-baazar.appspot.com",
+//   "messagingSenderId": "264678856939"
+// }
+
 export const firebaseConfig = {
-  "apiKey": "AIzaSyCdpzVX0tq6uLoEgBpwEXDH7wr4zDnkcHQ",
-  "authDomain": "token-baazar.firebaseapp.com",
-  "databaseURL": "https://token-baazar.firebaseio.com",
-  "projectId": "token-baazar",
-  "storageBucket": "token-baazar.appspot.com",
-  "messagingSenderId": "264678856939"
+  "apiKey": "AIzaSyBMsLUf7d6anHBiOTYzrQUaOhI-g8EhBH4",
+  "authDomain": "proud-parity-131813.firebaseapp.com",
+  "databaseURL": "https://proud-parity-131813.firebaseio.com",
+  "projectId": "proud-parity-131813",
+  "storageBucket": "proud-parity-131813.appspot.com",
+  "messagingSenderId": "829650100337"
 }
 
 @NgModule({
@@ -131,6 +141,7 @@ export const firebaseConfig = {
     HttpClientModule,
     HttpClientJsonpModule,
     ShareButtonsModule.forRoot(),
+    ImageViewerModule
   ], 
   providers: [
     SignupService, 

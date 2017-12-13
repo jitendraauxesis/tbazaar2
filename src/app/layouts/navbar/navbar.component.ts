@@ -48,6 +48,10 @@ export class NavbarComponent implements OnInit {
     let splitname = name.split(" ");
     // console.log(splitname)
     this.username = splitname[0];
+
+
+    // let status = this.signup.retrieveFromLocal("AUXKYCStatus"); 
+    // console.log(status);
   }
 
   ngDoCheck(){
@@ -128,25 +132,31 @@ export class NavbarComponent implements OnInit {
     let status = this.signup.retrieveFromLocal("AUXKYCStatus"); 
     if(status == "nokyc"){
       this.toastr.error("You have not uploaded the KYC documents","Upload KYC",{timeOut:2500});
-      this.router.navigate(["/kyc"]);
-    }else if(status == "done"){
-      this.toastr.success("Your KYC detail is verified by administrator","KYC is verified",{timeOut:2500});
-    }else if(status == "pending"){
+      this.router.navigate(["/updatekyc"]);
+    }
+    // else if(status == "done"){
+    //   this.toastr.success("Your KYC detail is verified by administrator","KYC is verified",{timeOut:2500});
+    //   this.router.navigate(["/updatekyc"]);      
+    // }
+    else if(status == "pending"){
       this.toastr.warning("KYC is waiting for administrator approval. You can continue buying MASS Coins.",null,{timeOut:2500});
+      this.router.navigate(["/updatekyc"]);
     }else if(status == "rejected"){
       this.toastr.error("Your KYC detail has been rejected","KYC rejected",{timeOut:2500});
+      this.router.navigate(["/updatekyc"]);
     }else if(status == false){
       this.toastr.error("You have not uploaded the KYC documents","Upload KYC",{timeOut:2500});
-      this.router.navigate(["/kyc"]);
+      this.router.navigate(["/updatekyc"]);
     }
     // else if(status == true){
     //   this.toastr.success("Your KYC detail is verified by administrator","KYC is verified",{timeOut:2500});
     // }
     else if(status == "accepted"){
       this.toastr.success("Your KYC detail is verified by administrator","KYC is verified",{timeOut:2500});
+      this.router.navigate(["/updatekyc"]);
     }else{
-      this.toastr.error("You have not uploaded the KYC documents","Upload KYC",{timeOut:2500});
-      this.router.navigate(["/kyc"]);
+      // this.toastr.error("You have not uploaded the KYC documents","Upload KYC",{timeOut:2500});
+      this.router.navigate(["/updatekyc"]);
     }
   }
 }

@@ -16,3 +16,25 @@ button.btn.custBtnAnchor2 {
 img.kycimage {
     width: 100%;
 }
+img.kycimagemd {
+    width: 200px;
+    cursor: pointer;
+    /* padding: 15%; */
+    height: 200px;
+
+}
+img.kycimagemdpdf {
+    width: 200px;
+    height: 200px;
+    margin-top: 5%;
+}
+.kycdiv p {
+    width: 100%;
+    text-align: center;
+}
+
+/*image modal*/
+.modal-footer.imagefooter {
+    margin-top: 0%;
+}
+

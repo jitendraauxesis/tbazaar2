@@ -49,6 +49,12 @@ export class UserkycComponent implements OnInit {
   }
 
   ngOnInit() {
+    let isAuth = this.storage.retrieve("AUXAuthLogin");
+    if(isAuth == true){
+      this.router.navigate(["home"]);
+    }else{
+      this.router.navigate(["login"]);
+    }
     let a = this.signup.retrieveFromLocal("AUXKYCStatus"); 
     if(a=="done"){
       this.router.navigate(["login"]);
@@ -93,7 +99,7 @@ export class UserkycComponent implements OnInit {
       // console.log(file,event)
       if(file.size > 1000000){
         this.failmsg("File size can not be greater than 1 Mb");
-        this.form.get('idproof').setValue(null);
+        this.form.get('pan').setValue(null);
         this.fileInput1.nativeElement.value = "";
         return false;
       }else{
@@ -276,7 +282,7 @@ export class UserkycComponent implements OnInit {
     //console.log(this.form)
     const formModel = this.form.value;
     if(formModel.idproof == null){
-      this.failmsg("Id proof can not be left blank try to attach it...");
+      this.failmsg("Proof for KYC is required, try to attach it...");
       setTimeout(()=>{
         if(formModel.idproof != null){
           this.sucmsg = "Now you can submit the details";
@@ -292,7 +298,7 @@ export class UserkycComponent implements OnInit {
     //   this.failmsg("Aadhar number can not be left blank");
     // }
     else if(formModel.pan == null){
-      this.failmsg("Pan can not be left blank try to attach it...");
+      this.failmsg("Id proof not picked try to attach it...");
     }else{
       //console.log(formModel)
       this.loadingimage = true;

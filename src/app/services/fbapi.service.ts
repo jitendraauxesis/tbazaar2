@@ -16,6 +16,8 @@ export class FbapiService {
 
   user: Observable<firebase.User>;
 
+  itemsRef: AngularFireList<any>;
+
   constructor(
     public afAuth: AngularFireAuth, 
     public af: AngularFireDatabase,
@@ -25,6 +27,7 @@ export class FbapiService {
     public localstore:LocalStorageService
   ) {
     this.user = afAuth.authState;
+    this.itemsRef = af.list('/name');
    }
 
   signup(email: string, password: string) {
@@ -32,11 +35,28 @@ export class FbapiService {
       .auth
       .createUserWithEmailAndPassword(email, password)
       .then(value => {
-       // console.log('Success!', value);
+      //  console.log('Success!', value);
       })
       .catch(err => {
-        //console.log('Something went wrong:',err.message);
+        // console.log('Something went wrong:',err.message);
       });    
+  }
+
+  check(email,password){
+    this.afAuth
+    .auth
+    .fetchProvidersForEmail(email)
+    .then(value => {
+      if(value.length == 0){
+        // console.log('upload!', value,value.length);
+        this.signup(email,password);
+      }else{
+        // console.log('already!', value,value.length);
+      }
+     })
+     .catch(err => {
+      //  console.log('Something went wrong:',err.message);
+     });    
   }
 
   login(email: string, password: string) {
@@ -57,5 +77,15 @@ export class FbapiService {
 
   testit(){
     return "hi";
+  }
+
+  retrieve(){
+    // console.log(this.itemsRef)
+    return this.itemsRef.snapshotChanges().map(arr => {
+      // console.log(arr)
+      if(arr.length>0){
+
+      }
+    })
   }
 }

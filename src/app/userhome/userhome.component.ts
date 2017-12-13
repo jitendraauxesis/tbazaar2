@@ -140,6 +140,11 @@ export class UserhomeComponent implements OnInit {
     let password = "tokenbazaar";
     // console.log("fb,",email,password);
     this.fbapi.login(email,password);
+    // this.fbapi.signup(email,password);  
+    // this.fbapi.check(email,password);
+
+    let d = this.fbapi.retrieve();
+    console.log(d)
   } 
 
   ngOnInit() {
@@ -149,6 +154,7 @@ export class UserhomeComponent implements OnInit {
     //     }
     //     document.body.scrollTop = 0;
     // }); 
+    // this.loggedInFBauth();
     this.ngxloading = true; //initialize loader
 
     this.loadHomeStatus();

@@ -27,10 +27,12 @@ img.kycimagemdpdf {
     width: 200px;
     height: 200px;
     margin-top: 5%;
+    cursor: pointer;
 }
 .kycdiv p {
     width: 100%;
     text-align: center;
+    margin-top: 10px;
 }
 
 /*image modal*/

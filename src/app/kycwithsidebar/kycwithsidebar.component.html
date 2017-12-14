@@ -85,9 +85,10 @@
 
                 <div class="col-sm-6 col-md-6 col-sm-pull-6" *ngIf="imgavailable == 0">
                     <div class="kycdiv">
-                      <p>
+                      <!-- <p>
                          <b>KYC is been in {{kycstatus}} stage.</b>
-                      </p><br>
+                      </p> -->
+                      <br>
                       <!-- <ngx-imageviewer class="imageviewer" [src]="dumimg"></ngx-imageviewer> -->
                       
                       <div class="col-md-12 text-center">Identity proof document</div>
@@ -111,6 +112,7 @@
                         <div class="col-md-12 text-center">
                             <img [src]="a.value" *ngIf="a.filetype == 'png' || a.filetype == 'jpeg'"  class="kycimagemd" (click)="showme(a)" title="{{a.filename}}"><br>
                             <img src="assets/img/pdf.png"  *ngIf="a.filetype == 'pdf'" class="kycimagemdpdf" (click)="showme(a)" title="{{a.filename}}">
+                            <!-- <a target="_self" href="{{a.value}}" download="{{a.filename}}">Click to do</a> -->
                         </div>
                         <br>
                         </div>
@@ -133,7 +135,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                         <h6 id="myModalLabel" class="noMarg text-left">
-                                <span class="pull-left padRightOnly" style="font-size:18px;"><i class="fa fa-chevron-down" aria-hidden="true"></i></span>
+                            <span class="pull-left padRightOnly" style="font-size:18px;"><i class="fa fa-chevron-down" aria-hidden="true"></i></span>
                             <span id="modal-header-content">KYC Viewer</span>
                         </h6>
                       </div>
@@ -141,7 +143,10 @@
                         <ngx-imageviewer class="imageviewer" [src]="kycimg"></ngx-imageviewer>
                       </div>
                       <div class="modal-footer imagefooter">
-                        <button type="button" class="btn btn-primary btn-block btnimageviewer" (click)="hideme()">
+                        <button type="button" class="btn btn-primary btnimageviewer" (click)="downloadFile(kycimg)">
+                            Download
+                        </button>
+                        <button type="button" class="btn btn-primary btnimageviewer" (click)="hideme()">
                             Close
                         </button>
                       </div>

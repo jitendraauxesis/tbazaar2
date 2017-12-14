@@ -559,7 +559,7 @@ export class UserhomeComponent implements OnInit {
             this.ngxloading = false; 
             this.user_timeline_listShow = false;
             //console.error(err);
-            this.putErrorInPouch("loadHomeData()","Response error in component "+this.constructor.name,"'Issuer' app the exception caught is "+JSON.stringify(err),1);
+            this.putErrorInPouch("loadHomeData()","Response error in component "+this.constructor.name,"'Masscryp' app the exception caught is "+JSON.stringify(err),1);
             
           }
         );
@@ -670,7 +670,7 @@ export class UserhomeComponent implements OnInit {
       (e)=>{
         // console.error(e)
         this.showChart = false;
-        this.putErrorInPouch("makeChart()","Response error in component "+this.constructor.name,"'Issuer' app the exception caught is "+JSON.stringify(e),1);
+        this.putErrorInPouch("makeChart()","Response error in component "+this.constructor.name,"'Masscryp' app the exception caught is "+JSON.stringify(e),1);
         
       }
     );

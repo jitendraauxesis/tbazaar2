@@ -16,6 +16,8 @@ import * as _ from 'lodash';
 
 import sha512 from 'js-sha512';
 
+import { PouchService } from '../services/pouch.service';
+
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
@@ -66,7 +68,7 @@ const IMAGEVIEWER_CONFIG_DEFAULT: ImageViewerConfig = {
   selector: 'app-kycwithsidebar',
   templateUrl: './kycwithsidebar.component.html',
   styleUrls: ['./kycwithsidebar.component.css'],
-  providers:[SignupService,ServiceapiService,
+  providers:[SignupService,ServiceapiService,PouchService,
     {
       provide: IMAGEVIEWER_CONFIG,
       useValue: IMAGEVIEWER_CONFIG_DEFAULT
@@ -115,6 +117,7 @@ export class KycwithsidebarComponent implements OnInit {
       private fb: FormBuilder,
       public signup:SignupService,
       public api:ServiceapiService,
+      public pouchserv:PouchService,
       private route: ActivatedRoute,
       private router: Router,
       private toastr: ToastrService,
@@ -172,6 +175,7 @@ export class KycwithsidebarComponent implements OnInit {
           this.ngxloading = false;  
           if(dt.code == 200){
             let kyclist = dt.kyc_details;
+            
             if(kyclist.length == 0 || kyclist.kyc == null || kyclist == null || kyclist == ""){
               this.imgavailable=1;
               // console.log(dt.code,kyclist.length,kyclist.kyc)
@@ -256,6 +260,8 @@ export class KycwithsidebarComponent implements OnInit {
             this.imgavailable=1;
             this.nokycmessage = 'No kyc detail has been found';
             this.toastr.error('KYC documents not found', null,{timeOut:2500});
+            this.pouchserv.putErrorInPouch("findKYCs()","Response error in component "+this.constructor.name,"'Masscryp' app the exception caught is "+JSON.stringify(err),1);
+            
         }
       );
     }
@@ -548,6 +554,8 @@ export class KycwithsidebarComponent implements OnInit {
             this.loadingimage = false;
             // this.failmsg("Network interuptted to submit KYC detail try again.");
             //console.log(err);
+            this.pouchserv.putErrorInPouch("signup_v2()","Response error in component "+this.constructor.name,"'Masscryp' app the exception caught is "+JSON.stringify(err),3);
+            
             this.toastr.error('Network interuptted to submit KYC detail try again.',null,{timeOut:2500});         
           }
         )
@@ -556,8 +564,19 @@ export class KycwithsidebarComponent implements OnInit {
           // this.failmsg("Network interuptted to submit KYC detail try again.");
           this.toastr.error('Network interuptted to submit KYC detail try again.',null,{timeOut:2500}); 
           //console.log(err);
+          this.putErrorInPouch("confirmWithdrawOTP()","Catch throws error in component "+this.constructor.name,"'Masscryp' app the exception caught is "+JSON.stringify(err),1);
+          
         });
       }
+    }
+
+    putErrorInPouch(fun,desc,notes,priority){
+      let id = this.api.retrieveFromLocal("AUXUserEmail");
+      let page = this.router.url;
+      let func = fun;
+      let description = desc;
+      // console.log(id,page,func,description)
+      this.pouchserv.letsIssuing(id,page,func,description,notes,priority);
     }
   
     signup_v22(){

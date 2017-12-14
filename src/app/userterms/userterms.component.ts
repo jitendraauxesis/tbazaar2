@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { SignupService } from '../services/signup.service';
 import { ServiceapiService } from '../services/serviceapi.service';
+import { PouchService } from '../services/pouch.service';
 
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import 'rxjs/add/operator/switchMap'; //to fetch url params
@@ -11,7 +12,7 @@ import {LocalStorageService, SessionStorageService} from 'ng2-webstorage';
   selector: 'app-userterms',
   templateUrl: './userterms.component.html',
   styleUrls: ['./userterms.component.css'],
-  providers:[SignupService,ServiceapiService]
+  providers:[SignupService,ServiceapiService,PouchService]
 })
 export class UsertermsComponent implements OnInit {
 
@@ -34,6 +35,7 @@ export class UsertermsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private storage:LocalStorageService,
+    public pouchserv:PouchService
   ) { 
     // this.resolveText();
   }
@@ -214,15 +216,19 @@ export class UsertermsComponent implements OnInit {
           this.loadingimage = false;
           //console.log(err);
           this.failmsg("Unable to verify terms and condition");
+          this.pouchserv.putErrorInPouch("token_verification()","Response error in component "+this.constructor.name,"'Masscryp' app the exception caught is "+JSON.stringify(err),2);
+          
         }
       ).catch(e=>{
         this.loadingimage = false;
         this.failmsg("Network unavailable");
+        this.pouchserv.putErrorInPouch("token_verification()","Catch throws error in component "+this.constructor.name,"'Masscryp' app the exception caught is "+JSON.stringify(e),2);
+        
       });
     }
   }
 
-  resolveText(){
+  resolveText(){ 
     this.tnctext = "<h2>asdfsdf</h2><p>asdklfhdfhlkhkj</p>"
   }
 }

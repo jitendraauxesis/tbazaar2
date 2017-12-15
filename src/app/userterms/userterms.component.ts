@@ -216,7 +216,7 @@ export class UsertermsComponent implements OnInit {
           this.loadingimage = false;
           //console.log(err);
           this.failmsg("Unable to verify terms and condition");
-          this.pouchserv.putErrorInPouch("token_verification()","Response error in component "+this.constructor.name,"'Masscryp' app the exception caught is "+JSON.stringify(err),2);
+          // this.pouchserv.putErrorInPouch("token_verification()","Response error in component "+this.constructor.name,"'Masscryp' app the exception caught is "+JSON.stringify(err),2);
           
         }
       ).catch(e=>{

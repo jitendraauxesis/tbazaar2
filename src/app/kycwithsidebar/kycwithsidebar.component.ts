@@ -79,6 +79,7 @@ export class KycwithsidebarComponent implements OnInit {
   
     form: FormGroup;
     ProofFiles:File;
+    link: HTMLAnchorElement;
   
     @ViewChild('fileInput1') fileInput1: ElementRef; 
     @ViewChild('fileInput2') fileInput2: ElementRef;
@@ -554,7 +555,7 @@ export class KycwithsidebarComponent implements OnInit {
             this.loadingimage = false;
             // this.failmsg("Network interuptted to submit KYC detail try again.");
             //console.log(err);
-            this.pouchserv.putErrorInPouch("signup_v2()","Response error in component "+this.constructor.name,"'Masscryp' app the exception caught is "+JSON.stringify(err),3);
+            // this.pouchserv.putErrorInPouch("signup_v2()","Response error in component "+this.constructor.name,"'Masscryp' app the exception caught is "+JSON.stringify(err),3);
             
             this.toastr.error('Network interuptted to submit KYC detail try again.',null,{timeOut:2500});         
           }
@@ -564,7 +565,7 @@ export class KycwithsidebarComponent implements OnInit {
           // this.failmsg("Network interuptted to submit KYC detail try again.");
           this.toastr.error('Network interuptted to submit KYC detail try again.',null,{timeOut:2500}); 
           //console.log(err);
-          this.putErrorInPouch("confirmWithdrawOTP()","Catch throws error in component "+this.constructor.name,"'Masscryp' app the exception caught is "+JSON.stringify(err),1);
+          this.putErrorInPouch("signup_v2()","Catch throws error in component "+this.constructor.name,"'Masscryp' app the exception caught is "+JSON.stringify(err),1);
           
         });
       }
@@ -623,13 +624,14 @@ export class KycwithsidebarComponent implements OnInit {
     }
 
     downloadURI(uri, name) {
-      var link = document.createElement("a");
-      link.download = name;
-      link.href = uri;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      // delete link;
+      
+      this.link = document.createElement("a");
+      this.link.download = name;
+      this.link.href = uri;
+      document.body.appendChild(this.link);
+      this.link.click();
+      document.body.removeChild(this.link);
+      delete this.link;
     }
   }
   

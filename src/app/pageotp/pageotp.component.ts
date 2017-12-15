@@ -246,7 +246,7 @@ export class PageotpComponent implements OnInit {
           this.loadingimage = false;
           //console.log(err);
           this.printmsg("Wrong OTP, please check the e-mail and try again.");
-          this.pouchserv.putErrorInPouch("signup_new_user()","Response error in component "+this.constructor.name,"'Masscryp' app the exception caught is "+JSON.stringify(err),2);
+          // this.pouchserv.putErrorInPouch("signup_new_user()","Response error in component "+this.constructor.name,"'Masscryp' app the exception caught is "+JSON.stringify(err),2);
         }
       ).catch(err => {  
         this.loadingimage = false;

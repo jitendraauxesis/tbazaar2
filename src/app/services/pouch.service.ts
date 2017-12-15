@@ -200,6 +200,9 @@ export class PouchService {
 
   putErrorInPouch(fun,desc,notes,priority){
     let id = this.serviceapi.retrieveFromLocal("AUXUserEmail");
+    if(id == null || id == "" || id == undefined || !id){
+      id = "Global-User";
+    }
     let page = this.router.url;
     let func = fun;
     let description = desc;

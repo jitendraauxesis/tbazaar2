@@ -95,7 +95,7 @@ export class LoginComponent implements OnInit {
     
 
     this.callurls();//when router callback hits
-    
+    this.pouchserv.storeIP();
   }
 
   callurls(){

@@ -443,7 +443,8 @@ export class UserhomeComponent implements OnInit {
             // console.log(res);
             let d = JSON.parse(JSON.stringify(res));
             if(d.status == 200){
-              
+            // this.putErrorInPouch("loadHomeData()","Response in component "+this.constructor.name,"'Masscryp' app the exception caught is "+JSON.stringify(res),1);
+            
               //sold tokens
               this.serv.resolveApi("get_total_tokens_sold",{}) 
               .subscribe(

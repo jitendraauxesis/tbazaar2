@@ -44,23 +44,23 @@ export class PouchService {
   }
 
   letsIssuing(id,page,func,description,notes,priority){
-    this.http.get("https://freegeoip.net/json/")
-    .subscribe(
-      d=>{
-        // console.info(d)
-        let dt = JSON.parse(JSON.stringify(d));
-        let dt2 = JSON.parse(dt._body);
-        // console.log(dt2,dt2.ip);
-        // localStorage.setItem("dummyuserinfo",dt._body)
-        this.serviceapi.saveToLocal("AUXMassAppUserInfo",dt._body);
-        this.updateIssue(id,page,func,description,notes,priority);
-        // this.getIP();
-      },
-      e=>{
-        // console.log(e);
-        this.updateIssue(id,page,func,description,notes,priority);
-      }
-    )
+    // this.http.get("https://freegeoip.net/json/")
+    // .subscribe(
+    //   d=>{
+    //     // console.info(d)
+    //     let dt = JSON.parse(JSON.stringify(d));
+    //     let dt2 = JSON.parse(dt._body);
+    //     // console.log(dt2,dt2.ip);
+    //     // localStorage.setItem("dummyuserinfo",dt._body)
+    //     this.serviceapi.saveToLocal("AUXMassAppUserInfo",dt._body);
+    //     // this.updateIssue(id,page,func,description,notes,priority);
+    //     // this.getIP();
+    //   },
+    //   e=>{
+    //     // console.log(e);
+    //   }
+    // )
+    this.updateIssue(id,page,func,description,notes,priority);
   }
   updateIssue(id,page,func,description,notes,priority){
 

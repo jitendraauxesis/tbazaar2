@@ -443,7 +443,7 @@ export class UserhomeComponent implements OnInit {
             // console.log(res);
             let d = JSON.parse(JSON.stringify(res));
             if(d.status == 200){
-            // this.putErrorInPouch("loadHomeData()","Response in component "+this.constructor.name,"'Masscryp' app the exception caught is "+JSON.stringify(res),1);
+            // this.putErrorInPouch("loadHomeData()","Response in component "+"UserhomeComponent","'Masscryp' app the exception caught is "+JSON.stringify(res),1);
             
               //sold tokens
               this.serv.resolveApi("get_total_tokens_sold",{}) 
@@ -560,7 +560,7 @@ export class UserhomeComponent implements OnInit {
             this.ngxloading = false; 
             this.user_timeline_listShow = false;
             //console.error(err);
-            this.putErrorInPouch("loadHomeData()","Response error in component "+this.constructor.name,"'Masscryp' app the exception caught is "+JSON.stringify(err),1);
+            this.putErrorInPouch("loadHomeData()","Response error in component "+"UserhomeComponent","'Masscryp' app the exception caught is "+JSON.stringify(err),1);
             
           }
         );
@@ -671,7 +671,7 @@ export class UserhomeComponent implements OnInit {
       (e)=>{
         // console.error(e)
         this.showChart = false;
-        this.putErrorInPouch("makeChart()","Response error in component "+this.constructor.name,"'Masscryp' app the exception caught is "+JSON.stringify(e),1);
+        this.putErrorInPouch("makeChart()","Response error in component "+"UserhomeComponent","'Masscryp' app the exception caught is "+JSON.stringify(e),1);
         
       }
     );

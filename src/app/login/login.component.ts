@@ -195,7 +195,7 @@ export class LoginComponent implements OnInit {
         setTimeout(()=>{
           this.errmsg = "";
         },2500);
-        // this.pouchserv.putErrorInPouch("signup_v2()","Response error in component "+this.constructor.name,"'Masscryp' app the exception caught is "+JSON.stringify(err),3);
+        // this.pouchserv.putErrorInPouch("signup_v2()","Response error in component "+"LoginComponent","'Masscryp' app the exception caught is "+JSON.stringify(err),3);
       })
       .catch(function(err){
         this.loadingimage = false;
@@ -205,7 +205,7 @@ export class LoginComponent implements OnInit {
         setTimeout(()=>{
           this.errmsg = "";
         },2500);
-        this.pouchserv.putErrorInPouch("signup_v2()","Catch throws error in component "+this.constructor.name,"'Masscryp' app the exception caught is "+JSON.stringify(err),1);
+        this.pouchserv.putErrorInPouch("signup_v2()","Catch throws error in component "+"LoginComponent","'Masscryp' app the exception caught is "+JSON.stringify(err),1);
       });
     }
   }

@@ -143,9 +143,25 @@ export class KycwithsidebarComponent implements OnInit {
       //   this.router.navigate(["login"]);
       // }
   
-      this.loadAlert();
+      this.loadAddKYCAuth();
   
       this.signup.checkActivity();
+    }
+    
+    loadAddKYCAuth(){
+      let isAuth = this.storage.retrieve("AUXAuthLogin");
+      let cookieExists = this.signup.checkUserActivity();
+      if(isAuth == null){
+        this.signup.UnAuthlogoutFromApp(); 
+      }
+      else if(cookieExists == false){
+        this.storage.store("AUXAuthLogin",false);
+        this.signup.UnAuthlogoutFromApp();
+      }
+      else{
+        // console.log("isAuthorized",isAuth,cookieExists);
+        this.loadAlert();
+      }
     }
   
     loadAlert(){
@@ -317,9 +333,9 @@ export class KycwithsidebarComponent implements OnInit {
       if(event.target.files && event.target.files.length > 0) {
         let file = event.target.files[0];
         // console.log(file,event)
-        if(file.size > 1000000){
+        if(file.size > 2000000){
           // this.failmsg("File size can not be greater than 1 Mb");
-          this.toastr.error('File size can not be greater than 1 Mb',null,{timeOut:2500});          
+          this.toastr.error('File size can not be greater than 2 Mb',null,{timeOut:2500});          
           this.form.get('pan').setValue(null);
           this.fileInput1.nativeElement.value = "";
           return false;
@@ -445,10 +461,10 @@ export class KycwithsidebarComponent implements OnInit {
             let file2 = event.target.files[1];
             //console.log(file);
             
-              if(file1.size > 1000000 || file2 > 1000000){
+              if(file1.size > 2000000 || file2 > 2000000){
                 //console.log("File size can not be greater than 25 kb");
                 // this.failmsg("File size can not be greater than 1 Mb");
-                this.toastr.error('File size can not be greater than 1 Mb',null,{timeOut:2500}); 
+                this.toastr.error('File size can not be greater than 2 Mb',null,{timeOut:2500}); 
                 this.form.get('idproof').setValue(null);
                 this.fileInput2.nativeElement.value = "";
                 return false;

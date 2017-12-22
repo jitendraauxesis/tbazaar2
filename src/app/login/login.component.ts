@@ -172,6 +172,7 @@ export class LoginComponent implements OnInit {
           this.signup.setRouteMsgPass(msgToPass);
           // console.log("after",this.signup.retrieveRouteMsgPass());
           this.router.navigate(['/otp',token]);
+          this.signup.saveToEventLocal(); // for event
  
         }else if( (r.failed) && (r.failed != null || r.failed != "") ){
           let msg = "Email is unable to process try again.";  

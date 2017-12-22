@@ -97,3 +97,16 @@
     .montBold i.fa.fa-registered {
         font-size: 10px;
     }
+
+/* event */
+.christmastree{
+    /* background: url('../../assets/img/christmas.jpg'); */
+}
+
+h4.maintext {
+    text-align: center;
+    line-height: 1.4;
+}
+p.offertxt {
+    text-align: center;
+}

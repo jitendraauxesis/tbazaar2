@@ -521,4 +521,34 @@ export class SignupService {
     }
     return retrieve;
   }
+
+
+
+  // event modal
+
+  saveToEventLocal(){
+    let token = "THIS-IS-A-MASSCRYP-EVENT";
+    //console.log(token)
+    let storeStr = (CryptoJS.AES.encrypt("Y",token)).toString();
+    //console.log(storeStr)
+    this.storage.store("AUXSaveMasscrypEvent",storeStr);
+  }
+
+  retrieveFromEventLocal():any{
+    let token = "THIS-IS-A-MASSCRYP-EVENT";
+    let fromStorage = this.storage.retrieve("AUXSaveMasscrypEvent");
+    //console.log(fromStorage)
+    if(fromStorage == "" || fromStorage == null){
+      return "N";
+    }else{
+      let getDecrypt = CryptoJS.AES.decrypt(fromStorage,token);
+      let finalStr = "";
+      finalStr = getDecrypt.toString(CryptoJS.enc.Utf8);
+      return finalStr;
+    }
+  }
+
+  removeFromEventLocal(){
+    this.storage.clear("AUXSaveMasscrypEvent")
+  }
 }

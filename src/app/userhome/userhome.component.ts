@@ -27,6 +27,9 @@ import { FbapiService } from '../services/fbapi.service';
 import { PouchService } from '../services/pouch.service';
 
 import { CookieService } from 'ngx-cookie-service';//
+
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 @Component({
   selector: 'app-userhome',
   templateUrl: './userhome.component.html',
@@ -76,6 +79,16 @@ export class UserhomeComponent implements OnInit {
   csvFiles:File;
   csvData:any;
 
+
+  @ViewChild('eventmodal') eventmodal:ElementRef;
+  modalRef: BsModalRef;
+  config = {
+    animated: true,
+    keyboard: true,
+    backdrop: true,
+    ignoreBackdropClick: true
+  };
+
   constructor(
     public serv:ServiceapiService,
     private storage:LocalStorageService,
@@ -87,7 +100,8 @@ export class UserhomeComponent implements OnInit {
     private router: Router,
     private cookieService: CookieService,//
     private fbapi:FbapiService,
-    public pouchserv:PouchService
+    public pouchserv:PouchService,
+    private modalService: BsModalService,
   ) {
     this.qrvalue = "Its Demo For QR Angular";
     //this.signup.setUserSession(this.storage.retrieve("AUXUserEmail"),"7764611b-fdee-4804-8f2f-fab678e63526a704b8ef-5cb5-45b1-b367-98c89b91f1aeba1abd08-0b64-4f05-8d60-a049344a1a28");
@@ -370,6 +384,7 @@ export class UserhomeComponent implements OnInit {
         //this.signup.logoutFromApp();
         //console.log("don nothing")
       }
+      this.openmodal()// open here event modal
       this.loadHomeData();
     }
   }
@@ -762,5 +777,24 @@ export class UserhomeComponent implements OnInit {
     let description = desc;
     // console.log(id,page,func,description)
     this.pouchserv.letsIssuing(id,page,func,description,notes,priority);
+  }
+
+  // Modal
+  hideme(){
+    this.modalRef.hide();
+  }
+
+  openmodal(){
+    this.signup.saveToEventLocal();
+    let getEvents = this.signup.retrieveFromEventLocal();
+    if(getEvents == "Y"){
+      this.modalRef = this.modalService.show(
+        this.eventmodal,
+          Object.assign({}, this.config, { class: 'gray modal-md' })
+      );
+      // setTimeout(()=>{
+      //   this.signup.removeFromEventLocal();
+      // },1000);
+    }
   }
 }

@@ -316,12 +316,14 @@
                                                                 <!-- <i class="fa fa-btc" aria-hidden="true"></i>  -->
                                                                 {{t.amount}} BTC </span>     
                                                                  <!-- {{t.content}} -->
+                                                            <span class="bonus done" *ngIf="t.isbonus == true"><br>{{t.bonusmessage}}</span>
                                                         </div>
                                                         <div class="col-md-12 col-sm-12 text-left"  *ngIf="t.type == 'eth_transaction'">
                                                                 <span class="recieve done">Purchase of {{t.mass}} MASS Coin successful with 
                                                                     <!-- <img class="ethereum home" src="assets/img/ethereum.png">  -->
                                                                     {{t.amount}} ETH </span>   
-                                                                 <!-- {{t.content}} -->
+                                                                 <!-- {{t.content}} --> 
+                                                            <span class="bonus done" *ngIf="t.isbonus == true"><br>{{t.bonusmessage}}</span>
                                                         </div>
                                                         <div class="col-md-12 col-sm-12 text-left"  *ngIf="t.type == 'payment_initiation'">
                                                                 <span class="recieve" >Payment initiated of </span> 

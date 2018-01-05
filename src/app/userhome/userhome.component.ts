@@ -265,6 +265,7 @@ export class UserhomeComponent implements OnInit {
                   let b = [];
                   _.forEach(a,(value,key)=>{
                     let x;let y;
+                    let isbonus:boolean =false;let bonus;let bonustype;let bonusmessage = "";
                     if(value.currency == 'btc' && value.type != 'payment_initiation'){
                       let s = value.content;
                       let s1 = s.split(",");
@@ -274,6 +275,12 @@ export class UserhomeComponent implements OnInit {
                       // console.log(s1_1,s1_2)
                       // x = s1_1;y=s1_2;
                       x = this.signup.calcsubstr(s1_1);y=s1_2;
+                      if(value.christmas_bonus!=null || value.christmas_bonus){
+                        bonus = value.christmas_bonus;
+                        bonustype = "christmas_bonus";
+                        bonusmessage = "Congratulations! You are allotted "+bonus+" MASS Coins as Christmas bonus";
+                        isbonus = true;
+                      }
                     }
                     if(value.currency == 'eth' && value.type != 'payment_initiation'){
                       let s = value.content;
@@ -284,6 +291,12 @@ export class UserhomeComponent implements OnInit {
                       // console.log(s1_1,s1_2)
                       // x = s1_1;y=s1_2;
                       x = this.signup.calcsubstr(s1_1);y=s1_2;
+                      if(value.christmas_bonus!=null || value.christmas_bonus){
+                        bonus = value.christmas_bonus;
+                        bonustype = "christmas_bonus";
+                        bonusmessage = "Congratulations! You are allotted "+bonus+" MASS Coins as Christmas bonus";
+                        isbonus = true;
+                      }
                     }
                     let content2 = value.content;
                     if(value.type == 'payment_initiation'){
@@ -312,7 +325,11 @@ export class UserhomeComponent implements OnInit {
                       token_amount:value.token_amount,
                       type:value.type,
                       mass:y,
-                      amount:x
+                      amount:x,
+                      isbonus:isbonus,
+                      bonus:bonus,
+                      bonustype:bonustype,
+                      bonusmessage:bonusmessage
                     })
                   })
                   this.user_timeline_list = b;
@@ -505,6 +522,7 @@ export class UserhomeComponent implements OnInit {
                 let b = [];
                 _.forEach(a,(value,key)=>{
                   let x;let y;
+                  let isbonus:boolean =false;let bonus;let bonustype;let bonusmessage = "";
                   if(value.currency == 'btc' && value.type != 'payment_initiation'){
                     let s = value.content;
                     let s1 = s.split(",");
@@ -514,6 +532,12 @@ export class UserhomeComponent implements OnInit {
                     // console.log(s1_1,s1_2)
                     // x = s1_1;y=s1_2;
                     x = this.signup.calcsubstr(s1_1);y=s1_2;
+                    if(value.christmas_bonus!=null || value.christmas_bonus){
+                      bonus = value.christmas_bonus;
+                      bonustype = "christmas_bonus";
+                      bonusmessage = "Congratulations! You are allotted "+bonus+" MASS Coins as Christmas bonus";
+                      isbonus = true;
+                    }
                   }
                   if(value.currency == 'eth' && value.type != 'payment_initiation'){
                     let s = value.content;
@@ -524,6 +548,12 @@ export class UserhomeComponent implements OnInit {
                     // console.log(s1_1,s1_2)
                     // x = s1_1;y=s1_2;
                     x = this.signup.calcsubstr(s1_1);y=s1_2;
+                    if(value.christmas_bonus!=null || value.christmas_bonus){
+                      bonus = value.christmas_bonus;
+                      bonustype = "christmas_bonus";
+                      bonusmessage = "Congratulations! You are allotted "+bonus+" MASS Coins as Christmas bonus";
+                      isbonus = true;
+                    }
                   }
                   let content2 = value.content;
                   if(value.type == 'payment_initiation'){
@@ -539,6 +569,7 @@ export class UserhomeComponent implements OnInit {
                       let s1_2 = (s1[0].trim()).replace('eth','');
                       content2 = this.signup.calcsubstr(s1_2)+' ETH';
                     }
+                    isbonus = false;
                   }
                   b.push({
                     amount_to_pay:value.amount_to_pay,
@@ -552,7 +583,11 @@ export class UserhomeComponent implements OnInit {
                     token_amount:value.token_amount,
                     type:value.type,
                     mass:y,
-                    amount:x
+                    amount:x,
+                    isbonus:isbonus,
+                    bonus:bonus,
+                    bonustype:bonustype,
+                    bonusmessage:bonusmessage
                   })
                 })
                 this.user_timeline_list = b;

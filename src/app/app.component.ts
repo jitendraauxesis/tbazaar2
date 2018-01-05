@@ -27,7 +27,7 @@ export class AppComponent {
     //main ssl https://massico.auxledger.org/
     this.storage.store("AUXUserUrl","https://massico.auxledger.org/");//"http://139.59.156.145:8000/");
   }
-
+ 
   ngOnInit() {
     this.router.events
     .filter((event) => event instanceof NavigationEnd)

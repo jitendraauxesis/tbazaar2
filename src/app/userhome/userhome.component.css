@@ -110,3 +110,7 @@ h4.maintext {
 p.offertxt {
     text-align: center;
 }
+
+span.bonus.done {
+    color: forestgreen;
+}

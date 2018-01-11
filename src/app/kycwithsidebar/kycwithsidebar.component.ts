@@ -603,7 +603,7 @@ export class KycwithsidebarComponent implements OnInit {
             //console.log(err);
             // this.pouchserv.putErrorInPouch("signup_v2()","Response error in component "+"KycwithsidebarComponent","'Masscryp' app the exception caught is "+JSON.stringify(err),3);
             
-            this.toastr.error('Network interuptted to submit KYC detail try again.',null,{timeOut:2500});         
+            this.toastr.error('Your one of the KYC documents is too large. It can not be greater than 2 MB try again.',null,{timeOut:2500});         
           }
         )
         .catch((err)=>{

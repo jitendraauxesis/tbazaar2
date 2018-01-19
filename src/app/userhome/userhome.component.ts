@@ -401,7 +401,7 @@ export class UserhomeComponent implements OnInit {
         //this.signup.logoutFromApp();
         //console.log("don nothing")
       }
-      // this.openmodal()// open here event modal
+      this.openmodal()// open here event modal
       this.loadHomeData();
     }
   }

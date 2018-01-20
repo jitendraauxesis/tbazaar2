@@ -823,13 +823,15 @@ export class UserhomeComponent implements OnInit {
     // this.signup.saveToEventLocal();
     let getEvents = this.signup.retrieveFromEventLocal();
     if(getEvents == "Y"){
-      this.modalRef = this.modalService.show(
-        this.eventmodal,
-          Object.assign({}, this.config, { class: 'gray modal-md' })
-      );
+      setTimeout(()=>{
+        this.modalRef = this.modalService.show(
+          this.eventmodal,
+            Object.assign({}, this.config, { class: 'gray modal-md' })
+        );
+      },2000);
       setTimeout(()=>{
         this.signup.removeFromEventLocal();
-      },1000);
+      },5000);
     }
   }
 }

@@ -82,7 +82,7 @@ export class UserhomebtcmodalComponent implements OnInit {
 
   bitcoinurl:any = "https://blockchain.info/tx";//https://blockchain.info/tx/5d832e96383a1e8ff741d27b4878e929647425a8713d2410764fdb2132afead5
  
-  starterDisableButton:boolean = false;
+  starterDisableButton:boolean = true;
 
   constructor(
     public afAuth: AngularFireAuth, 
@@ -108,7 +108,7 @@ export class UserhomebtcmodalComponent implements OnInit {
       //starterDisableButton disabled
       // let dis = this.storage.retrieve("AUXstarterSecretButton");
       // if(dis == "yes")
-        this.starterDisableButton = false;
+        this.starterDisableButton = true;
       // else 
       //   this.starterDisableButton = false;
   }
@@ -258,7 +258,7 @@ export class UserhomebtcmodalComponent implements OnInit {
                 modalBTC,
                 Object.assign({}, this.config, { class: 'gray modal-md' })
             );
-            this.loggedInFBauth();
+            // this.loggedInFBauth();
             if(response.refund_address != null){
               this.btcrefundaddress = response.refund_address;
               let f =  response.amount_to_pay;
@@ -475,6 +475,8 @@ export class UserhomebtcmodalComponent implements OnInit {
           //this.amount_to_pay = response.amount_to_pay;
           this.qrvalue = this.generated_address;
           this.stepRecieveBTH = 2;this.btcmodaltitle = "Pay through BTC";//next firebase
+          
+          this.loggedInFBauth();
           setTimeout(()=>{
             this.callfb();
           },5000);
@@ -499,7 +501,7 @@ export class UserhomebtcmodalComponent implements OnInit {
     this.fbinterval = setInterval(()=>{
       //console.log('interval started');
       this.items = this.gettransaction_details();
-    },2000);
+    },2500);
   }
 
   //call fb **************************************************************************

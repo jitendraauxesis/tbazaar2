@@ -72,7 +72,7 @@ export class UserhomeethmodalComponent implements OnInit {
 
   etherurl:any = "https://etherscan.io/tx";//https://etherscan.io/tx/0xb541ca450c1d7079eaca54ffb8a70164cf49e8e818f80a7c41e4400c8f6956a9
   
-  starterDisableButton:boolean = false;
+  starterDisableButton:boolean = true;
 
   constructor(
     public afAuth: AngularFireAuth, 
@@ -95,7 +95,7 @@ export class UserhomeethmodalComponent implements OnInit {
     //starterDisableButton disabled
     // let dis = this.storage.retrieve("AUXstarterSecretButton");
     // if(dis == "yes")
-      this.starterDisableButton = false;
+      this.starterDisableButton = true;
     // else 
     //   this.starterDisableButton = false;
   }
@@ -240,7 +240,7 @@ export class UserhomeethmodalComponent implements OnInit {
               modalETH,
               Object.assign({}, this.config, { class: 'gray modal-md' })
             );
-            this.loggedInFBauth();
+            // this.loggedInFBauth();
             if(response.refund_address != null){
               this.ethrefundaddress = response.refund_address;
               let f =  response.amount_to_pay;
@@ -440,6 +440,8 @@ export class UserhomeethmodalComponent implements OnInit {
           // this.amount_to_pay = response.amount_to_pay;
           this.qrvalue = this.generated_address;
           this.stepRecieveETH = 2;this.ethmodaltitle = "Pay through ETH";//next firebase
+          
+          this.loggedInFBauth();
           setTimeout(()=>{
             this.callfb();
           },5000);
@@ -465,7 +467,7 @@ export class UserhomeethmodalComponent implements OnInit {
     this.fbinterval = setInterval(()=>{
       // console.log('interval started');
       this.items = this.gettransaction_details();
-    },2000);
+    },2500);
   }
 
   //call fb **************************************************************************

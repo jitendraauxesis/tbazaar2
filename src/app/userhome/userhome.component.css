@@ -109,8 +109,15 @@ h4.maintext {
 }
 p.offertxt {
     text-align: center;
+    font-family: sans-serif;
+    font-size: 20px;
+    margin-bottom: 6%;
 }
 
 span.bonus.done {
     color: forestgreen;
+}
+
+p.stmt1 {
+    text-align: justify;
 }

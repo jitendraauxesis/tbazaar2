@@ -820,7 +820,7 @@ export class UserhomeComponent implements OnInit {
   }
 
   openmodal(){
-    // this.signup.saveToEventLocal();
+    this.signup.saveToEventLocal();
     let getEvents = this.signup.retrieveFromEventLocal();
     if(getEvents == "Y"){
       setTimeout(()=>{

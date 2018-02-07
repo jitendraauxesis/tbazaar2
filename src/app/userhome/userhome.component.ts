@@ -521,7 +521,7 @@ export class UserhomeComponent implements OnInit {
 
                 let b = [];
                 _.forEach(a,(value,key)=>{
-                  let x;let y;
+                  let x;let y;let later_bonus = 0;
                   let isbonus:boolean =false;let bonus;let bonustype;let bonusmessage = "";
                   if(value.currency == 'btc' && value.type != 'payment_initiation'){
                     let s = value.content;
@@ -538,6 +538,7 @@ export class UserhomeComponent implements OnInit {
                       bonusmessage = "Congratulations! You are allotted "+bonus+" MASS Coins as Christmas bonus";
                       isbonus = true;
                     }
+                    later_bonus = value.later_bonus;
                   }
                   if(value.currency == 'eth' && value.type != 'payment_initiation'){
                     let s = value.content;
@@ -554,6 +555,7 @@ export class UserhomeComponent implements OnInit {
                       bonusmessage = "Congratulations! You are allotted "+bonus+" MASS Coins as Christmas bonus";
                       isbonus = true;
                     }
+                    later_bonus = value.later_bonus;
                   }
                   let content2 = value.content;
                   if(value.type == 'payment_initiation'){
@@ -587,7 +589,8 @@ export class UserhomeComponent implements OnInit {
                     isbonus:isbonus,
                     bonus:bonus,
                     bonustype:bonustype,
-                    bonusmessage:bonusmessage
+                    bonusmessage:bonusmessage,
+                    later_bonus:later_bonus
                   })
                 })
                 this.user_timeline_list = b;

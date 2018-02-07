@@ -317,6 +317,7 @@
                                                                 {{t.amount}} BTC </span>     
                                                                  <!-- {{t.content}} -->
                                                             <span class="bonus done" *ngIf="t.isbonus == true"><br>{{t.bonusmessage}}</span>
+                                                            <span class="bonus done" *ngIf="t.later_bonus > 0 && !t.isbonus"><br>Congratulations! You are allotted {{t.later_bonus}} MASS Coins as closure bonus.</span>
                                                         </div>
                                                         <div class="col-md-12 col-sm-12 text-left"  *ngIf="t.type == 'eth_transaction'">
                                                                 <span class="recieve done">Purchase of {{t.mass}} MASS Coin successful with 
@@ -324,6 +325,7 @@
                                                                     {{t.amount}} ETH </span>   
                                                                  <!-- {{t.content}} --> 
                                                             <span class="bonus done" *ngIf="t.isbonus == true"><br>{{t.bonusmessage}}</span>
+                                                            <span class="bonus done" *ngIf="t.later_bonus > 0 && !t.isbonus"><br>Congratulations! You are allotted {{t.later_bonus}} MASS Coins as closure bonus.</span>                                                            
                                                         </div>
                                                         <div class="col-md-12 col-sm-12 text-left"  *ngIf="t.type == 'payment_initiation'">
                                                                 <span class="recieve" >Payment initiated of </span> 
@@ -457,7 +459,7 @@
                                                         <b>Mention bellow are the updates:</b><br><br>
                                                         1: If any insentive is below the min withdrawal limit will be hold for month of Feb 2018 and 1st week of March limitation will be removed. So all members can withdraw there earned commission but, subject to - it should be higher then blockchain transaction fees.<br><br>
                                                         2: Mid of Feb 2018 we will have our explorer masscryp.info where you will have an option to create you own Webwallet.
-                                                    </p>
+                                                    </p> 
                                                     <br>
                                                     <b class="regards">Regards, </b>
                                                     <p class="mteam">MassCryp Team </p>

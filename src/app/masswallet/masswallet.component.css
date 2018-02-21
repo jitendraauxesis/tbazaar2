@@ -1,0 +1,22 @@
+.col-sm-12.text-center.addrbtn.submitbtn {
+    margin-top: 4%;
+}
+
+.adfformdiv .col-sm-3, .adfformdiv .col-sm-9{
+    margin-top: 4%;
+}
+
+
+img.yesreferral {
+    width: 25%;
+    padding: 0.5%;
+    margin-top: 5%;
+}
+
+.card {
+    text-align: center;
+}
+
+.success{
+    color: black;
+}

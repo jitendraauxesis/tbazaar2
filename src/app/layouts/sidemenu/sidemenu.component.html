@@ -23,6 +23,9 @@
             <li [class]="routeAddreferralActive">
                 <a [routerLink]="['/addreferral']" class="asetting"><i class="fa fa-address-card-o" aria-hidden="true"></i> Address</a>
             </li>
+            <li [class]="routeMasswalletActive">
+                <a (click)="masswalllet()" class="nopad asetting"><i class="fa fa-credit-card" aria-hidden="true"></i> MASS Wallet</a>                
+            </li>
         </ul>
     </div>
   </li>

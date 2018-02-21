@@ -39,6 +39,7 @@ export class SidemenuComponent implements OnInit {
   routeAddreferralActive:string = "";
   routeSettingActive:string = "";
   routeSettingin:string = "";
+  routeMasswalletActive:string = "";
 
   constructor(
     public serv:ServiceapiService,
@@ -77,6 +78,7 @@ export class SidemenuComponent implements OnInit {
           this.routeAddreferralActive= "";
           this.routeSettingActive= "";
           this.routeSettingin= "";
+          this.routeMasswalletActive = "";
         break;
       case "/referral":
       case "/referral/address":
@@ -86,6 +88,7 @@ export class SidemenuComponent implements OnInit {
         this.routeAddreferralActive= "";
         this.routeSettingActive= "";
         this.routeSettingin= "";
+        this.routeMasswalletActive = "";
         break;
       case "/addreferral":
           this.routeHomeActive = "";
@@ -94,6 +97,7 @@ export class SidemenuComponent implements OnInit {
           this.routeAddreferralActive= "active";
           this.routeSettingActive= "settingactive";
           this.routeSettingin= "in";
+          this.routeMasswalletActive = "";
           break;
       case "/updatekyc":
           this.routeHomeActive = "";
@@ -102,6 +106,16 @@ export class SidemenuComponent implements OnInit {
           this.routeAddreferralActive= "";
           this.routeSettingActive= "settingactive";
           this.routeSettingin= "in";
+          this.routeMasswalletActive = "";
+          break;
+      case "/masswallet":
+          this.routeHomeActive = "";
+          this.routeReferralActive = "";
+          this.routeKycActive= "";
+          this.routeAddreferralActive= "";
+          this.routeSettingActive= "settingactive";
+          this.routeSettingin= "in";
+          this.routeMasswalletActive = "active";
           break;
       default:
         this.routeHomeActive = "";
@@ -110,6 +124,7 @@ export class SidemenuComponent implements OnInit {
         this.routeAddreferralActive= "";
         this.routeSettingActive= "";
         this.routeSettingin= "";
+        this.routeMasswalletActive = "";
         break;
     }
   }
@@ -185,6 +200,10 @@ export class SidemenuComponent implements OnInit {
       // this.toastr.error("You have not uploaded the KYC documents","Upload KYC",{timeOut:2500});
       this.router.navigate(["/updatekyc"]);
     }
+  }
+
+  masswalllet(){
+    this.router.navigateByUrl("masswallet");    
   }
 
 }

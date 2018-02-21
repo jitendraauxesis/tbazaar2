@@ -159,5 +159,9 @@ export class NavbarComponent implements OnInit {
       this.router.navigate(["/updatekyc"]);
     }
   }
+
+  masswalllet(){
+    this.router.navigateByUrl("masswallet");    
+  }
 }
 // mobile view

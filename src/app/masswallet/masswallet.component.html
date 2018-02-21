@@ -1,0 +1,135 @@
+<app-navbar></app-navbar>
+<ngx-loading [show]="ngxloading"></ngx-loading>
+<section id="main-sec">  
+  <div class="container-fluid" id="main-container">
+      <div class="hidden-xs">
+          <div id="sidebar-wrapper">
+              <nav id="sidenav" #sidenav>
+                  <app-sidemenu></app-sidemenu>
+              </nav>
+          </div>
+      </div> 
+      <div class="col-sm-9 col-md-10 pull-right nopad">
+        <div id="topbar">
+          
+          <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-12">&nbsp;</div>
+                
+                <div class="col-sm-9 col-md-9 col-sm-offset-1 col-md-offset-1 form_wrap">
+                    <div class="col-sm-12 form_head text-center">
+                        <h4 style="margin-bottom: 0px;">
+                            Please enter MASS address
+                        </h4>   
+                        <hr> 
+                    </div>
+                    <div class="col-sm-12  adfformdiv">
+      
+                        <form [formGroup]="formMassAddress">
+                         <div class="col-sm-12">
+                          <div class="col-sm-3 text-left">
+                              <div class="form-group labelfrmgrp">
+                                  <label for="masscoinaddress">MASS Address:</label>
+                              </div>
+                          </div>
+                          <div class="col-sm-9">
+                              <div class="form-group">
+                                <input type="text" class="form-control custInput" id="masscoinaddress" [(ngModel)]="masscoinaddress" name="masscoinaddress"
+                                        aria-describedby="masscoinAddress" placeholder="Enter your MASS address..." required formControlName="masscoin">
+                              </div>
+                          </div>
+                         </div>
+                          
+                          
+                          <div class="col-sm-12 text-center addrbtn submitbtn">
+                              <button (click)="addaddress()" class="btn btn-primary custBtnAnchor referralbtnsubmit">
+                                  <strong style="letter-spacing: 1px;">{{referralbtnTxt}}</strong>
+                                  &nbsp;  <img src="assets/img/loading.gif" *ngIf="loadingimage" class="loadingimglogin">
+                              </button>
+                          </div>
+                        </form>
+
+                    </div>
+                </div>
+
+              </div>
+          </div>
+
+
+
+          <!-- otpmodal -->
+          <ng-template #otpmodal>
+              <div class="modal-header">
+                  <button type="button" class="close pull-right" aria-label="Close" (click)="hideme()">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+                  <h3 id="myModalLabel" class="noMarg text-left">
+                          <span class="pull-left padRightOnly" style="font-size:28px;"><i class="fa fa-chevron-down" aria-hidden="true"></i></span>
+                      <span id="modal-header-content">OTP To Set MASS Address</span>
+                  </h3>
+                </div>
+                <div class="modal-body customModalHeight" id="normalModalBody">
+                  <div class="tab-content">
+    
+                    <div class="tab-pane fade in active" *ngIf="otptab == 1">
+                      <div class="container-fluid">
+                          <div class="col-sm-12">
+                              <div class="card">
+                                  <!-- <img class="card-img-top" src="assets/img/tb-logo.png" alt="Card image cap"> -->
+                                  <div class="card-body">
+                                    <!-- <h4 class="card-title"><i class="fa fa-btc" aria-hidden="true"></i> ETH </h4> -->
+                                    <div class="row rowreferral">    
+                                      <div class="col-sm-5">
+                                          <label for="pendingamntETH">OTP Number:</label>
+                                      </div>
+                                      <div class="col-sm-7">
+                                          <input type="text" class="form-control" id="pendingamntETH" placeholder="Enter otp here" [(ngModel)]="otpnumber"  required="required">
+                                      </div>
+                                    </div>
+                                    
+
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="container-fluid">
+                          <div class="col-sm-12 text-center">
+                              <br>
+                              <button type="button" class="btn btn-primary btn-block btnreferral" (click)="sendOTP()">
+                                  Send&nbsp;  <img src="assets/img/loading.gif" *ngIf="loadingimage" class="loadingimgdone">
+                              </button>
+                          </div>
+                      </div>              
+                    </div>
+    
+                    <div class="tab-pane fade in active" *ngIf="otptab == 2">
+                      <div class="container-fluid">
+                        <div class="col-sm-12">
+                          <div class="card">
+                            <img src="assets/img/yes.png" class="yesreferral">
+                            <br>
+                            <p class="success">MASS Address updated</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="container-fluid">
+                          <div class="col-sm-12 text-center">
+                              <br>
+                              <button type="button" class="btn btn-primary btn-block btnreferral" (click)="donefinally()">
+                                  Close
+                              </button>
+                          </div>
+                      </div>
+                    </div>
+    
+                  </div>
+                </div>
+          </ng-template>
+          <!-- end otpmodal -->
+
+
+
+        </div><!--topbar-->
+      </div>
+  </div>
+</section> 

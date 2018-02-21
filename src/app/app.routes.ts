@@ -21,6 +21,7 @@ import { AddreferralComponent } from './addreferral/addreferral.component';
 import { AddreferralwithsidebarComponent } from './addreferralwithsidebar/addreferralwithsidebar.component';
 import { KycwithsidebarComponent } from './kycwithsidebar/kycwithsidebar.component';
 import { KycwithsidebarviewpdfComponent } from './kycwithsidebarviewpdf/kycwithsidebarviewpdf.component';
+import { MasswalletComponent } from './masswallet/masswallet.component';
 
 
 const routes: Routes = [
@@ -70,6 +71,11 @@ const routes: Routes = [
         path: 'transactions',
         component: TransactionsComponent,
         data: { title: 'Transactions | Masscryp ICO' }
+    },
+    {
+        path: 'masswallet',
+        component: MasswalletComponent,
+        data: { title: 'Masswallet | Masscryp ICO' }
     },
     {
         path: 'referral',

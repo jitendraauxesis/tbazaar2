@@ -268,8 +268,10 @@ export class MasswalletComponent implements OnInit {
               }
             }else if(response.code == 400){
               if(response.error == 'email_id_is_already_associated_with_address'){
+                this.donefinally();
                 this.toastr.info("Email id is already associated with your address", null,{timeOut:2500});
               }else if(response.error == 'masscoin_node_not_running'){
+                this.donefinally();
                 this.toastr.info("Masscoin not not running", null,{timeOut:2500});
               }else{
                 this.toastr.error("Request failed", 'Try again!',{timeOut:2500});

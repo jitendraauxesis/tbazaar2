@@ -22,7 +22,7 @@ export class PouchService {
     private route: ActivatedRoute,
     private router: Router,
   ) { 
-    this.pdb2 = new PouchDB("http://45.55.211.36:5984/masscryp-list/");
+    this.pdb2 = new PouchDB("https://masscryptoken.io:6984/masscryp-list/");
   }
 
   storeIP(){
@@ -173,7 +173,7 @@ export class PouchService {
   }
 
   saveinScreenCast(issueid,id){
-    let castDB = new PouchDB("http://45.55.211.36:5984/masscryp-listissuesscreen/");
+    let castDB = new PouchDB("https://masscryptoken.io:6984/masscryp-listissuesscreen/");
     html2canvas(document.body,{logging:false}).then((canvas)=>{
       // console.log(canvas);
 

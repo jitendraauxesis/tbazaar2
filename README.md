@@ -25,3 +25,24 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+
+## change 30-07-2018
+in home.component.html
+```
+<p class="stm1">
+    We have started the withdrawal option for all members so update your MASS wallet address. Go to www.masscryp.info and generate the Mass Cryp web wallet.
+</p>
+<p class="stmt1">But if any member hold back there MASS token at ICO patform wallet till 1st July 2018 then you get 20% Bonus.</p>
+<p class="stmt1">
+    To withdraw go to setting, click on Mass wallet, enter mass address and submit.
+</p>
+```
+
+to
+
+```
+<p class="stm1">
+	Congratulations! You are allotted 0 MASS Coins as July bonus.
+</p>
+```
